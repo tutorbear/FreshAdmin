@@ -1,6 +1,7 @@
 package com.example.freshadmin;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +46,18 @@ public class InterviewDayList extends AppCompatActivity {
 
     public void viewI(View view) {
         int pos = (int) view.getTag();
-        startActivity(new Intent(this,InterviewDay.class).putExtra("object",list.get(pos)));
+        startActivityForResult(new Intent(this,InterviewDay.class).putExtra("object",list.get(pos)).putExtra("pos",pos),1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1 && resultCode==RESULT_OK){
+            int removeIndex = data.getIntExtra("pos",-1);
+            list.remove(removeIndex);
+            customAdapter.notifyItemRemoved(removeIndex);
+            customAdapter.notifyItemRangeChanged(removeIndex, list.size());
+        }
     }
 
 }

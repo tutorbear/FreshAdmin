@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +32,7 @@ public class InterviewDay extends AppCompatActivity {
     LinearLayout l1,l2,l3;
     Button h1,h2,h3;
     List<String> interviewTime;
+    List<ParseObject> requested;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +99,7 @@ public class InterviewDay extends AppCompatActivity {
         t3Time.setVisibility(View.GONE);
         //-------------------------------------
 
-        List<ParseObject> requested = obj.getList("requested");
+        requested = obj.getList("requested");
         if(requested!=null && !requested.isEmpty()){
             for (int i = 0; i < requested.size(); i++) {
                 if(i==0){
@@ -166,29 +170,159 @@ public class InterviewDay extends AppCompatActivity {
         String id;
         if (view.getId()==R.id.t1Fine){
             l1.setVisibility(View.GONE);
+            t1Time.setVisibility(View.GONE);
+            obj.put("timeDeleted",interviewTime.get(0));
+            interviewTime.set(0,"");
+
             id = map.get("l1");
         }else if(view.getId()==R.id.t2Fine){
             l2.setVisibility(View.GONE);
+            t2Time.setVisibility(View.GONE);
+            obj.put("timeDeleted",interviewTime.get(1));
+            interviewTime.set(1,"");
+
             id = map.get("l2");
         }else{
             l3.setVisibility(View.GONE);
+            t3Time.setVisibility(View.GONE);
+            obj.put("timeDeleted",interviewTime.get(2));
+            interviewTime.set(2,"");
+
             id = map.get("l3");
         }
-        ParseObject temp = null;
-        List<ParseObject> requested = obj.getList("requested");
+
+        //Getting the parse object
+        int removeIndex=-1;
+
         for (int i = 0; i < requested.size(); i++) {
             if(id.equals(requested.get(i).getObjectId())){
-                temp = requested.get(i);
+                removeIndex = i;
             }
         }
 
-        //Adding to Fined
-        obj.add("fined",temp);
+        //Adding to fine
+        obj.add("fined",requested.get(removeIndex));
+
         //removing from Requested
-        ArrayList<ParseObject> removeObject = new ArrayList<>();
-        removeObject.add(temp);
-        obj.removeAll("requested",removeObject);
-        obj.saveInBackground(new SaveCallback() {
+        requested.remove(removeIndex);
+        obj.remove("requested");
+        obj.addAll("requested",requested);
+
+        //Modifying interviewTime array
+        obj.remove("interviewTime");
+        obj.addAll("interviewTime",interviewTime);
+
+        obj.saveEventually();
+
+    }
+
+    public void hire(View view) {
+        if (view.getId()==R.id.t1Hire){
+            h1.setTextColor(Color.parseColor("#D81B60"));
+
+            h2.setTextColor(Color.parseColor("#050505"));
+            h3.setTextColor(Color.parseColor("#050505"));
+        }else if(view.getId()==R.id.t2Hire){
+            h2.setTextColor(Color.parseColor("#D81B60"));
+
+            h1.setTextColor(Color.parseColor("#050505"));
+            h3.setTextColor(Color.parseColor("#050505"));
+        }else{
+            h3.setTextColor(Color.parseColor("#D81B60"));
+
+            h2.setTextColor(Color.parseColor("#050505"));
+            h1.setTextColor(Color.parseColor("#050505"));
+        }
+    }
+
+    public void callP(View view) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:"+obj.getParseObject("createdBy").getString("phone")));
+        startActivity(intent);
+    }
+
+    public void submit(View view) {
+        int colorH1 = h1.getTextColors().getDefaultColor();
+        int colorH2 = h2.getTextColors().getDefaultColor();
+        int colorH3 = h3.getTextColors().getDefaultColor();
+
+        String id=null;
+        if(colorH1==Color.parseColor("#D81B60")){
+            id = map.get("l1");
+
+        }else if(colorH2==Color.parseColor("#D81B60")){
+            id = map.get("l2");
+
+        }else if(colorH3==Color.parseColor("#D81B60")){
+            id = map.get("l3");
+        }
+
+        if(id==null){
+            Toast.makeText(this, "Hire someone First", Toast.LENGTH_SHORT).show();
+        }else{
+
+            int index = -1;
+
+            for (int i = 0; i < requested.size(); i++) {
+                if(id.equals(requested.get(i).getObjectId())){
+                    index = i;
+                }
+            }
+            obj.put("hired",requested.get(index));
+
+            //Payment date
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_MONTH,1);
+            cal.set(Calendar.HOUR_OF_DAY, 8);
+            Date paymentDate = cal.getTime();
+            obj.put("paymentDate",paymentDate);
+
+            //removing from Requested
+            requested.remove(index);
+            obj.remove("requested");
+            obj.addAll("requested",requested);
+
+            // Removing hired teachers time
+            interviewTime.set(index,"");
+            interviewTime.removeAll(Collections.singletonList(""));
+            obj.remove("interviewTime");
+            obj.addAll("interviewTime",interviewTime);
+
+
+            obj.saveEventually(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e==null){
+                        Toast.makeText(InterviewDay.this, "DOne", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            int pos = getIntent().getIntExtra("pos",-1);
+            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+            finish();
+        }
+    }
+
+    public void rePost(View view) {
+        //lock to false
+        obj.put("lock",false);
+        //Null out values
+        obj.remove("interviewDate");
+        obj.remove("applied");
+        obj.remove("requested");
+        obj.remove("gTimeDate");
+        obj.remove("interviewTime");
+
+        //Set Re-post to true / 1
+        List<Integer> rp = obj.getList("reposted");
+        rp.set(1,1);
+        obj.remove("reposted");
+        obj.addAll("reposted",rp);
+
+        obj.saveEventually(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if(e==null){
@@ -200,72 +334,9 @@ public class InterviewDay extends AppCompatActivity {
         });
     }
 
-    public void hire(View view) {
-        if (view.getId()==R.id.t1Hire){
-            h2.setEnabled(false);
-            h3.setEnabled(false);
-        }else if(view.getId()==R.id.t2Hire){
-            h1.setEnabled(false);
-            h3.setEnabled(false);
-        }else{
-            h1.setEnabled(false);
-            h2.setEnabled(false);
-        }
+    public void delete(View view) {
+
     }
 
-    public void callP(View view) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+obj.getParseObject("createdBy").getString("phone")));
-        startActivity(intent);
-    }
 
-    public void submitI(View view) {
-        String id=null;
-        if(h1.isEnabled() && !h2.isEnabled() && !h3.isEnabled()){
-            id = map.get("l1");
-
-        }else if(!h1.isEnabled() && h2.isEnabled() && !h3.isEnabled()){
-            id = map.get("l2");
-
-        }else if(!h1.isEnabled() && !h2.isEnabled() && h3.isEnabled()){
-            id = map.get("l3");
-        }
-
-        if(id==null){
-            Toast.makeText(this, "Hire someone First", Toast.LENGTH_SHORT).show();
-        }else{
-            ParseObject temp = null;
-            List<ParseObject> requested = obj.getList("requested");
-            for (int i = 0; i < requested.size(); i++) {
-                if(id.equals(requested.get(i).getObjectId())){
-                    temp = requested.get(i);
-                }
-            }
-            obj.put("hired",temp);
-
-            //Payment date
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_MONTH,1);
-            cal.set(Calendar.HOUR_OF_DAY, 8);
-            Date paymentDate = cal.getTime();
-            obj.put("paymentDate",paymentDate);
-
-            //removing from Requested
-            ArrayList<ParseObject> removeObject = new ArrayList<>();
-            removeObject.add(temp);
-            obj.removeAll("requested",removeObject);
-            obj.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e==null){
-                        Toast.makeText(InterviewDay.this, "Done", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-            //Todo : Remove time array as well
-        }
-    }
 }

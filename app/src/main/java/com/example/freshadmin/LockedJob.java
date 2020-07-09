@@ -264,7 +264,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
         //Getting the parse object
         int removeIndex=-1;
-        List<ParseObject> requested = obj.getList("requested");
+
         for (int i = 0; i < requested.size(); i++) {
             if(id.equals(requested.get(i).getObjectId())){
                 removeIndex = i;
@@ -298,6 +298,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+        //Setting interview Date
         obj.put("interviewDate",c.getTime());
 
         // Removing "" from interviewTime array
@@ -305,22 +306,21 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         obj.remove("interviewTime");
         obj.addAll("interviewTime",interviewTime);
 
+        obj.saveEventually(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Toast.makeText(LockedJob.this, "DOne", Toast.LENGTH_SHORT).show();
+                    int pos = getIntent().getIntExtra("pos",-1);
+                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                    finish();
+                }else{
+                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-        //Removing teachers from applied to released
-        List<ParseObject> temp = obj.getList("applied");
-        if(temp!=null && !temp.isEmpty()){
-            //Adding to released array
-            obj.addAll("released",temp);
-            //Clearing out applied list
-            obj.remove("applied");
-        }
-        //add empty string to released
 
-        obj.saveEventually();
-
-        int pos = getIntent().getIntExtra("pos",-1);
-        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-        finish();
     }
 
     public void saveChanges(View view) {
@@ -331,28 +331,32 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void rePost(View view) {
-        if(requested.isEmpty()){
-            List<ParseObject> applied = obj.getList("applied");
-            // see if applied array has teachers
-            if(applied!=null && !applied.isEmpty()){
-                //Shift teachers to released array
-                obj.remove("released");
-                obj.addAll("released",applied);
-                obj.remove("applied");
-                Log.d("hvy","yes");
-            }
-
+            obj.remove("applied");
             obj.remove("requested");
             obj.remove("gTimeDate");
             obj.remove("interviewTime");
-            obj.saveEventually();
+            //Unlock the lock
+            obj.put("lock",false);
+
+            //Set Re-post to true / 1
+            List<Integer> rp = obj.getList("reposted");
+            rp.set(0,1);
+            obj.remove("reposted");
+            obj.addAll("reposted",rp);
+
+            obj.saveEventually(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e==null){
+                        Toast.makeText(LockedJob.this, "Done", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
             int pos = getIntent().getIntExtra("pos",-1);
             setResult(RESULT_OK,new Intent().putExtra("pos",pos));
             finish();
-        }else{
-            Toast.makeText(this, "There are teachers remaining", Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     public void delete(View view) {

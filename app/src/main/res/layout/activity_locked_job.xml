@@ -405,6 +405,7 @@
                 android:background="@color/colorAccent"
                 android:textColor="#ffff"
                 android:onClick="delete"
+                android:layout_marginTop="5dp"
                 android:text="DELETE" />
         </LinearLayout>
     </ScrollView>
