@@ -121,20 +121,15 @@ public class InterviewDay extends AppCompatActivity {
             if(interviewTime!=null && !interviewTime.isEmpty()){
                 for (int i = 0; i < interviewTime.size(); i++) {
                     if(i==0){
-                        if(!interviewTime.get(i).equals("")){
+
                             t1Time.setText(interviewTime.get(i));
                             t1Time.setVisibility(View.VISIBLE);
-                        }
                     }else if(i==1){
-                        if(!interviewTime.get(i).equals("")) {
                             t2Time.setText(interviewTime.get(i));
                             t2Time.setVisibility(View.VISIBLE);
-                        }
                     }else{
-                        if(!interviewTime.get(i).equals("")){
                             t3Time.setText(interviewTime.get(i));
                             t3Time.setVisibility(View.VISIBLE);
-                        }
                     }
                 }
             }
@@ -332,6 +327,9 @@ public class InterviewDay extends AppCompatActivity {
                 }
             }
         });
+        int pos = getIntent().getIntExtra("pos",-1);
+        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+        finish();
     }
 
     public void delete(View view) {
