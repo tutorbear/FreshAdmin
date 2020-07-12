@@ -306,20 +306,10 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         obj.remove("interviewTime");
         obj.addAll("interviewTime",interviewTime);
 
-        obj.saveEventually(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e==null){
-                    Toast.makeText(LockedJob.this, "DOne", Toast.LENGTH_SHORT).show();
-                    int pos = getIntent().getIntExtra("pos",-1);
-                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                    finish();
-                }else{
-                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
+        obj.saveEventually();
+        int pos = getIntent().getIntExtra("pos",-1);
+        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+        finish();
 
     }
 
@@ -360,6 +350,11 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void delete(View view) {
-
+        //Set delete to true / 1
+        List<Integer> del = obj.getList("deleted");
+        del.set(0,1);
+        obj.remove("deleted");
+        obj.addAll("deleted",del);
+        obj.saveEventually();
     }
 }

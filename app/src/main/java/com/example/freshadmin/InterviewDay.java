@@ -284,16 +284,7 @@ public class InterviewDay extends AppCompatActivity {
             obj.addAll("interviewTime",interviewTime);
 
 
-            obj.saveEventually(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e==null){
-                        Toast.makeText(InterviewDay.this, "DOne", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+            obj.saveEventually();
 
             int pos = getIntent().getIntExtra("pos",-1);
             setResult(RESULT_OK,new Intent().putExtra("pos",pos));
@@ -317,23 +308,23 @@ public class InterviewDay extends AppCompatActivity {
         obj.remove("reposted");
         obj.addAll("reposted",rp);
 
-        obj.saveEventually(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e==null){
-                    Toast.makeText(InterviewDay.this, "Done", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        obj.saveEventually();
         int pos = getIntent().getIntExtra("pos",-1);
         setResult(RESULT_OK,new Intent().putExtra("pos",pos));
         finish();
     }
 
     public void delete(View view) {
+        //Set delete to true / 1
+        List<Integer> del = obj.getList("deleted");
+        del.set(1,1);
+        obj.remove("deleted");
+        obj.addAll("deleted",del);
+        obj.saveEventually();
 
+        int pos = getIntent().getIntExtra("pos",-1);
+        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+        finish();
     }
 
 

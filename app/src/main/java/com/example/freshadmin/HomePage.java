@@ -80,4 +80,8 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
     }
+
+    public void overdue(View view) {
+        startActivity(new Intent(this,PaymentOverdueList.class));
+    }
 }

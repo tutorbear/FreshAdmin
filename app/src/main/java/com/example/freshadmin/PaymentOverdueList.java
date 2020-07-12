@@ -64,7 +64,6 @@ public class PaymentOverdueList extends AppCompatActivity {
                     if(objects.isEmpty()){
                         Toast.makeText(PaymentOverdueList.this, "No Posts", Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(PaymentOverdueList.this, ""+objects.size(), Toast.LENGTH_SHORT).show();
                         obj = objects;
                         customAdapter = new PaymentOverdueAdapter(PaymentOverdueList.this, objects);
                         recycle.setAdapter(customAdapter);
@@ -79,7 +78,6 @@ public class PaymentOverdueList extends AppCompatActivity {
 
     public void viewP(View view) {
         int pos = (int) view.getTag();
-        Toast.makeText(this, ""+pos, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this,PaymentOverdue.class).putExtra("obj",obj.get(pos)));
     }
 }

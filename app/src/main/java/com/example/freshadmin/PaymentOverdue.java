@@ -38,7 +38,6 @@ public class PaymentOverdue extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_overdue);
-        Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show();
         init();
         set();
     }
@@ -133,9 +132,9 @@ public class PaymentOverdue extends AppCompatActivity {
         HashMap<String, String> params = new HashMap();
         params.put("profileId",obj.getParseObject("hired").getObjectId());
         params.put("jobId",obj.getObjectId());
-        ParseCloud.callFunctionInBackground("banTeacher", params, new FunctionCallback<Float>() {
+        ParseCloud.callFunctionInBackground("banTeacher", params, new FunctionCallback<String>() {
             @Override
-            public void done(Float aFloat, ParseException e) {
+            public void done(String str, ParseException e) {
                 if (e == null) {
                     Toast.makeText(PaymentOverdue.this, "Teacher was banned", Toast.LENGTH_SHORT).show();
                     ban.setEnabled(false);
@@ -177,12 +176,13 @@ public class PaymentOverdue extends AppCompatActivity {
             i=0;
         }else if(colorH3==Color.parseColor("#D81B60")){
             i=1;
-        }else{
-            Toast.makeText(this, "Hire someone First", Toast.LENGTH_SHORT).show();
         }
 
-        if(i!=-1){
-
+        if(ban.isEnabled()){
+            Toast.makeText(this, "Ban Teacher Please", Toast.LENGTH_SHORT).show();
+        }else if(i==-1){
+            Toast.makeText(this, "Hire someone First", Toast.LENGTH_SHORT).show();
+        }else{
             obj.put("hired",requested.get(i));
 
             //Payment date
@@ -190,6 +190,7 @@ public class PaymentOverdue extends AppCompatActivity {
             cal.add(Calendar.DAY_OF_MONTH,1);
             cal.set(Calendar.HOUR_OF_DAY, 8);
             Date paymentDate = cal.getTime();
+            obj.put("paymentDate",paymentDate);
 
             //removing from Requested
             requested.remove(i);
@@ -222,9 +223,59 @@ public class PaymentOverdue extends AppCompatActivity {
     }
 
     public void rePost(View view) {
+        if(ban.isEnabled()){
+            Toast.makeText(this, "Ban Teacher Please", Toast.LENGTH_SHORT).show();
+        }else{
+            //lock to false
+            obj.put("lock",false);
+            //Null out values
+            obj.remove("interviewDate");
+            obj.remove("applied");
+            obj.remove("requested");
+            obj.remove("gTimeDate");
+            obj.remove("interviewTime");
+
+            obj.remove("hired");
+            obj.remove("paymentDate");
+            obj.remove("dueAmount");
+
+            //Set Re-post to true / 1
+            List<Integer> rp = obj.getList("reposted");
+            rp.set(2,1);
+            obj.remove("reposted");
+            obj.addAll("reposted",rp);
+
+            obj.saveEventually(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e==null){
+                        Toast.makeText(PaymentOverdue.this, "Done", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(PaymentOverdue.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            int pos = getIntent().getIntExtra("pos",-1);
+            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+            finish();
+        }
+
     }
 
     public void delete(View view) {
+        if(ban.isEnabled()){
+            Toast.makeText(this, "Ban Teacher Please", Toast.LENGTH_SHORT).show();
+        }else{
+            //Set delete to true / 1
+            List<Integer> del = obj.getList("deleted");
+            del.set(1,1);
+            obj.remove("deleted");
+            obj.addAll("deleted",del);
+            obj.saveEventually();
 
+            int pos = getIntent().getIntExtra("pos",-1);
+            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+            finish();
+        }
     }
 }
