@@ -58,7 +58,7 @@ public class PaidJobsList extends AppCompatActivity {
 
     public void viewJP(View view) {
         int pos = (int) view.getTag();
-        startActivity(new Intent(PaidJobsList.this,PaidJob.class).putExtra("object",list.get(pos)));
+        startActivityForResult(new Intent(PaidJobsList.this,PaidJob.class).putExtra("object",list.get(pos)).putExtra("pos",pos),1);
 
     }
 }
