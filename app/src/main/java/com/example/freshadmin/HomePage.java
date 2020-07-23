@@ -12,9 +12,11 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -83,5 +85,19 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
 
     public void overdue(View view) {
         startActivity(new Intent(this,PaymentOverdueList.class));
+    }
+
+    public void logout(View view) {
+        ParseUser.logOutInBackground(new LogOutCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Toast.makeText(HomePage.this, "Done", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(HomePage.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
