@@ -202,7 +202,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     obj.addAll("interviewTime",interviewTime);
                 }
             }
-        }, 0, 0, false);
+        }, 12, 0, false);
         timePickerDialog.show();
     }
 

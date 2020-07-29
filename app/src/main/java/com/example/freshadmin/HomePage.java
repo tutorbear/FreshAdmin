@@ -100,4 +100,8 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
     }
+
+    public void sVerify(View view) {
+        startActivity(new Intent(this,VerSList.class));
+    }
 }

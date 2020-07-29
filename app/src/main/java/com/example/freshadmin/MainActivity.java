@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
-                    Toast.makeText(MainActivity.this, "DOne", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this,HomePage.class));
                 } else {
                     Toast.makeText(MainActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }

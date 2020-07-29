@@ -44,7 +44,10 @@ public class VerSList extends AppCompatActivity {
 
     private void query() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("StudentProfile");
+
         query.whereEqualTo("verified",false);
+        query.whereEqualTo("verFailed",false);
+
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
