@@ -23,6 +23,7 @@ import com.parse.ParseQuery;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class PaymentOverdueList extends AppCompatActivity {
     PaymentOverdueAdapter customAdapter;
@@ -47,13 +48,12 @@ public class PaymentOverdueList extends AppCompatActivity {
     private void query() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 1);
-        cal.set(Calendar.MINUTE, 1);
-        cal.set(Calendar.SECOND, 1);
-        cal.set(Calendar.MILLISECOND, 1);
+        cal.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date today = cal.getTime();
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("JobBoard");
         query.whereLessThan("paymentDate", today);
+        query.whereDoesNotExist("trxId");
         query.include("createdBy.sProfile");
         query.include("hired");
         query.include("requested");

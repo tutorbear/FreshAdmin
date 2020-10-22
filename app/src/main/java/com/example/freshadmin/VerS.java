@@ -22,6 +22,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ProgressCallback;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +41,18 @@ public class VerS extends AppCompatActivity {
         init();
         set();
     }
+    private void init() {
+        obj= getIntent().getParcelableExtra("obj");
+        //TextViews
+        gName=findViewById(R.id.gName);
+        relation=findViewById(R.id.relation);
+        //Image Vies
+        gNId = findViewById(R.id.nIdSPR);
+        idCardS = findViewById(R.id.idCardSPR);
 
+        //progress bar
+        progress = findViewById(R.id.progressBarSPR);
+    }
     private void set() {
         // Text Views
         gName.setText("Guardians Name: "+obj.getString("guardianName"));
@@ -49,7 +61,8 @@ public class VerS extends AppCompatActivity {
         //Images
         HashMap <String,String> params = new HashMap<>();
         params.put("username",obj.getString("username"));
-        ParseCloud.callFunctionInBackground("getPicS", params, new FunctionCallback<ArrayList>() {
+        progress.setVisibility(View.VISIBLE);
+        ParseCloud.callFunctionInBackground("fetchPhotoS", params, new FunctionCallback<ArrayList>() {
             @Override
             public void done(ArrayList strings, ParseException e) {
                 if (e == null) {
@@ -63,22 +76,12 @@ public class VerS extends AppCompatActivity {
                 } else {
                     Toast.makeText(VerS.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+                progress.setVisibility(View.GONE);
             }
         });
     }
 
-    private void init() {
-        obj= getIntent().getParcelableExtra("obj");
-        //TextViews
-        gName=findViewById(R.id.gName);
-        relation=findViewById(R.id.relation);
-        //Image Vies
-        gNId = findViewById(R.id.nIdSPR);
-        idCardS = findViewById(R.id.idCardSPR);
 
-        //progress bar
-        progress = findViewById(R.id.progressBarSPR);
-    }
 
     public void verifyS(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -87,7 +90,16 @@ public class VerS extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             obj.put("verified",true);
-            obj.saveEventually();
+            obj.saveEventually(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e==null){
+                        Toast.makeText(VerS.this, "Done", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(VerS.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
             int pos = getIntent().getIntExtra("pos",-1);
             setResult(RESULT_OK,new Intent().putExtra("pos",pos));
             finish();

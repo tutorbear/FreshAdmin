@@ -9,7 +9,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -29,6 +28,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ParseObject obj;
@@ -179,8 +179,8 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     //putting the time array
                     interviewTime.set(0,String.format("%02d:%02d", hourOfDay, minutes) + " "+amPm);
 
-                    obj.remove("interviewTime");
-                    obj.addAll("interviewTime",interviewTime);
+                    obj.put("interviewTime",interviewTime);
+
                 }else if(view.getId()==R.id.t2SetTime){
                     //Setting text view
                     t2Time.setVisibility(View.VISIBLE);
@@ -189,8 +189,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     //Putting time into array
                     interviewTime.set(1,String.format("%02d:%02d", hourOfDay, minutes) + " "+amPm);
 
-                    obj.remove("interviewTime");
-                    obj.addAll("interviewTime",interviewTime);
+                    obj.put("interviewTime",interviewTime);
                 }else{
                     //Setting text view
                     t3Time.setVisibility(View.VISIBLE);
@@ -198,8 +197,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     //Putting time into array
                     interviewTime.set(2,String.format("%02d:%02d", hourOfDay, minutes) + " "+amPm);
 
-                    obj.remove("interviewTime");
-                    obj.addAll("interviewTime",interviewTime);
+                    obj.put("interviewTime",interviewTime);
                 }
             }
         }, 12, 0, false);
@@ -298,25 +296,35 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+        c.setTimeZone(TimeZone.getTimeZone("UTC"));
+        c.set(Calendar.HOUR_OF_DAY, 2);
         //Setting interview Date
         obj.put("interviewDate",c.getTime());
 
         // Removing "" from interviewTime array
         interviewTime.removeAll(Collections.singletonList(""));
-        obj.remove("interviewTime");
-        obj.addAll("interviewTime",interviewTime);
+        obj.put("interviewTime",interviewTime);
 
-        obj.saveEventually();
-        int pos = getIntent().getIntExtra("pos",-1);
-        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-        finish();
-
+        if(dateAndTime.getText().length() != 0)
+            obj.put("gTimeDate",dateAndTime.getText().toString());
+        obj.saveEventually(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Toast.makeText(LockedJob.this, "Done", Toast.LENGTH_SHORT).show();
+                    int pos = getIntent().getIntExtra("pos",-1);
+                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                    finish();
+                }else{
+                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void saveChanges(View view) {
-        if(dateAndTime.getText().length() != 0){
+        if(dateAndTime.getText().length() != 0)
             obj.put("gTimeDate",dateAndTime.getText().toString());
-        }
         obj.saveEventually();
     }
 

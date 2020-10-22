@@ -84,7 +84,6 @@ public class PaidJob extends AppCompatActivity {
                         // Now searching for The amount
                         if(splitted[0].equals("You")){
                             paidAmount.setText("Amount Paid: "+splitted[4].substring(0, splitted[4].length() - 3));
-
                         }else if(splitted[0].equals("Cash")){
                             paidAmount.setText("Amount Paid: "+splitted[3].substring(0, splitted[4].length() - 3));
                         }
@@ -109,17 +108,14 @@ public class PaidJob extends AppCompatActivity {
         if(!m){
             Toast.makeText(this, "Can't confirm , no match found", Toast.LENGTH_SHORT).show();
         }else {
-
             //Set delete to true / 1
             List<Integer> del = obj.getList("deleted");
             del.set(3,1);
-            obj.remove("deleted");
-            obj.addAll("deleted",del);
+            obj.put("deleted",del);
             obj.saveEventually();
             int pos = getIntent().getIntExtra("pos",-1);
             setResult(RESULT_OK,new Intent().putExtra("pos",pos));
             finish();
-
         }
     }
 }

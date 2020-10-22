@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 public class InterviewDay extends AppCompatActivity {
     ParseObject obj;
@@ -121,7 +123,6 @@ public class InterviewDay extends AppCompatActivity {
             if(interviewTime!=null && !interviewTime.isEmpty()){
                 for (int i = 0; i < interviewTime.size(); i++) {
                     if(i==0){
-
                             t1Time.setText(interviewTime.get(i));
                             t1Time.setVisibility(View.VISIBLE);
                     }else if(i==1){
@@ -214,17 +215,14 @@ public class InterviewDay extends AppCompatActivity {
     public void hire(View view) {
         if (view.getId()==R.id.t1Hire){
             h1.setTextColor(Color.parseColor("#D81B60"));
-
             h2.setTextColor(Color.parseColor("#050505"));
             h3.setTextColor(Color.parseColor("#050505"));
         }else if(view.getId()==R.id.t2Hire){
             h2.setTextColor(Color.parseColor("#D81B60"));
-
             h1.setTextColor(Color.parseColor("#050505"));
             h3.setTextColor(Color.parseColor("#050505"));
         }else{
             h3.setTextColor(Color.parseColor("#D81B60"));
-
             h2.setTextColor(Color.parseColor("#050505"));
             h1.setTextColor(Color.parseColor("#050505"));
         }
@@ -267,28 +265,37 @@ public class InterviewDay extends AppCompatActivity {
 
             //Payment date
             Calendar cal = Calendar.getInstance();
+            cal.setTimeZone(TimeZone.getTimeZone("UTC"));
             cal.add(Calendar.DAY_OF_MONTH,1);
-            cal.set(Calendar.HOUR_OF_DAY, 8);
+            cal.set(Calendar.HOUR_OF_DAY,2);
             Date paymentDate = cal.getTime();
             obj.put("paymentDate",paymentDate);
 
             //removing from Requested
             requested.remove(index);
-            obj.remove("requested");
-            obj.addAll("requested",requested);
+            obj.put("requested",requested);
 
             // Removing hired teachers time
             interviewTime.set(index,"");
             interviewTime.removeAll(Collections.singletonList(""));
-            obj.remove("interviewTime");
-            obj.addAll("interviewTime",interviewTime);
+            obj.put("interviewTime",interviewTime);
 
 
-            obj.saveEventually();
+            obj.saveEventually(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e==null){
+                        Toast.makeText(InterviewDay.this, "DOne", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("err",e.getMessage());
+                    }
+                }
+            });
 
-            int pos = getIntent().getIntExtra("pos",-1);
-            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-            finish();
+//            int pos = getIntent().getIntExtra("pos",-1);
+//            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+//            finish();
         }
     }
 

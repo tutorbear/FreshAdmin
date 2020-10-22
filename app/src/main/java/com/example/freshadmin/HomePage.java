@@ -1,10 +1,14 @@
 package com.example.freshadmin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.Instrumentation;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -29,6 +34,16 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        String requiredPermission = Manifest.permission.RECEIVE_SMS;
+        int checkVal = this.checkCallingOrSelfPermission(requiredPermission);
+        if (checkVal == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "Granted", Toast.LENGTH_SHORT).show();
+        } else {
+            ActivityCompat.requestPermissions(HomePage.this,
+                    new String[]{Manifest.permission.RECEIVE_SMS},
+                    1);
+        }
     }
 
     public void lockedJobs(View view) {
@@ -52,7 +67,7 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-
+        cal.setTimeZone(TimeZone.getTimeZone("UTC"));
         // start of today
         Date today = cal.getTime();
 
@@ -103,5 +118,13 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
 
     public void sVerify(View view) {
         startActivity(new Intent(this,VerSList.class));
+    }
+
+    public void tVerify(View view) {
+        startActivity(new Intent(this,VerTList.class));
+    }
+
+    public void paid(View view) {
+        startActivity(new Intent(this,PaidJobsList.class));
     }
 }
