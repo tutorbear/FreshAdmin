@@ -365,11 +365,18 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/button9"
+            android:id="@+id/button9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Changes"
+            android:onClick="saveChanges"/>
+
+            <Button
+                android:id="@+id/button10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save"
-                android:onClick="saveChanges"/>
+                android:text="Set Date"
+                android:onClick="setDate"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"

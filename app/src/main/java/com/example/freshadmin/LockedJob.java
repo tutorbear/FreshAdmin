@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
@@ -39,6 +41,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     HashMap<String,String> map;
     List<String> interviewTime;
     List<ParseObject> requested;
+    int year,month,dayOfMonth = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -285,41 +288,48 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void submit(View view) {
+        if(year==-1){
+            Toast.makeText(this, "Set date", Toast.LENGTH_SHORT).show();
+        }else{
+            interviewTime.removeAll(Collections.singletonList(""));
+
+            HashMap<String,Object> params = new HashMap<>();
+            params.put("id",obj.getObjectId());
+            params.put("year",year);
+            params.put("month",month);
+            params.put("day",dayOfMonth);
+            params.put("interviewTime",interviewTime);
+
+            if(dateAndTime.getText().length() != 0)
+                params.put("gTimeDate",dateAndTime.getText().toString());
+
+            ParseCloud.callFunctionInBackground("lockedJob", params, new FunctionCallback<Boolean>() {
+                @Override
+                public void done(Boolean object, ParseException e) {
+                    if(e==null){
+                        Toast.makeText(LockedJob.this, "Success", Toast.LENGTH_SHORT).show();
+                        int pos = getIntent().getIntExtra("pos",-1);
+                        setResult(RESULT_OK,new Intent().putExtra ("pos",pos));
+                        finish();
+                    }else{
+                        Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+    }
+
+    public void setDate(View view) {
         DialogFragment datePicker = new DatePickerFragment();
         datePicker.show(getSupportFragmentManager(), "date picker");
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-        c.setTimeZone(TimeZone.getTimeZone("UTC"));
-        c.set(Calendar.HOUR_OF_DAY, 2);
-        //Setting interview Date
-        obj.put("interviewDate",c.getTime());
-
-        // Removing "" from interviewTime array
-        interviewTime.removeAll(Collections.singletonList(""));
-        obj.put("interviewTime",interviewTime);
-
-        if(dateAndTime.getText().length() != 0)
-            obj.put("gTimeDate",dateAndTime.getText().toString());
-        obj.saveEventually(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e==null){
-                    Toast.makeText(LockedJob.this, "Done", Toast.LENGTH_SHORT).show();
-                    int pos = getIntent().getIntExtra("pos",-1);
-                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                    finish();
-                }else{
-                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        this.year = year;
+        this.month = month;
+        this.dayOfMonth = dayOfMonth;
     }
 
     public void saveChanges(View view) {
@@ -329,32 +339,20 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void rePost(View view) {
-            obj.remove("applied");
-            obj.remove("requested");
-            obj.remove("gTimeDate");
-            obj.remove("interviewTime");
-            //Unlock the lock
-            obj.put("lock",false);
 
-            //Set Re-post to true / 1
-            List<Integer> rp = obj.getList("reposted");
-            rp.set(0,1);
-            obj.remove("reposted");
-            obj.addAll("reposted",rp);
-
-            obj.saveEventually(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e==null){
-                        Toast.makeText(LockedJob.this, "Done", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+        obj.saveEventually(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Toast.makeText(LockedJob.this, "Done", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            });
-            int pos = getIntent().getIntExtra("pos",-1);
-            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-            finish();
+            }
+        });
+        int pos = getIntent().getIntExtra("pos",-1);
+        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+        finish();
     }
 
     public void delete(View view) {
