@@ -45,6 +45,7 @@ public class VerTList extends AppCompatActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("TeacherProfile");
         query.whereEqualTo("verified",false);
         query.whereEqualTo("verFailed",false);
+        query.whereEqualTo("onDevice",true);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {

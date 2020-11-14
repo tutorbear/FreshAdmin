@@ -41,7 +41,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     HashMap<String,String> map;
     List<String> interviewTime;
     List<ParseObject> requested;
-    int year,month,dayOfMonth = -1;
+    int year = -1,month,dayOfMonth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
