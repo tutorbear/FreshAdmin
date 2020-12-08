@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.parse.DeleteCallback;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -48,7 +49,6 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         setContentView(R.layout.activity_locked_job);
         init();
         set();
-
     }
 
     private void init() {
@@ -303,7 +303,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
             if(dateAndTime.getText().length() != 0)
                 params.put("gTimeDate",dateAndTime.getText().toString());
 
-            ParseCloud.callFunctionInBackground("lockedJob", params, new FunctionCallback<Boolean>() {
+            ParseCloud.callFunctionInBackground(" ", params, new FunctionCallback<Boolean>() {
                 @Override
                 public void done(Boolean object, ParseException e) {
                     if(e==null){
@@ -317,7 +317,6 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                 }
             });
         }
-
     }
 
     public void setDate(View view) {
@@ -339,7 +338,6 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void rePost(View view) {
-
         obj.saveEventually(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -356,11 +354,18 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void delete(View view) {
-        //Set delete to true / 1
-        List<Integer> del = obj.getList("deleted");
-        del.set(0,1);
-        obj.remove("deleted");
-        obj.addAll("deleted",del);
-        obj.saveEventually();
+        obj.deleteInBackground(new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Toast.makeText(LockedJob.this, "Delete Complete", Toast.LENGTH_SHORT).show();
+                    int pos = getIntent().getIntExtra("pos",-1);
+                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                    finish();
+                }else{
+                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
