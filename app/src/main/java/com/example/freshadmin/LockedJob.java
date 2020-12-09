@@ -242,49 +242,89 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
     public void notGoing(View view) {
         String id;
-        //Getting id and Setting corresponding time to ""
+
+        List<ParseObject> requested = obj.getList("requested");
+
+
         if (view.getId()==R.id.t1No){
-            l1.setVisibility(View.GONE);
-            t1Time.setVisibility(View.GONE);
-            interviewTime.set(0,"");
 
             id = map.get("l1");
         }else if(view.getId()==R.id.t2No){
-            l2.setVisibility(View.GONE);
-            t2Time.setVisibility(View.GONE);
-            interviewTime.set(1,"");
+
 
             id = map.get("l2");
         }else{
-            l3.setVisibility(View.GONE);
-            t3Time.setVisibility(View.GONE);
-            interviewTime.set(2,"");
+
 
             id = map.get("l3");
         }
 
-        //Getting the parse object
-        int removeIndex=-1;
-
+        String username = null;
         for (int i = 0; i < requested.size(); i++) {
             if(id.equals(requested.get(i).getObjectId())){
-                removeIndex = i;
+                username = requested.get(i).getString("username");
             }
         }
 
-        //Adding to removed
-        obj.add("removed",requested.get(removeIndex));
+        HashMap<String, String> params = new HashMap<>();
 
-        //removing from Requested
-        requested.remove(removeIndex);
-        obj.remove("requested");
-        obj.addAll("requested",requested);
+        params.put("username", username);
+        params.put("objectId", obj.getObjectId());
+        ParseCloud.callFunctionInBackground("notGoing", params, new FunctionCallback<Object>() {
+            @Override
+            public void done(Object object, ParseException e) {
+                if (e == null){
 
-        //Modifying interviewTime array
-        obj.remove("interviewTime");
-        obj.addAll("interviewTime",interviewTime);
+                }else{
+                    Toast.makeText(LockedJob.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-        obj.saveEventually();
+//        String id;
+//        //Getting id and Setting corresponding time to ""
+//        if (view.getId()==R.id.t1No){
+//            l1.setVisibility(View.GONE);
+//            t1Time.setVisibility(View.GONE);
+//            interviewTime.set(0,"");
+//
+//            id = map.get("l1");
+//        }else if(view.getId()==R.id.t2No){
+//            l2.setVisibility(View.GONE);
+//            t2Time.setVisibility(View.GONE);
+//            interviewTime.set(1,"");
+//
+//            id = map.get("l2");
+//        }else{
+//            l3.setVisibility(View.GONE);
+//            t3Time.setVisibility(View.GONE);
+//            interviewTime.set(2,"");
+//
+//            id = map.get("l3");
+//        }
+//
+//        //Getting the parse object
+//        int removeIndex=-1;
+//
+//        for (int i = 0; i < requested.size(); i++) {
+//            if(id.equals(requested.get(i).getObjectId())){
+//                removeIndex = i;
+//            }
+//        }
+//
+//        //Adding to removed
+//        obj.add("removed",requested.get(removeIndex));
+//
+//        //removing from Requested
+//        requested.remove(removeIndex);
+//        obj.remove("requested");
+//        obj.addAll("requested",requested);
+//
+//        //Modifying interviewTime array
+//        obj.remove("interviewTime");
+//        obj.addAll("interviewTime",interviewTime);
+//
+//        obj.saveEventually();
     }
 
     public void submit(View view) {
