@@ -27,11 +27,9 @@ import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TimeZone;
 
 public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ParseObject obj;
@@ -245,86 +243,44 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
         List<ParseObject> requested = obj.getList("requested");
 
-
         if (view.getId()==R.id.t1No){
-
+            interviewTime.set(0,"");
             id = map.get("l1");
+            callCloud(id,requested,l1,t1Time);
         }else if(view.getId()==R.id.t2No){
-
-
+            interviewTime.set(1,"");
             id = map.get("l2");
+            callCloud(id,requested, l2, t2Time);
         }else{
-
-
+            interviewTime.set(2,"");
             id = map.get("l3");
+            callCloud(id,requested, l3, t3Time);
         }
 
+    }
+
+    private void callCloud(String id, List<ParseObject> requested, final LinearLayout l, final TextView time) {
         String username = null;
         for (int i = 0; i < requested.size(); i++) {
             if(id.equals(requested.get(i).getObjectId())){
                 username = requested.get(i).getString("username");
             }
         }
-
-        HashMap<String, String> params = new HashMap<>();
-
+        HashMap<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("objectId", obj.getObjectId());
+        params.put("interviewTime",interviewTime);
         ParseCloud.callFunctionInBackground("notGoing", params, new FunctionCallback<Object>() {
             @Override
             public void done(Object object, ParseException e) {
                 if (e == null){
-
+                    l.setVisibility(View.GONE);
+                    time.setVisibility(View.GONE);
                 }else{
                     Toast.makeText(LockedJob.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-//        String id;
-//        //Getting id and Setting corresponding time to ""
-//        if (view.getId()==R.id.t1No){
-//            l1.setVisibility(View.GONE);
-//            t1Time.setVisibility(View.GONE);
-//            interviewTime.set(0,"");
-//
-//            id = map.get("l1");
-//        }else if(view.getId()==R.id.t2No){
-//            l2.setVisibility(View.GONE);
-//            t2Time.setVisibility(View.GONE);
-//            interviewTime.set(1,"");
-//
-//            id = map.get("l2");
-//        }else{
-//            l3.setVisibility(View.GONE);
-//            t3Time.setVisibility(View.GONE);
-//            interviewTime.set(2,"");
-//
-//            id = map.get("l3");
-//        }
-//
-//        //Getting the parse object
-//        int removeIndex=-1;
-//
-//        for (int i = 0; i < requested.size(); i++) {
-//            if(id.equals(requested.get(i).getObjectId())){
-//                removeIndex = i;
-//            }
-//        }
-//
-//        //Adding to removed
-//        obj.add("removed",requested.get(removeIndex));
-//
-//        //removing from Requested
-//        requested.remove(removeIndex);
-//        obj.remove("requested");
-//        obj.addAll("requested",requested);
-//
-//        //Modifying interviewTime array
-//        obj.remove("interviewTime");
-//        obj.addAll("interviewTime",interviewTime);
-//
-//        obj.saveEventually();
     }
 
     public void submit(View view) {
@@ -343,7 +299,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
             if(dateAndTime.getText().length() != 0)
                 params.put("gTimeDate",dateAndTime.getText().toString());
 
-            ParseCloud.callFunctionInBackground(" ", params, new FunctionCallback<Boolean>() {
+            ParseCloud.callFunctionInBackground("lockedJob", params, new FunctionCallback<Boolean>() {
                 @Override
                 public void done(Boolean object, ParseException e) {
                     if(e==null){
@@ -378,19 +334,21 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void rePost(View view) {
-        obj.saveEventually(new SaveCallback() {
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("id",obj.getObjectId());
+        ParseCloud.callFunctionInBackground("repost", params, new FunctionCallback<Object>() {
             @Override
-            public void done(ParseException e) {
-                if(e==null){
-                    Toast.makeText(LockedJob.this, "Done", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            public void done(Object object, ParseException e) {
+                     if(e==null){
+                         int pos = getIntent().getIntExtra("pos",-1);
+                         setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                         finish();
+                     }else{
+                         Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                     }
             }
         });
-        int pos = getIntent().getIntExtra("pos",-1);
-        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-        finish();
+
     }
 
     public void delete(View view) {
@@ -406,6 +364,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
     }
 }
