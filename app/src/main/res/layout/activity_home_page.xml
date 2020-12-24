@@ -25,20 +25,11 @@
         tools:layout_editor_absoluteY="278dp" />
 
     <Button
-        android:id="@+id/button10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="paid"
-        android:text="Paid Jobs"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="342dp" />
-
-    <Button
         android:id="@+id/button13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="overdue"
-        android:text="Payment overdue"
+        android:onClick="afterBan"
+        android:text="After Ban"
         tools:layout_editor_absoluteX="112dp"
         tools:layout_editor_absoluteY="342dp" />
 

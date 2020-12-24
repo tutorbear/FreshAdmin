@@ -1,12 +1,15 @@
 package com.example.freshadmin;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +28,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,7 +41,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     TextView id,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
     EditText dateAndTime;
     LinearLayout l1,l2,l3;
-    Button t1No,t2No,t3No;
+    Button t1No,t2No,t3No,t1view,t2view,t3view;
     HashMap<String,String> map;
     List<String> interviewTime;
     List<ParseObject> requested;
@@ -84,6 +89,10 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         t1No = findViewById(R.id.t1No);
         t2No = findViewById(R.id.t2No);
         t3No = findViewById(R.id.t3No);
+
+        t1view = findViewById(R.id.tview1);
+        t2view = findViewById(R.id.tview2);
+        t3view = findViewById(R.id.tview3);
         //Map
         map = new HashMap<>();
     }
@@ -107,22 +116,42 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         t1Time.setVisibility(View.GONE);
         t2Time.setVisibility(View.GONE);
         t3Time.setVisibility(View.GONE);
+
+        t1view.setVisibility(View.GONE);
+        t2view.setVisibility(View.GONE);
+        t3view.setVisibility(View.GONE);
         //-------------------------------------
 
         requested = obj.getList("requested");
         if(requested!=null && !requested.isEmpty()){
             for (int i = 0; i < requested.size(); i++) {
                 if(i==0){
+                    t1view.setVisibility(View.VISIBLE);
                     l1.setVisibility(View.VISIBLE);
-                    t1N.setText(requested.get(0).getString("username"));
+                    t1N.setText(requested.get(0).getString("fullName"));
+                    Toast.makeText(this, "Hello, I am here", Toast.LENGTH_SHORT).show();
+
+                    if(requested.get(0).getBoolean("banLock"))
+                        t1N.setTextColor(Color.RED);
+
                     map.put("l1",requested.get(i).getObjectId());
                 }else if(i==1){
+                    t2view.setVisibility(View.VISIBLE);
                     l2.setVisibility(View.VISIBLE);
-                    t2N.setText(requested.get(1).getString("username"));
+                    t2N.setText(requested.get(1).getString("fullName"));
+
+                    if(requested.get(1).getBoolean("banLock"))
+                        t2N.setTextColor(Color.RED);
+
                     map.put("l2",requested.get(i).getObjectId());
                 }else{
+                    t3view.setVisibility(View.VISIBLE);
                     l3.setVisibility(View.VISIBLE);
-                    t3N.setText(requested.get(2).getString("username"));
+                    t3N.setText(requested.get(2).getString("fullName"));
+
+                    if(requested.get(2).getBoolean("banLock"))
+                        t3N.setTextColor(Color.RED);
+
                     map.put("l3",requested.get(i).getObjectId());
                 }
             }
@@ -238,28 +267,45 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         startActivity(intent);
     }
 
-    public void notGoing(View view) {
-        String id;
+    public void notGoing(final View view) {
 
-        List<ParseObject> requested = obj.getList("requested");
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Not Going? Are you sure?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String id;
+                List<ParseObject> requested = obj.getList("requested");
+                if (view.getId()==R.id.t1No){
+                    interviewTime.set(0,"");
+                    id = map.get("l1");
+                    callCloudNotGoing(id,requested,l1,t1Time,t1view);
+                }else if(view.getId()==R.id.t2No){
+                    interviewTime.set(1,"");
+                    id = map.get("l2");
+                    callCloudNotGoing(id,requested, l2, t2Time,t2view);
+                }else{
+                    interviewTime.set(2,"");
+                    id = map.get("l3");
+                    callCloudNotGoing(id,requested, l3, t3Time,t3view);
+                }
+            }
+        });
 
-        if (view.getId()==R.id.t1No){
-            interviewTime.set(0,"");
-            id = map.get("l1");
-            callCloud(id,requested,l1,t1Time);
-        }else if(view.getId()==R.id.t2No){
-            interviewTime.set(1,"");
-            id = map.get("l2");
-            callCloud(id,requested, l2, t2Time);
-        }else{
-            interviewTime.set(2,"");
-            id = map.get("l3");
-            callCloud(id,requested, l3, t3Time);
-        }
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alertDialogBuilder.show();
+
+
 
     }
 
-    private void callCloud(String id, List<ParseObject> requested, final LinearLayout l, final TextView time) {
+    private void callCloudNotGoing(String id, List<ParseObject> requested, final LinearLayout l, final TextView time, final Button view) {
         String username = null;
         for (int i = 0; i < requested.size(); i++) {
             if(id.equals(requested.get(i).getObjectId())){
@@ -270,10 +316,12 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         params.put("username", username);
         params.put("objectId", obj.getObjectId());
         params.put("interviewTime",interviewTime);
-        ParseCloud.callFunctionInBackground("notGoing", params, new FunctionCallback<Object>() {
+        ParseCloud.callFunctionInBackground("notGoing", params, new FunctionCallback<ParseObject>() {
             @Override
-            public void done(Object object, ParseException e) {
+            public void done(ParseObject object, ParseException e) {
                 if (e == null){
+                    obj = object;
+                    view.setVisibility(View.GONE);
                     l.setVisibility(View.GONE);
                     time.setVisibility(View.GONE);
                 }else{
@@ -287,31 +335,49 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         if(year==-1){
             Toast.makeText(this, "Set date", Toast.LENGTH_SHORT).show();
         }else{
-            interviewTime.removeAll(Collections.singletonList(""));
-
-            HashMap<String,Object> params = new HashMap<>();
-            params.put("id",obj.getObjectId());
-            params.put("year",year);
-            params.put("month",month);
-            params.put("day",dayOfMonth);
-            params.put("interviewTime",interviewTime);
-
-            if(dateAndTime.getText().length() != 0)
-                params.put("gTimeDate",dateAndTime.getText().toString());
-
-            ParseCloud.callFunctionInBackground("lockedJob", params, new FunctionCallback<Boolean>() {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Submit? Are you sure?");
+            alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
-                public void done(Boolean object, ParseException e) {
-                    if(e==null){
-                        Toast.makeText(LockedJob.this, "Success", Toast.LENGTH_SHORT).show();
-                        int pos = getIntent().getIntExtra("pos",-1);
-                        setResult(RESULT_OK,new Intent().putExtra ("pos",pos));
-                        finish();
-                    }else{
-                        Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // copying the ArrayList zoo to the ArrayList list
+                    List<String> tempArr = new ArrayList<>(interviewTime);
+                    tempArr.removeAll(Collections.singletonList(""));
+
+                    HashMap<String,Object> params = new HashMap<>();
+                    params.put("id",obj.getObjectId());
+                    params.put("year",year);
+                    params.put("month",month);
+                    params.put("day",dayOfMonth);
+                    params.put("interviewTime",tempArr);
+
+                    if(dateAndTime.getText().length() != 0)
+                        params.put("gTimeDate",dateAndTime.getText().toString());
+
+                    ParseCloud.callFunctionInBackground("lockedJob", params, new FunctionCallback<Boolean>() {
+                        @Override
+                        public void done(Boolean object, ParseException e) {
+                            if(e==null){
+                                Toast.makeText(LockedJob.this, "Success", Toast.LENGTH_SHORT).show();
+                                int pos = getIntent().getIntExtra("pos",-1);
+                                setResult(RESULT_OK,new Intent().putExtra ("pos",pos));
+                                finish();
+                            }else{
+                                Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             });
+
+            alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+            alertDialogBuilder.show();
         }
     }
 
@@ -325,6 +391,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         this.year = year;
         this.month = month;
         this.dayOfMonth = dayOfMonth;
+        ((TextView)findViewById(R.id.dateView)).setText(dayOfMonth+"/"+month+"/"+year);
     }
 
     public void saveChanges(View view) {
@@ -334,37 +401,113 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void rePost(View view) {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("id",obj.getObjectId());
-        ParseCloud.callFunctionInBackground("repost", params, new FunctionCallback<Object>() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Repost? Are you sure?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void done(Object object, ParseException e) {
-                     if(e==null){
-                         int pos = getIntent().getIntExtra("pos",-1);
-                         setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                         finish();
-                     }else{
-                         Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                     }
+            public void onClick(DialogInterface dialogInterface, int i) {
+                HashMap<String,Object> params = new HashMap<>();
+                params.put("id",obj.getObjectId());
+                params.put("num",1);
+                ParseCloud.callFunctionInBackground("repost", params, new FunctionCallback<Object>() {
+                    @Override
+                    public void done(Object object, ParseException e) {
+                    if(e==null){
+                        int pos = getIntent().getIntExtra("pos",-1);
+                        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                        finish();
+                    }else{
+                        Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    }
+                });
             }
         });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alertDialogBuilder.show();
 
     }
 
     public void delete(View view) {
-        obj.deleteInBackground(new DeleteCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e==null){
-                    Toast.makeText(LockedJob.this, "Delete Complete", Toast.LENGTH_SHORT).show();
-                    int pos = getIntent().getIntExtra("pos",-1);
-                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                    finish();
-                }else{
-                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
 
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Delete, Are you sure?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                HashMap<String,Object> params = new HashMap<>();
+                params.put("id",obj.getObjectId());
+                params.put("num",1);
+                ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+                    @Override
+                    public void done(Object object, ParseException e) {
+                        if(e==null){
+                            int pos = getIntent().getIntExtra("pos",-1);
+                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                            finish();
+                        }else{
+                            Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
         });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alertDialogBuilder.show();
+
+    }
+
+    public void seeDetails(View view) {
+
+        String id;
+
+        List<ParseObject> requested = obj.getList("requested");
+
+        if (view.getId()==R.id.tview1){
+            id = map.get("l1");
+        }else if(view.getId()==R.id.tview2){
+            id = map.get("l2");
+        }else{
+            id = map.get("l3");
+        }
+
+        ParseObject tObj = null;
+        for (int i = 0; i < requested.size(); i++) {
+            if(id.equals(requested.get(i).getObjectId())){
+                tObj = requested.get(i);
+            }
+        }
+        List<String> times = tObj.getList("interviewTimes");
+        if(times!=null && !times.isEmpty()){
+            String tempTime = "";
+            for (int i = 0; i < times.size(); i++) {
+                tempTime += times.get(i) + "\n";
+            }
+            // create an alert builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Info");
+            // set the custom layout
+            final View customLayout = getLayoutInflater().inflate(R.layout.custom_locked_layout, null);
+
+            ((TextView)customLayout.findViewById(R.id.time)).setText(tempTime);
+            builder.setView(customLayout);
+            builder.show();
+        }else {
+            Toast.makeText(this, "No Time", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentOverdue">
-
+    tools:context=".AfterBan"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
             <TextView
-                android:id="@+id/jobIdPO"
+                android:id="@+id/jobIdInter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Job ID"
@@ -24,7 +23,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/namePO"
+                android:id="@+id/nameInter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
@@ -40,7 +39,7 @@
                 android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/salaryPO"
+                    android:id="@+id/salaryInter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -49,7 +48,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/locationPO"
+                    android:id="@+id/locationInter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -58,7 +57,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/studentNumberPO"
+                    android:id="@+id/studentNumberInter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -74,7 +73,7 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:id="@+id/classPO"
+                    android:id="@+id/classInter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -83,7 +82,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/subjectPO"
+                    android:id="@+id/subjectInter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -101,7 +100,7 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:id="@+id/curriculumPO"
+                    android:id="@+id/curriculumInter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -110,7 +109,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/addressPO"
+                    android:id="@+id/addressInter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -141,34 +140,139 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="4"
-                android:layout_marginBottom="10dp">
+                android:weightSum="3">
 
 
                 <TextView
-                    android:id="@+id/t1N"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/t1NInter"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="t1"
-                    android:layout_weight="1"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
 
                 <Button
-                    android:id="@+id/ban"
+                    android:id="@+id/t1Hire"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:onClick="ban"
-                    android:text="BAN TEACHER NOW" />
+                    android:layout_weight="1"
+                    android:onClick="hire"
+                    android:text="Hire" />
+
+
+
+                <Button
+                    android:id="@+id/t1Call"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="callT"
+                    android:text="Call" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/t1TimeInter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:text="T1 Time"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/linearT2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/t2NInter"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="t2"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+
+                <Button
+                    android:id="@+id/t2Hire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hire"
+                    android:onClick="hire"/>
 
 
 
+
+                <Button
+                    android:id="@+id/t2Call"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="callT"
+                    android:text="Call" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/t2TimeInter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:text="T2 Time"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginVertical="5dp"
+                android:background="#c0c0c0" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <Button
+                    android:id="@+id/button10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="repost"
+                    android:onClick="rePost"/>
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    android:layout_weight="1"
+                    android:onClick="submit"/>
+
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <Button
+                android:id="@+id/button12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:textColor="#ffff"
+                android:layout_marginTop="5dp"
+                android:onClick="delete"
+                android:background="@color/colorAccent"/>
 
 
         </LinearLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -179,17 +179,34 @@
                     android:onClick="callT"
                     android:text="Call" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/t1TimeInter"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:text="T1 Time"
-                android:textAlignment="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <Button
+                    android:id="@+id/tview1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="seeDetails"
+                    android:text="View" />
+
+                <TextView
+                    android:id="@+id/t1TimeInter"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:text="T1 Time"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/linearT2"
@@ -235,16 +252,35 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/t2TimeInter"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:text="T2 Time"
-                android:textAlignment="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <Button
+                    android:id="@+id/tview2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="seeDetails"
+                    android:text="View" />
+
+                <TextView
+                    android:id="@+id/t2TimeInter"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:text="T2 Time"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:id="@+id/linearT3"
@@ -288,16 +324,34 @@
                     android:text="Call" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/t3TimeInter"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:text="T3 Time"
-                android:textAlignment="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <Button
+                    android:id="@+id/tview3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="seeDetails"
+                    android:text="View" />
+
+                <TextView
+                    android:id="@+id/t3TimeInter"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:text="T3 Time"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
 
             <View
                 android:layout_width="match_parent"
@@ -338,6 +392,12 @@
                 android:layout_marginTop="5dp"
                 android:onClick="delete"
                 android:background="@color/colorAccent"/>
+
+            <ProgressBar
+                android:id="@+id/pb_inter"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>

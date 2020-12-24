@@ -26,15 +26,14 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Unpaid" />
-        <activity android:name=".UnpaidList" />
+        <activity android:name=".AfterBan" />
+        <activity android:name=".AfterBanList" />
         <activity android:name=".VerS" />
         <activity android:name=".VerSList" />
         <activity android:name=".VerT" />
         <activity android:name=".VerTList" />
         <activity android:name=".PaidJob" />
         <activity android:name=".PaidJobsList" />
-        <activity android:name=".PaymentOverdue" />
         <activity android:name=".PaymentOverdueList" />
         <activity android:name=".InterviewDayList" />
         <activity android:name=".InterviewDay" />
@@ -49,15 +48,6 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="com.parse.SERVER_URL"
-            android:value="@string/back4app_server_url" />
-        <meta-data
-            android:name="com.parse.APPLICATION_ID"
-            android:value="@string/back4app_app_id" />
-        <meta-data
-            android:name="com.parse.CLIENT_KEY"
-            android:value="@string/back4app_client_key" />
     </application>
 
 </manifest>

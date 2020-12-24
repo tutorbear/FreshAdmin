@@ -194,10 +194,24 @@
                     android:onClick="callT"
                     android:text="Call" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <Button
+                    android:id="@+id/tview1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="seeDetails"
+                    android:text="View" />
 
             <TextView
                 android:id="@+id/t1Time"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:text="T1 Time"
@@ -205,6 +219,8 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+        </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearT2"
@@ -263,18 +279,35 @@
 
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/t2Time"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:onClick="timeSetter"
-                android:text="T2 Time"
-                android:textAlignment="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <Button
+                    android:id="@+id/tview2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="seeDetails"
+                    android:text="View" />
+
+                <TextView
+                    android:id="@+id/t2Time"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:onClick="timeSetter"
+                    android:text="T2 Time"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/linearT3"
@@ -333,18 +366,35 @@
 
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/t3Time"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:onClick="timeSetter"
-                android:text="T3 Time"
-                android:textAlignment="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+                <Button
+                    android:id="@+id/tview3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="seeDetails"
+                    android:text="View" />
+
+                <TextView
+                    android:id="@+id/t3Time"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:onClick="timeSetter"
+                    android:text="T3 Time"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -377,7 +427,17 @@
                 android:layout_height="wrap_content"
                 android:text="Set Date"
                 android:onClick="setDate"/>
-
+            <TextView
+                android:id="@+id/dateView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="5dp"
+                android:onClick="timeSetter"
+                android:text="Date"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package com.example.freshadmin;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,9 +26,9 @@ import java.util.Date;
 import java.util.List;
 
 
-public class UnpaidList extends AppCompatActivity {
+public class AfterBanList extends AppCompatActivity {
     List<ParseObject> list;
-    UnpaidListAdapter customAdapter;
+    AfterBanListAdapter customAdapter;
     LinearLayoutManager manager;
     RecyclerView recycle;
     @Override
@@ -38,24 +39,13 @@ public class UnpaidList extends AppCompatActivity {
     }
 
     private void init() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-
-        // start of today
-        Date today = cal.getTime();
-
-        // start of tomorrow
-        cal.add(Calendar.DAY_OF_MONTH, 1); // add one day to get start of tomorrow
-        Date tomorrow = cal.getTime();
-
 
         // Your query:
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Unpaid");
-        query.whereGreaterThan("date", today);
-        query.whereLessThan("date", tomorrow);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("JobBoard");
+        query.include("createdBy.sProfile");
+        query.include("requested");
+        query.whereNotEqualTo("paymentDate",null);
+        query.whereEqualTo("hired",null);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -63,15 +53,15 @@ public class UnpaidList extends AppCompatActivity {
                     if(!objects.isEmpty()){
                         list =  objects;
                         recycle = findViewById(R.id.recyclerViewUP);
-                        manager = new LinearLayoutManager(UnpaidList.this);
-                        customAdapter = new UnpaidListAdapter(UnpaidList.this, list);
+                        manager = new LinearLayoutManager(AfterBanList.this);
+                        customAdapter = new AfterBanListAdapter(AfterBanList.this, list);
                         recycle.setAdapter(customAdapter);
                         recycle.setLayoutManager(manager);
                     }else{
-                        Toast.makeText(UnpaidList.this, "Nothing Found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AfterBanList.this, "Nothing Found", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(UnpaidList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AfterBanList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -81,19 +71,29 @@ public class UnpaidList extends AppCompatActivity {
 
     public void viewJP(View view) {
         int pos = (int) view.getTag();
-//        Toast.makeText(this, ""+pos, Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(UnpaidList.this,Unpaid.class).putExtra("object",list.get(pos)));
+        startActivityForResult(new Intent(AfterBanList.this, AfterBan.class).putExtra("object",list.get(pos)),1);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1 && resultCode==RESULT_OK){
+            int removeIndex = data.getIntExtra("pos",-1);
+            list.remove(removeIndex);
+            customAdapter.notifyItemRemoved(removeIndex);
+            customAdapter.notifyItemRangeChanged(removeIndex, list.size());
+        }
     }
 }
 
-class UnpaidListAdapter extends RecyclerView.Adapter<UnpaidListAdapter.MyViewHolder> {
+
+class AfterBanListAdapter extends RecyclerView.Adapter<AfterBanListAdapter.MyViewHolder> {
 
     Context context;
     List<ParseObject> list;
 
 
-    public UnpaidListAdapter(Context context, List<ParseObject> list) {
+    public AfterBanListAdapter(Context context, List<ParseObject> list) {
         this.context = context;
         this.list = list;
     }
