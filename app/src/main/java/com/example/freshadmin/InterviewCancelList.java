@@ -9,16 +9,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 public class InterviewCancelList extends AppCompatActivity {
 
@@ -26,7 +36,7 @@ public class InterviewCancelList extends AppCompatActivity {
     InterviewCancelAdapter customAdapter;
     LinearLayoutManager manager;
     RecyclerView recycle;
-
+    ProgressBar pb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +48,8 @@ public class InterviewCancelList extends AppCompatActivity {
         list = getIntent().getParcelableArrayListExtra("objects");
         recycle = findViewById(R.id.recyclerView_interviewDay_cancel);
         manager = new LinearLayoutManager(this);
-
-        customAdapter = new InterviewCancelAdapter(this, list);
-        recycle.setAdapter(customAdapter);
-        recycle.setLayoutManager(manager);
+        pb = findViewById(R.id.pb);
+        pb.setVisibility(View.GONE);
     }
 
     public void viewI(View view) {
@@ -61,8 +69,28 @@ public class InterviewCancelList extends AppCompatActivity {
     }
 
     public void search(View view) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("TeacherProfile");
-//        query.whereEqualTo("")
+        pb.setVisibility(View.VISIBLE);
+        String number = ((TextView)findViewById(R.id.number)).getText().toString();
+        HashMap<String,String> params = new HashMap<>();
+        params.put("username",number);
+        ParseCloud.callFunctionInBackground("getStudentJobs", params, new FunctionCallback<List<ParseObject>>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if(e==null){
+                   if( objects.isEmpty()){
+                       Toast.makeText(InterviewCancelList.this, "Nothing found", Toast.LENGTH_SHORT).show();
+                   }else{
+                       list = (ArrayList<ParseObject>) objects;
+                       customAdapter = new InterviewCancelAdapter(InterviewCancelList.this, list);
+                       recycle.setAdapter(customAdapter);
+                       recycle.setLayoutManager(manager);
+                   }
+                }else{
+                    Toast.makeText(InterviewCancelList.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                pb.setVisibility(View.GONE);
+            }
+        });
     }
 
 
@@ -87,7 +115,10 @@ public class InterviewCancelList extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             holder.button.setTag(position);
-            holder.textView.setText(list.get(position).getObjectId());
+            if(list.get(position).containsKey("interviewDate"))
+                holder.textView.setText(""+list.get(position).getDate("interviewDate"));
+            else
+                holder.textView.setText("No interview Date Set yet");
         }
 
         @Override

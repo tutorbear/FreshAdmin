@@ -129,6 +129,6 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
     }
 
     public void interviewCancel(View view) {
-
+        startActivity(new Intent(this,InterviewCancelList.class));
     }
 }
