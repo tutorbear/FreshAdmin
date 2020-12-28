@@ -127,4 +127,8 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
     public void paid(View view) {
         startActivity(new Intent(this,PaidJobsList.class));
     }
+
+    public void interviewCancel(View view) {
+
+    }
 }

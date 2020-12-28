@@ -392,15 +392,7 @@
                 android:layout_marginTop="5dp"
                 android:onClick="delete"
                 android:background="@color/colorAccent"/>
-            <Button
-                android:id="@+id/button13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cancel And Delete"
-                android:textColor="#ffff"
-                android:layout_marginTop="5dp"
-                android:onClick="delete"
-                android:background="@color/colorAccent"/>
+
             <ProgressBar
                 android:id="@+id/pb_inter"
                 style="?android:attr/progressBarStyle"

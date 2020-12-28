@@ -117,7 +117,7 @@ public class VerS extends AppCompatActivity {
 
     public void callP(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+phone));
+        intent.setData(Uri.parse("tel:"+obj.get("username")));
         startActivity(intent);
     }
 

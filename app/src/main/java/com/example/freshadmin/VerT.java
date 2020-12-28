@@ -142,7 +142,7 @@ public class VerT extends AppCompatActivity {
 
     public void callT(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+obj.getString("phone")));
+        intent.setData(Uri.parse("tel:"+obj.getString("username")));
         startActivity(intent);
     }
 

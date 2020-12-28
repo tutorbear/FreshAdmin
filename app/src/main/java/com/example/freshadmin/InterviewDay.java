@@ -395,17 +395,15 @@ public class InterviewDay extends AppCompatActivity {
     }
 
     public void delete(View view) {
-        final int num = view.getId()==R.id.button12 ? 2 : 3;
-        String title =  view.getId()==R.id.button12 ? "Delete, Are you sure?" :"Cancel and Delete, Are you sure?";
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(title);
+        alertDialogBuilder.setTitle("Delete, Are you sure?");
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 pb.setVisibility(View.VISIBLE);
                 HashMap<String,Object> params = new HashMap<>();
                 params.put("id",obj.getObjectId());
-                params.put("num",num);
+                params.put("num",2);
                 ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
                     @Override
                     public void done(Object object, ParseException e) {
