@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.function.ToIntBiFunction;
 
 public class InterviewDay extends AppCompatActivity {
     ParseObject obj;
@@ -62,7 +62,11 @@ public class InterviewDay extends AppCompatActivity {
         ParseCloud.callFunctionInBackground("getPicInterview", params, new FunctionCallback<ArrayList<String>>() {
             @Override
             public void done(ArrayList<String> base64Array, ParseException e) {
-                picArray = base64Array;
+                if(e==null){
+                    picArray = base64Array;
+                }else{
+                    Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
                 pb.setVisibility(View.GONE);
             }
         });
@@ -204,7 +208,7 @@ public class InterviewDay extends AppCompatActivity {
             }
         }
 
-        intent.setData(Uri.parse("tel:"+temp.getString("phone")));
+        intent.setData(Uri.parse("tel:"+temp.getString("username")));
         startActivity(intent);
     }
 
@@ -298,7 +302,7 @@ public class InterviewDay extends AppCompatActivity {
         int colorH2 = h2.getTextColors().getDefaultColor();
         int colorH3 = h3.getTextColors().getDefaultColor();
 
-        String id=null;
+        String  id = null;
         if(colorH1==Color.parseColor("#D81B60")){
             id = map.get("l1");
 
@@ -312,46 +316,63 @@ public class InterviewDay extends AppCompatActivity {
         if(id==null){
             Toast.makeText(this, "Hire someone First", Toast.LENGTH_SHORT).show();
         }else{
-
-            int index = -1;
-            for (int i = 0; i < requested.size(); i++) {
-                if(id.equals(requested.get(i).getObjectId())){
-                    index = i;
-                }
-            }
-            Log.d("indexbbb",index+"");
-            //Payment date
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeZone(TimeZone.getTimeZone("UTC"));
-            cal.add(Calendar.DAY_OF_MONTH,1);
-            cal.set(Calendar.HOUR_OF_DAY,2);
-            Date paymentDate = cal.getTime();
-
-            // Removing hired teachers time
-            interviewTime.set(index,"");
-
-            // copying the ArrayList zoo to the ArrayList list
-            List<String> tempArr = new ArrayList<>(interviewTime);
-            tempArr.removeAll(Collections.singletonList(""));
-
-            HashMap<String,Object> params = new HashMap<>();
-            params.put("id",obj.getObjectId());
-            params.put("tId",id);
-            params.put("interviewTime",tempArr);
-            params.put("paymentDate",paymentDate);
-            ParseCloud.callFunctionInBackground("hire", params, new FunctionCallback<Object>() {
+            final String finalId = id;
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Hire Teacher? Are you sure?");
+            alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
-                public void done(Object object, ParseException e) {
-                    if(e==null){
-                        Toast.makeText(InterviewDay.this, "Done Hire", Toast.LENGTH_SHORT).show();
-                        int pos = getIntent().getIntExtra("pos",-1);
-                        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                        finish();
-                    }else{
-                        Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                public void onClick(DialogInterface dialogInterface, int j) {
+                    int index = -1;
+
+                    for (int i = 0; i < requested.size(); i++) {
+                        if(finalId.equals(requested.get(i).getObjectId())){
+                            index = i;
+                        }
                     }
+
+                    Log.d("indexbbb",index+"");
+                    //Payment date
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+                    cal.add(Calendar.DAY_OF_MONTH,1);
+                    cal.set(Calendar.HOUR_OF_DAY,2);
+                    Date paymentDate = cal.getTime();
+
+                    // Removing hired teachers time
+                    interviewTime.set(index,"");
+
+                    // copying the ArrayList zoo to the ArrayList list
+                    List<String> tempArr = new ArrayList<>(interviewTime);
+                    tempArr.removeAll(Collections.singletonList(""));
+
+                    HashMap<String,Object> params = new HashMap<>();
+                    params.put("id",obj.getObjectId());
+                    params.put("tId", finalId);
+                    params.put("interviewTime",tempArr);
+                    params.put("paymentDate",paymentDate);
+                    ParseCloud.callFunctionInBackground("hireTeacher", params, new FunctionCallback<Object>() {
+                        @Override
+                        public void done(Object object, ParseException e) {
+                            if(e==null){
+                                Toast.makeText(InterviewDay.this, "Done Hire", Toast.LENGTH_SHORT).show();
+                                int pos = getIntent().getIntExtra("pos",-1);
+                                setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                                finish();
+                            }else{
+                                Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             });
+
+            alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            alertDialogBuilder.show();
         }
     }
 
@@ -374,15 +395,17 @@ public class InterviewDay extends AppCompatActivity {
     }
 
     public void delete(View view) {
+        final int num = view.getId()==R.id.button12 ? 2 : 3;
+        String title =  view.getId()==R.id.button12 ? "Delete, Are you sure?" :"Cancel and Delete, Are you sure?";
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Delete, Are you sure?");
+        alertDialogBuilder.setTitle(title);
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 pb.setVisibility(View.VISIBLE);
                 HashMap<String,Object> params = new HashMap<>();
                 params.put("id",obj.getObjectId());
-                params.put("num",2);
+                params.put("num",num);
                 ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
                     @Override
                     public void done(Object object, ParseException e) {

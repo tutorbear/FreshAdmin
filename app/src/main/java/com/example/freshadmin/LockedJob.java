@@ -354,7 +354,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     if(dateAndTime.getText().length() != 0)
                         params.put("gTimeDate",dateAndTime.getText().toString());
 
-                    ParseCloud.callFunctionInBackground("lockedJob", params, new FunctionCallback<Boolean>() {
+                    ParseCloud.callFunctionInBackground("lockedJobSubmit", params, new FunctionCallback<Boolean>() {
                         @Override
                         public void done(Boolean object, ParseException e) {
                             if(e==null){
