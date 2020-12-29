@@ -123,11 +123,21 @@ public class VerT extends AppCompatActivity {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                obj.put("verified",true);
-                obj.saveEventually();
-                int pos = getIntent().getIntExtra("pos",-1);
-                setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                finish();
+                HashMap<String,Object> params = new HashMap<>();
+                params.put("id",obj.getObjectId());
+                params.put("profileClass","TeacherProfile");
+                ParseCloud.callFunctionInBackground("verifyUser", params, new FunctionCallback<Boolean>() {
+                    @Override
+                    public void done(Boolean bool, ParseException e) {
+                        if(e==null){
+                            int pos = getIntent().getIntExtra("pos",-1);
+                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                            finish();
+                        }else{
+                            Toast.makeText(VerT.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
