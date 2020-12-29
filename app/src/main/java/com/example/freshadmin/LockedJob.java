@@ -107,7 +107,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         sClass.setText("Class: "+ obj.getString("class1")+","+ obj.getString("class2"));
         sub.setText("Subject1: "+ obj.getString("subject1")+"\nSubject2: "+ obj.getString("subject2"));
         address.setText("Address: "+ obj.getString("address"));
-
+        dateAndTime.setText(obj.getString("gTimeDate"));
         // Setting visibility to false
         l1.setVisibility(View.GONE);
         l2.setVisibility(View.GONE);
