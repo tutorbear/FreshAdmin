@@ -179,7 +179,7 @@ public class AfterBan extends AppCompatActivity {
                     params.put("tId",requested.get(index).getObjectId());
                     params.put("interviewTime",tempArr);
                     params.put("paymentDate",paymentDate);
-                    ParseCloud.callFunctionInBackground("hire", params, new FunctionCallback<Object>() {
+                    ParseCloud.callFunctionInBackground("hireTeacher", params, new FunctionCallback<Object>() {
                         @Override
                         public void done(Object object, ParseException e) {
                             if(e==null){
