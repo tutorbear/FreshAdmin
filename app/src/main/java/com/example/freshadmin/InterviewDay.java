@@ -377,21 +377,39 @@ public class InterviewDay extends AppCompatActivity {
     }
 
     public void rePost(View view) {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("id",obj.getObjectId());
-        params.put("num",2);
-        ParseCloud.callFunctionInBackground("repost", params, new FunctionCallback<Object>() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Delete, Are you sure?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void done(Object object, ParseException e) {
-                if(e==null){
-                    int pos = getIntent().getIntExtra("pos",-1);
-                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                    finish();
-                }else{
-                    Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(DialogInterface dialogInterface, int i) {
+                HashMap<String,Object> params = new HashMap<>();
+                params.put("id",obj.getObjectId());
+                params.put("num",2);
+                ParseCloud.callFunctionInBackground("repost", params, new FunctionCallback<Object>() {
+                    @Override
+                    public void done(Object object, ParseException e) {
+                        if(e==null){
+                            int pos = getIntent().getIntExtra("pos",-1);
+                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                            finish();
+                        }else{
+                            Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alertDialogBuilder.show();
+
+
     }
 
     public void delete(View view) {
