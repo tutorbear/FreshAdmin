@@ -378,7 +378,7 @@ public class InterviewDay extends AppCompatActivity {
 
     public void rePost(View view) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Delete, Are you sure?");
+        alertDialogBuilder.setTitle("Repost, Are you sure?");
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
