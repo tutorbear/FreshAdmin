@@ -224,7 +224,7 @@ public class InterviewDay extends AppCompatActivity {
                 if (view.getId()==R.id.t1Fine){
                     interviewTime.set(0,"");
                     id = map.get("l1");
-                    callCloudFine(id,l2,t2Time,t1view);
+                    callCloudFine(id,l1,t1Time,t1view);
                 }else if(view.getId()==R.id.t2Fine){
                     interviewTime.set(1,"");
                     id = map.get("l2");
@@ -232,7 +232,7 @@ public class InterviewDay extends AppCompatActivity {
                 }else{
                     interviewTime.set(2,"");
                     id = map.get("l3");
-                    callCloudFine(id,l2,t2Time,t3view);
+                    callCloudFine(id,l3,t3Time,t3view);
                 }
             }
         });
@@ -293,7 +293,7 @@ public class InterviewDay extends AppCompatActivity {
 
     public void callP(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+obj.getParseObject("createdBy").getString("phone")));
+        intent.setData(Uri.parse("tel:"+obj.getParseUser("createdBy").getUsername()));
         startActivity(intent);
     }
 
