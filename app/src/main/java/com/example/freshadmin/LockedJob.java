@@ -239,7 +239,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
     public void callP(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+obj.getParseObject("createdBy").getString("phone")));
+        intent.setData(Uri.parse("tel:"+obj.getParseUser("createdBy").getUsername()));
         startActivity(intent);
     }
 
@@ -263,7 +263,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
             }
         }
 
-        intent.setData(Uri.parse("tel:"+temp.getString("phone")));
+        intent.setData(Uri.parse("tel:"+temp.getString("username")));
         startActivity(intent);
     }
 
