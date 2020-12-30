@@ -487,6 +487,7 @@ public class InterviewDay extends AppCompatActivity {
 
         ((TextView)customLayout.findViewById(R.id.fullName)).setText("Name: "+tObj.getString("fullName"));
         ((TextView)customLayout.findViewById(R.id.school)).setText("School: "+tObj.getString("school"));
+        ((TextView)customLayout.findViewById(R.id.uni)).setText("UNI: "+tObj.getString("university"));
 
         builder.setView(customLayout);
         builder.show();
