@@ -107,7 +107,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         sClass.setText("Class: "+ obj.getString("class1")+","+ obj.getString("class2"));
         sub.setText("Subject1: "+ obj.getString("subject1")+"\nSubject2: "+ obj.getString("subject2"));
         address.setText("Address: "+ obj.getString("address"));
-
+        dateAndTime.setText(obj.getString("gTimeDate"));
         // Setting visibility to false
         l1.setVisibility(View.GONE);
         l2.setVisibility(View.GONE);
@@ -129,6 +129,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     t1view.setVisibility(View.VISIBLE);
                     l1.setVisibility(View.VISIBLE);
                     t1N.setText(requested.get(0).getString("fullName"));
+                    t1Time.setVisibility(View.VISIBLE);
                     Toast.makeText(this, "Hello, I am here", Toast.LENGTH_SHORT).show();
 
                     if(requested.get(0).getBoolean("banLock"))
@@ -138,6 +139,8 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                 }else if(i==1){
                     t2view.setVisibility(View.VISIBLE);
                     l2.setVisibility(View.VISIBLE);
+                    t2Time.setVisibility(View.VISIBLE);
+
                     t2N.setText(requested.get(1).getString("fullName"));
 
                     if(requested.get(1).getBoolean("banLock"))
@@ -148,6 +151,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     t3view.setVisibility(View.VISIBLE);
                     l3.setVisibility(View.VISIBLE);
                     t3N.setText(requested.get(2).getString("fullName"));
+                    t3Time.setVisibility(View.VISIBLE);
 
                     if(requested.get(2).getBoolean("banLock"))
                         t3N.setTextColor(Color.RED);
@@ -239,7 +243,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
     public void callP(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+obj.getParseObject("createdBy").getString("phone")));
+        intent.setData(Uri.parse("tel:"+obj.getParseUser("createdBy").getUsername()));
         startActivity(intent);
     }
 
@@ -263,7 +267,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
             }
         }
 
-        intent.setData(Uri.parse("tel:"+temp.getString("phone")));
+        intent.setData(Uri.parse("tel:"+temp.getString("username")));
         startActivity(intent);
     }
 
@@ -332,9 +336,16 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void submit(View view) {
-        if(year==-1){
+        if(year==-1)
             Toast.makeText(this, "Set date", Toast.LENGTH_SHORT).show();
-        }else{
+        else if(l1.getVisibility()==View.VISIBLE && t1Time.getText().toString().equals("T1 Time"))
+            Toast.makeText(this, "Set Teacher time", Toast.LENGTH_SHORT).show();
+        else if(l2.getVisibility()==View.VISIBLE && t2Time.getText().toString().equals("T2 Time"))
+            Toast.makeText(this, "Set Teacher time", Toast.LENGTH_SHORT).show();
+        else if(l3.getVisibility()==View.VISIBLE && t3Time.getText().toString().equals("T3 Time"))
+            Toast.makeText(this, "Set Teacher time", Toast.LENGTH_SHORT).show();
+        else{
+
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Submit? Are you sure?");
             alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -379,6 +390,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
             alertDialogBuilder.show();
         }
+
     }
 
     public void setDate(View view) {

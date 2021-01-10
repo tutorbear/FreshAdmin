@@ -224,7 +224,7 @@ public class InterviewDay extends AppCompatActivity {
                 if (view.getId()==R.id.t1Fine){
                     interviewTime.set(0,"");
                     id = map.get("l1");
-                    callCloudFine(id,l2,t2Time,t1view);
+                    callCloudFine(id,l1,t1Time,t1view);
                 }else if(view.getId()==R.id.t2Fine){
                     interviewTime.set(1,"");
                     id = map.get("l2");
@@ -232,7 +232,7 @@ public class InterviewDay extends AppCompatActivity {
                 }else{
                     interviewTime.set(2,"");
                     id = map.get("l3");
-                    callCloudFine(id,l2,t2Time,t3view);
+                    callCloudFine(id,l3,t3Time,t3view);
                 }
             }
         });
@@ -293,7 +293,7 @@ public class InterviewDay extends AppCompatActivity {
 
     public void callP(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+obj.getParseObject("createdBy").getString("phone")));
+        intent.setData(Uri.parse("tel:"+obj.getParseUser("createdBy").getUsername()));
         startActivity(intent);
     }
 
@@ -377,21 +377,39 @@ public class InterviewDay extends AppCompatActivity {
     }
 
     public void rePost(View view) {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("id",obj.getObjectId());
-        params.put("num",2);
-        ParseCloud.callFunctionInBackground("repost", params, new FunctionCallback<Object>() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Repost, Are you sure?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void done(Object object, ParseException e) {
-                if(e==null){
-                    int pos = getIntent().getIntExtra("pos",-1);
-                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                    finish();
-                }else{
-                    Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(DialogInterface dialogInterface, int i) {
+                HashMap<String,Object> params = new HashMap<>();
+                params.put("id",obj.getObjectId());
+                params.put("num",2);
+                ParseCloud.callFunctionInBackground("repost", params, new FunctionCallback<Object>() {
+                    @Override
+                    public void done(Object object, ParseException e) {
+                        if(e==null){
+                            int pos = getIntent().getIntExtra("pos",-1);
+                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                            finish();
+                        }else{
+                            Toast.makeText(InterviewDay.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alertDialogBuilder.show();
+
+
     }
 
     public void delete(View view) {
@@ -469,6 +487,7 @@ public class InterviewDay extends AppCompatActivity {
 
         ((TextView)customLayout.findViewById(R.id.fullName)).setText("Name: "+tObj.getString("fullName"));
         ((TextView)customLayout.findViewById(R.id.school)).setText("School: "+tObj.getString("school"));
+        ((TextView)customLayout.findViewById(R.id.uni)).setText("UNI: "+tObj.getString("university"));
 
         builder.setView(customLayout);
         builder.show();

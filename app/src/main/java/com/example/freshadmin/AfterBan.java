@@ -1,8 +1,10 @@
 package com.example.freshadmin;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -77,7 +79,7 @@ public class AfterBan extends AppCompatActivity {
     }
 
     private void set() {
-        id.setText("ID: "+ obj.getObjectId()); //createdBy.sProfile.guardianName
+        id.setText("ID: "+ obj.getObjectId());
         name.setText(""+obj.getParseObject("createdBy").getParseObject("sProfile").getString("guardianName"));
         salary.setText("Salary: "+ obj.get("salary").toString());
         location.setText("Location: "+ obj.getString("location"));
@@ -139,13 +141,14 @@ public class AfterBan extends AppCompatActivity {
         int colorH1 = h1.getTextColors().getDefaultColor();
         int colorH2 = h2.getTextColors().getDefaultColor();
 
-        int index= -1;
+        int idx= -1;
         if(colorH1==Color.parseColor("#D81B60")){
-            index= 0;
+            idx= 0;
         }else if(colorH2==Color.parseColor("#D81B60")){
-            index= 2;
+            idx= 2;
         }
 
+        final int index = idx;
         if(index==-1){
             Toast.makeText(this, "Hire someone First", Toast.LENGTH_SHORT).show();
         }else{
@@ -156,35 +159,56 @@ public class AfterBan extends AppCompatActivity {
             cal.setTimeZone(TimeZone.getTimeZone("UTC"));
             cal.add(Calendar.DAY_OF_MONTH,1);
             cal.set(Calendar.HOUR_OF_DAY,2);
-            Date paymentDate = cal.getTime();
+            final Date paymentDate = cal.getTime();
 
             // Removing hired teachers time
             interviewTime.set(index,"");
 
             // copying the ArrayList zoo to the ArrayList list
-            List<String> tempArr = new ArrayList<>(interviewTime);
+            final List<String> tempArr = new ArrayList<>(interviewTime);
             tempArr.removeAll(Collections.singletonList(""));
 
-            HashMap<String,Object> params = new HashMap<>();
-            params.put("id",obj.getObjectId());
-            params.put("tId",requested.get(index).getObjectId());
-            params.put("interviewTime",tempArr);
-            params.put("paymentDate",paymentDate);
-            ParseCloud.callFunctionInBackground("hire", params, new FunctionCallback<Object>() {
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("submit, Are you sure?");
+            alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
-                public void done(Object object, ParseException e) {
-                    if(e==null){
-                        Toast.makeText(AfterBan.this, "Done Hire", Toast.LENGTH_SHORT).show();
-                        int pos = getIntent().getIntExtra("pos",-1);
-                        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                        finish();
-                    }else{
-                        Toast.makeText(AfterBan.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    HashMap<String,Object> params = new HashMap<>();
+                    params.put("id",obj.getObjectId());
+                    params.put("tId",requested.get(index).getObjectId());
+                    params.put("interviewTime",tempArr);
+                    params.put("paymentDate",paymentDate);
+                    ParseCloud.callFunctionInBackground("hireTeacher", params, new FunctionCallback<Object>() {
+                        @Override
+                        public void done(Object object, ParseException e) {
+                            if(e==null){
+                                Toast.makeText(AfterBan.this, "Done Hire", Toast.LENGTH_SHORT).show();
+                                int pos = getIntent().getIntExtra("pos",-1);
+                                setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                                finish();
+                            }else{
+                                Toast.makeText(AfterBan.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             });
+
+            alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+            alertDialogBuilder.show();
+
+
         }
+
     }
+
     public void callT(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         List<ParseObject> requested = obj.getList("requested");
@@ -201,21 +225,39 @@ public class AfterBan extends AppCompatActivity {
     }
 
     public void rePost(View view) {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("id",obj.getObjectId());
-        params.put("num",2);
-        ParseCloud.callFunctionInBackground("repost", params, new FunctionCallback<Object>() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Repost, Are you sure?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void done(Object object, ParseException e) {
-                if(e==null){
-                    int pos = getIntent().getIntExtra("pos",-1);
-                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                    finish();
-                }else{
-                    Toast.makeText(AfterBan.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(DialogInterface dialogInterface, int i) {
+                HashMap<String,Object> params = new HashMap<>();
+                params.put("id",obj.getObjectId());
+                params.put("num",2);
+                ParseCloud.callFunctionInBackground("repost", params, new FunctionCallback<Object>() {
+                    @Override
+                    public void done(Object object, ParseException e) {
+                        if(e==null){
+                            int pos = getIntent().getIntExtra("pos",-1);
+                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                            finish();
+                        }else{
+                            Toast.makeText(AfterBan.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alertDialogBuilder.show();
+
+
     }
 
     public void callP(View view) {
@@ -225,20 +267,38 @@ public class AfterBan extends AppCompatActivity {
     }
 
     public void delete(View view) {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("id",obj.getObjectId());
-        params.put("num",2);
-        ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Delete, Are you sure?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void done(Object object, ParseException e) {
-                if(e==null){
-                    int pos = getIntent().getIntExtra("pos",-1);
-                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                    finish();
-                }else{
-                    Toast.makeText(AfterBan.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(DialogInterface dialogInterface, int i) {
+                HashMap<String,Object> params = new HashMap<>();
+                params.put("id",obj.getObjectId());
+                params.put("num",2);
+                ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+                    @Override
+                    public void done(Object object, ParseException e) {
+                        if(e==null){
+                            int pos = getIntent().getIntExtra("pos",-1);
+                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                            finish();
+                        }else{
+                            Toast.makeText(AfterBan.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alertDialogBuilder.show();
+
+
     }
 }
