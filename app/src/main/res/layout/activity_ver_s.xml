@@ -67,6 +67,14 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textAlignment="center"/>
+
+            <EditText
+                android:id="@+id/reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Reject Reason"
+                android:textAlignment="center"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

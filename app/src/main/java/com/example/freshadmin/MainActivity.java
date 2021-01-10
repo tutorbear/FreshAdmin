@@ -41,37 +41,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void get(View view) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("JobBoard");
-
-        // The query will search for a ParseObject, given its objectId.
-        // When the query finishes running, it will invoke the GetCallback
-        // with either the object, or the exception thrown
-        query.getInBackground("Eg6YIOqf4w", new GetCallback<ParseObject>() {
-            public void done(ParseObject result, ParseException e) {
-                if (e == null) {
-                    ArrayList<String> x =new ArrayList<>(Arrays.asList("","",""));
-                    x.set(0,"jerry");
-                    result.remove("interviewTime");
-                    result.addAll("interviewTime",x);
-                    x.set(1,"Tom");
-                    result.remove("interviewTime");
-                    result.addAll("interviewTime",x);
-
-                    result.saveEventually(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e == null) {
-                                Toast.makeText(MainActivity.this, "Done", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(MainActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(MainActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 }

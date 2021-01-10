@@ -16,17 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InterviewCancelList"></activity>
+
+        <activity android:name=".InterviewCancelList"/>
         <activity android:name=".InterviewCancel" />
 
-        <receiver
-            android:name=".SMSReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
 
         <activity android:name=".AfterBan" />
         <activity android:name=".AfterBanList" />
@@ -36,7 +29,6 @@
         <activity android:name=".VerTList" />
         <activity android:name=".PaidJob" />
         <activity android:name=".PaidJobsList" />
-        <activity android:name=".PaymentOverdueList" />
         <activity android:name=".InterviewDayList" />
         <activity android:name=".InterviewDay" />
         <activity android:name=".LockedJob" />

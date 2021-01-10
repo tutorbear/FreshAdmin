@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -157,25 +158,40 @@ public class VerT extends AppCompatActivity {
     }
 
     public void rejectT(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Are You Sure ?");
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                obj.put("verFailed", true);
-                obj.put("comment","NID");
-                obj.saveEventually();
-                int pos = getIntent().getIntExtra("pos", -1);
-                setResult(RESULT_OK, new Intent().putExtra("pos", pos));
-                finish();
-            }
-        });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        final String reason = ((EditText)findViewById(R.id.reason)).getText().toString();
+        if(reason.equals("")){
+            Toast.makeText(this, "Write a reason first", Toast.LENGTH_SHORT).show();
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Are You Sure ?");
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    HashMap<String,Object> params = new HashMap<>();
+                    params.put("id",obj.getObjectId());
+                    params.put("profileClass","TeacherProfile");
+                    params.put("comment",reason);
+                    ParseCloud.callFunctionInBackground("verificationFailed", params, new FunctionCallback<Boolean>() {
+                        @Override
+                        public void done(Boolean bool, ParseException e) {
+                            if(e==null){
+                                int pos = getIntent().getIntExtra("pos",-1);
+                                setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                                finish();
+                            }else{
+                                Toast.makeText(VerT.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            });
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
-        builder.show();
+                }
+            });
+            builder.show();
+        }
     }
 }
