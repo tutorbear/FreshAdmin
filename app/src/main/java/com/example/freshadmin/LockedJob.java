@@ -403,7 +403,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         this.year = year;
         this.month = month;
         this.dayOfMonth = dayOfMonth;
-        ((TextView)findViewById(R.id.dateView)).setText(dayOfMonth+"/"+month+"/"+year);
+        ((TextView)findViewById(R.id.dateView)).setText(dayOfMonth+"/"+(month+1)+"/"+year);
     }
 
     public void saveChanges(View view) {
