@@ -79,7 +79,7 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
         ParseQuery<ParseObject> query = ParseQuery.getQuery("JobBoard");
         query.whereGreaterThan("interviewDate", today);
         query.whereLessThan("interviewDate", tomorrow);
-        query.include("createdBy.sProfile");
+        query.include("createdBy");
         query.include("requested");
         query.whereDoesNotExist("hired");
         query.findInBackground(new FindCallback<ParseObject>() {

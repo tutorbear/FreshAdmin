@@ -42,7 +42,7 @@ public class AfterBanList extends AppCompatActivity {
 
         // Your query:
         ParseQuery<ParseObject> query = ParseQuery.getQuery("JobBoard");
-        query.include("createdBy.sProfile");
+        query.include("createdBy");
         query.include("requested");
         query.whereNotEqualTo("paymentDate",null);
         query.whereEqualTo("hired",null);

@@ -50,8 +50,8 @@ public class InterviewCancel extends AppCompatActivity {
     }
     @SuppressLint("SetTextI18n")
     private void set() {
-        id.setText("ID: " + obj.getObjectId()); //createdBy.sProfile.guardianName
-        name.setText("" + obj.getParseObject("createdBy").getParseObject("sProfile").getString("guardianName"));
+        id.setText("ID: " + obj.getObjectId());
+        name.setText("" + obj.getParseObject("createdBy").getString("guardianName"));
         salary.setText("Salary: " + obj.get("salary").toString());
         location.setText("Location: " + obj.getString("location"));
         stdNumber.setText("Number: " + obj.get("numberOfStudents").toString());

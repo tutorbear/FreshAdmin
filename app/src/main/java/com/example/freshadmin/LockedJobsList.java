@@ -56,8 +56,8 @@ public class LockedJobsList extends AppCompatActivity {
     private void query() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("JobBoard");
         query.whereEqualTo("locked",true);
-        query.whereDoesNotExist("interviewDate");
-        query.include("createdBy.sProfile");
+        query.whereEqualTo("interviewDate",null);
+        query.include("createdBy");
         query.include("requested");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
