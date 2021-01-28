@@ -7,6 +7,14 @@
     tools:context=".HomePage">
 
     <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="preLocked"
+        android:text="Pre-locked jobs"
+        />
+
+    <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,20 +24,20 @@
         tools:layout_editor_absoluteY="208dp" />
 
     <Button
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="interview"
-        android:text="Interview Day"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="278dp" />
-
-    <Button
         android:id="@+id/button9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="interviewCancel"
         android:text="Interview Cancel"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="278dp" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="interview"
+        android:text="Interview Day"
         tools:layout_editor_absoluteX="139dp"
         tools:layout_editor_absoluteY="278dp" />
 

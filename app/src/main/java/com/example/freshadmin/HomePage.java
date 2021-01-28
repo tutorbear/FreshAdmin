@@ -34,16 +34,6 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
-        String requiredPermission = Manifest.permission.RECEIVE_SMS;
-        int checkVal = this.checkCallingOrSelfPermission(requiredPermission);
-        if (checkVal == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "Granted", Toast.LENGTH_SHORT).show();
-        } else {
-            ActivityCompat.requestPermissions(HomePage.this,
-                    new String[]{Manifest.permission.RECEIVE_SMS},
-                    1);
-        }
     }
 
     public void lockedJobs(View view) {
@@ -130,5 +120,9 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
 
     public void interviewCancel(View view) {
         startActivity(new Intent(this,InterviewCancelList.class));
+    }
+
+    public void preLocked(View view) {
+        startActivity(new Intent(this,PreLocked.class));
     }
 }
