@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -41,6 +42,7 @@ public class InterviewDay extends AppCompatActivity {
     ParseObject obj;
     TextView id,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t2N,t3N,t1Time,t2Time,t3Time;
     HashMap<String,String> map;
+    EditText dateAndTime;
     LinearLayout l1,l2,l3;
     Button h1,h2,h3,t1view,t2view,t3view;
     List<String> interviewTime;
@@ -95,6 +97,9 @@ public class InterviewDay extends AppCompatActivity {
         t2Time = findViewById(R.id.t2TimeInter);
         t3Time = findViewById(R.id.t3TimeInter);
 
+        //Edit Text
+        dateAndTime = findViewById(R.id.dateAndTime);
+
         //linear layouts
         l1 = findViewById(R.id.linearT1);
         l2 = findViewById(R.id.linearT2);
@@ -112,6 +117,8 @@ public class InterviewDay extends AppCompatActivity {
         t2view = findViewById(R.id.tview2);
         t3view = findViewById(R.id.tview3);
 
+        //Edit
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -124,6 +131,10 @@ public class InterviewDay extends AppCompatActivity {
         sClass.setText("Class: "+ obj.getString("class1")+","+ obj.getString("class2"));
         sub.setText("Subject1: "+ obj.getString("subject1")+"\nSubject2: "+ obj.getString("subject2"));
         address.setText("Address: "+ obj.getString("address"));
+
+        //
+        dateAndTime.setText(obj.getString("gTimeDate"));
+
 
         // Setting visibility to false
         l1.setVisibility(View.GONE);
@@ -491,5 +502,11 @@ public class InterviewDay extends AppCompatActivity {
 
         builder.setView(customLayout);
         builder.show();
+    }
+
+    public void saveChanges(View view) {
+        if(dateAndTime.getText().length() != 0)
+            obj.put("gTimeDate",dateAndTime.getText().toString());
+        obj.saveEventually();
     }
 }

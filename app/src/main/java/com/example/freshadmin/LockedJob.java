@@ -78,6 +78,8 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         t1Time= findViewById(R.id.t1Time);
         t2Time = findViewById(R.id.t2Time);
         t3Time = findViewById(R.id.t3Time);
+
+        //Edit Text
         dateAndTime = findViewById(R.id.dateAndTime);
 
         //linear layouts

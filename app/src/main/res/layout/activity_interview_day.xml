@@ -351,13 +351,25 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-
-
-            <View
+            <EditText
+                android:id="@+id/dateAndTime"
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginVertical="5dp"
-                android:background="#c0c0c0" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Enter Interview Date and Time"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Changes"
+                android:onClick="saveChanges"/>
+
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
