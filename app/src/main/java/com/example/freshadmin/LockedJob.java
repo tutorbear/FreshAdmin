@@ -38,7 +38,7 @@ import java.util.List;
 
 public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ParseObject obj;
-    TextView id,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
+    TextView id,ngeo,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
     EditText dateAndTime;
     LinearLayout l1,l2,l3;
     Button t1No,t2No,t3No,t1view,t2view,t3view;
@@ -67,7 +67,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         sub = findViewById(R.id.subjectJP);
         curr = findViewById(R.id.curriculumJP);
         address = findViewById(R.id.addressJP);
-
+        ngeo = findViewById(R.id.negoJP);
         //Teacher
         t1N = findViewById(R.id.t1N);
         t1U = findViewById(R.id.t1U);
@@ -99,7 +99,9 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
     @SuppressLint("SetTextI18n")
     private void set() {
-        id.setText("ID: "+ obj.getObjectId()); 
+        id.setText("ID: "+ obj.getObjectId());
+        ngeo.setText("ID: "+ obj.getString("negotiable"));
+
         name.setText(""+obj.getParseObject("createdBy").getString("guardianName"));
         salary.setText("Salary: "+ obj.get("salary").toString());
         location.setText("Location: "+ obj.getString("location"));
