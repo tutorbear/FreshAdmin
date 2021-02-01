@@ -100,7 +100,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     @SuppressLint("SetTextI18n")
     private void set() {
         id.setText("ID: "+ obj.getObjectId());
-        ngeo.setText("ID: "+ obj.getString("negotiable"));
+        ngeo.setText("Nego: "+ obj.getBoolean("negotiable"));
 
         name.setText(""+obj.getParseObject("createdBy").getString("guardianName"));
         salary.setText("Salary: "+ obj.get("salary").toString());
