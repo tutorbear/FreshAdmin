@@ -263,7 +263,7 @@ public class InterviewDay extends AppCompatActivity {
     }
 
     public void callCloudFine(String id, final LinearLayout lin, final TextView time, final Button btn){
-        final List<String> tempInterviewTime = interviewTime;
+        final List<String> tempInterviewTime = new ArrayList<>(interviewTime) ;
         tempInterviewTime.removeAll(Collections.singletonList(""));
         HashMap<String,Object> params = new HashMap<>();
         params.put("tId",id);

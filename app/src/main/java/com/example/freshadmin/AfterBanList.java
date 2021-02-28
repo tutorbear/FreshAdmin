@@ -71,7 +71,7 @@ public class AfterBanList extends AppCompatActivity {
 
     public void viewJP(View view) {
         int pos = (int) view.getTag();
-        startActivityForResult(new Intent(AfterBanList.this, AfterBan.class).putExtra("object",list.get(pos)),1);
+        startActivityForResult(new Intent(AfterBanList.this, AfterBan.class).putExtra("object",list.get(pos)).putExtra("pos",pos),1);
     }
 
     @Override
