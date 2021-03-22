@@ -59,6 +59,7 @@ public class LockedJobsList extends AppCompatActivity {
         query.whereEqualTo("interviewDate",null);
         query.include("createdBy");
         query.include("requested");
+        query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
