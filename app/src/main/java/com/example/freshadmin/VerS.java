@@ -33,7 +33,7 @@ public class VerS extends AppCompatActivity {
     ImageView gNId,idCardS;
     ProgressBar progress;
     ParseObject obj;
-    static boolean confirm = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,6 @@ public class VerS extends AppCompatActivity {
         //Image Vies
         gNId = findViewById(R.id.nIdSPR);
         idCardS = findViewById(R.id.idCardSPR);
-
         //progress bar
         progress = findViewById(R.id.progressBarSPR);
     }
@@ -159,4 +158,5 @@ public class VerS extends AppCompatActivity {
             builder.show();
         }
     }
+
 }

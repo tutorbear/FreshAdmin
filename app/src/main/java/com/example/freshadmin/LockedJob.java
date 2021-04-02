@@ -39,7 +39,7 @@ import java.util.List;
 public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ParseObject obj;
     TextView id,ngeo,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
-    EditText dateAndTime;
+    EditText dateAndTime,addressEditText;
     LinearLayout l1,l2,l3;
     Button t1No,t2No,t3No,t1view,t2view,t3view;
     HashMap<String,String> map;
@@ -81,6 +81,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
         //Edit Text
         dateAndTime = findViewById(R.id.dateAndTime);
+        addressEditText = findViewById(R.id.addressE);
 
         //linear layouts
         l1 = findViewById(R.id.linearT1);
@@ -101,6 +102,23 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
     @SuppressLint("SetTextI18n")
     private void set() {
+        
+        if(obj.getList("applied")!=null){
+            if(obj.getList("applied").size()!=0) {
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Something is very wrong")
+                        .setMessage("Please Contact Tanzim")
+                        .setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //set what would happen when positive button is clicked
+                                finish();
+                            }
+                        }).show();
+            }
+        }
+
         id.setText("ID: "+ obj.getObjectId());
         ngeo.setText("Nego: "+ obj.getBoolean("negotiable"));
 
@@ -134,7 +152,6 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     l1.setVisibility(View.VISIBLE);
                     t1N.setText(requested.get(0).getString("fullName"));
                     t1Time.setVisibility(View.VISIBLE);
-                    Toast.makeText(this, "Hello, I am here", Toast.LENGTH_SHORT).show();
 
                     if(requested.get(0).getBoolean("banLock"))
                         t1N.setTextColor(Color.RED);
@@ -413,7 +430,20 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
     public void saveChanges(View view) {
         if(dateAndTime.getText().length() != 0)
             obj.put("gTimeDate",dateAndTime.getText().toString());
-        obj.saveEventually();
+        if(addressEditText.getText().length() != 0)
+            obj.put("address",addressEditText.getText().toString());
+
+        obj.saveEventually(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Toast.makeText(LockedJob.this, "Done", Toast.LENGTH_SHORT).show();
+                    address.setText("Address: "+ obj.getString("address"));
+                }else{
+                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void rePost(View view) {
