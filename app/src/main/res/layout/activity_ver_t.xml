@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/container"
     tools:context=".VerT">
 
     <ScrollView
@@ -51,6 +52,7 @@
                 android:layout_height="250dp"
                 android:layout_gravity="center"
                 tools:srcCompat="@tools:sample/avatars[0]"
+                android:onClick="expand"
                 />
 
 
@@ -67,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
+                android:onClick="expand"
                 tools:srcCompat="@tools:sample/avatars[0]" />
 
             <TextView
@@ -111,6 +114,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
+                android:onClick="expand"
+
                 tools:srcCompat="@tools:sample/avatars[1]" />
 
             <LinearLayout
@@ -144,6 +149,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_gravity="center"
+                    android:onClick="expand"
+
                     tools:srcCompat="@tools:sample/avatars[0]" />
 
             </LinearLayout>
@@ -214,6 +221,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/hiddenView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:scaleType="matrix"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
