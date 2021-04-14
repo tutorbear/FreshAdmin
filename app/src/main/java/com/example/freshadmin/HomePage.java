@@ -1,14 +1,10 @@
 package com.example.freshadmin;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
-import android.app.Instrumentation;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -106,17 +102,14 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
         });
     }
 
-    public void sVerify(View view) {
-        startActivity(new Intent(this,VerSList.class));
+    public void pendingJobs(View view) {
+        startActivity(new Intent(this, PendingJobList.class));
     }
 
     public void tVerify(View view) {
         startActivity(new Intent(this,VerTList.class));
     }
 
-    public void paid(View view) {
-        startActivity(new Intent(this,PaidJobsList.class));
-    }
 
     public void interviewCancel(View view) {
         startActivity(new Intent(this,InterviewCancelList.class));

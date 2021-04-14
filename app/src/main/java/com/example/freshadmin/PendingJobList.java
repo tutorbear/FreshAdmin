@@ -24,16 +24,16 @@ import com.parse.ParseQuery;
 import java.util.List;
 
 
-public class VerSList extends AppCompatActivity {
+public class PendingJobList extends AppCompatActivity {
 
-    VerSAdapter customAdapter;
+    PendingJobListAdapter customAdapter;
     LinearLayoutManager manager;
     RecyclerView recycle;
     List<ParseObject> obj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ver_s_list);
+        setContentView(R.layout.activity_pending_job_list);
         init();
         query();
     }
@@ -43,25 +43,22 @@ public class VerSList extends AppCompatActivity {
     }
 
     private void query() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("StudentProfile");
-
-        query.whereEqualTo("verified",false);
-        query.whereEqualTo("verFailed",false);
-        query.whereEqualTo("onDevice",true);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("PendingJobs");
+        query.include("createdBy");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if(e==null){
                     if (objects.size()==0){
-                        Toast.makeText(VerSList.this, "Nothing found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PendingJobList.this, "Nothing found", Toast.LENGTH_SHORT).show();
                     }else{
                         obj = objects;
-                        customAdapter = new VerSAdapter(VerSList.this, objects);
+                        customAdapter = new PendingJobListAdapter(PendingJobList.this, objects);
                         recycle.setAdapter(customAdapter);
                         recycle.setLayoutManager(manager);
                     }
                 }else{
-                    Toast.makeText(VerSList.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PendingJobList.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -71,7 +68,7 @@ public class VerSList extends AppCompatActivity {
 
     public void viewT(View view) {
         int pos = (int) view.getTag();
-        startActivityForResult(new Intent(this, VerS.class).putExtra("obj",obj.get(pos)).putExtra("pos",pos),1);
+        startActivityForResult(new Intent(this, PendingJob.class).putExtra("obj",obj.get(pos)).putExtra("pos",pos),1);
     }
 
     @Override
@@ -86,12 +83,12 @@ public class VerSList extends AppCompatActivity {
     }
 }
 
-class VerSAdapter extends RecyclerView.Adapter<VerSAdapter.MyViewHolder> {
+class PendingJobListAdapter extends RecyclerView.Adapter<PendingJobListAdapter.MyViewHolder> {
 
     Context context;
     List<ParseObject> title;
 
-    public VerSAdapter(Context context, List<ParseObject> title) {
+    public PendingJobListAdapter(Context context, List<ParseObject> title) {
         this.context = context;
         this.title = title;
     }
@@ -108,7 +105,7 @@ class VerSAdapter extends RecyclerView.Adapter<VerSAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.button.setTag(position);
-        holder.textView.setText(title.get(position).getString("username"));
+        holder.textView.setText(title.get(position).getObjectId());
     }
 
     @Override

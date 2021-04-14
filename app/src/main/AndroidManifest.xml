@@ -15,8 +15,8 @@
         <activity android:name=".InterviewCancel" />
         <activity android:name=".AfterBan" />
         <activity android:name=".AfterBanList" />
-        <activity android:name=".VerS" />
-        <activity android:name=".VerSList" />
+        <activity android:name=".PendingJob" />
+        <activity android:name=".PendingJobList" />
         <activity android:name=".VerT" />
         <activity android:name=".VerTList" />
         <activity android:name=".PaidJob" />
