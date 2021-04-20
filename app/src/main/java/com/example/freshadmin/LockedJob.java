@@ -38,7 +38,7 @@ import java.util.List;
 
 public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ParseObject obj;
-    TextView id,ngeo,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
+    TextView t1email,t2email,t3email,email,id,ngeo,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
     EditText dateAndTime,addressEditText;
     LinearLayout l1,l2,l3;
     Button t1No,t2No,t3No,t1view,t2view,t3view;
@@ -66,8 +66,10 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         sClass = findViewById(R.id.classJP);
         sub = findViewById(R.id.subjectJP);
         curr = findViewById(R.id.curriculumJP);
+        email = findViewById(R.id.email);
         address = findViewById(R.id.addressJP);
         ngeo = findViewById(R.id.negoJP);
+
         //Teacher
         t1N = findViewById(R.id.t1N);
         t1U = findViewById(R.id.t1U);
@@ -78,7 +80,9 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         t1Time= findViewById(R.id.t1Time);
         t2Time = findViewById(R.id.t2Time);
         t3Time = findViewById(R.id.t3Time);
-
+        t1email= findViewById(R.id.t1email);
+        t2email = findViewById(R.id.t2email);
+        t3email = findViewById(R.id.t3email);
         //Edit Text
         dateAndTime = findViewById(R.id.dateAndTime);
         addressEditText = findViewById(R.id.addressE);
@@ -102,7 +106,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
     @SuppressLint("SetTextI18n")
     private void set() {
-        
+
         if(obj.getList("applied")!=null){
             if(obj.getList("applied").size()!=0) {
                 new AlertDialog.Builder(this)
@@ -122,7 +126,9 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         id.setText("ID: "+ obj.getObjectId());
         ngeo.setText("Nego: "+ obj.getBoolean("negotiable"));
 
-        name.setText(""+obj.getParseObject("createdBy").getString("guardianName"));
+        name.setText("Name: "+obj.getParseObject("createdBy").getString("guardianName"));
+        curr.setText("Cur: "+obj.getString("curriculum"));
+        email.setText(""+obj.getParseObject("createdBy").getString("email"));
         salary.setText("Salary: "+ obj.get("salary").toString());
         location.setText("Location: "+ obj.getString("location"));
         stdNumber.setText("Number: "+ obj.get("numberOfStudents").toString());
@@ -130,6 +136,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         sub.setText("Subject1: "+ obj.getString("subject1")+"\nSubject2: "+ obj.getString("subject2"));
         address.setText("Address: "+ obj.getString("address"));
         dateAndTime.setText(obj.getString("gTimeDate"));
+
         // Setting visibility to false
         l1.setVisibility(View.GONE);
         l2.setVisibility(View.GONE);
@@ -138,6 +145,10 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         t1Time.setVisibility(View.GONE);
         t2Time.setVisibility(View.GONE);
         t3Time.setVisibility(View.GONE);
+
+        t1email.setVisibility(View.GONE);
+        t2email.setVisibility(View.GONE);
+        t3email.setVisibility(View.GONE);
 
         t1view.setVisibility(View.GONE);
         t2view.setVisibility(View.GONE);
@@ -152,15 +163,19 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     l1.setVisibility(View.VISIBLE);
                     t1N.setText(requested.get(0).getString("fullName"));
                     t1Time.setVisibility(View.VISIBLE);
+                    t1email.setVisibility(View.VISIBLE);
 
                     if(requested.get(0).getBoolean("banLock"))
                         t1N.setTextColor(Color.RED);
 
                     map.put("l1",requested.get(i).getObjectId());
+
+                    t1email.setText(""+requested.get(0).getString("email"));
                 }else if(i==1){
                     t2view.setVisibility(View.VISIBLE);
                     l2.setVisibility(View.VISIBLE);
                     t2Time.setVisibility(View.VISIBLE);
+                    t2email.setVisibility(View.VISIBLE);
 
                     t2N.setText(requested.get(1).getString("fullName"));
 
@@ -168,16 +183,21 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                         t2N.setTextColor(Color.RED);
 
                     map.put("l2",requested.get(i).getObjectId());
+                    t2email.setText(""+requested.get(1).getString("email"));
                 }else{
                     t3view.setVisibility(View.VISIBLE);
                     l3.setVisibility(View.VISIBLE);
                     t3N.setText(requested.get(2).getString("fullName"));
                     t3Time.setVisibility(View.VISIBLE);
+                    t3email.setVisibility(View.VISIBLE);
 
                     if(requested.get(2).getBoolean("banLock"))
                         t3N.setTextColor(Color.RED);
 
                     map.put("l3",requested.get(i).getObjectId());
+
+                    t3email.setText(""+requested.get(2).getString("email"));
+
                 }
             }
         }
@@ -304,15 +324,15 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                 if (view.getId()==R.id.t1No){
                     interviewTime.set(0,"");
                     id = map.get("l1");
-                    callCloudNotGoing(id,requested,l1,t1Time,t1view);
+                    callCloudNotGoing(id,requested,l1,t1Time,t1view,t1email);
                 }else if(view.getId()==R.id.t2No){
                     interviewTime.set(1,"");
                     id = map.get("l2");
-                    callCloudNotGoing(id,requested, l2, t2Time,t2view);
+                    callCloudNotGoing(id,requested, l2, t2Time,t2view,t2email);
                 }else{
                     interviewTime.set(2,"");
                     id = map.get("l3");
-                    callCloudNotGoing(id,requested, l3, t3Time,t3view);
+                    callCloudNotGoing(id,requested, l3, t3Time,t3view,t3email);
                 }
             }
         });
@@ -330,7 +350,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
     }
 
-    private void callCloudNotGoing(String id, List<ParseObject> requested, final LinearLayout l, final TextView time, final Button view) {
+    private void callCloudNotGoing(String id, List<ParseObject> requested, final LinearLayout l, final TextView time, final Button view,final TextView email) {
         String username = null;
         for (int i = 0; i < requested.size(); i++) {
             if(id.equals(requested.get(i).getObjectId())){
@@ -349,6 +369,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     view.setVisibility(View.GONE);
                     l.setVisibility(View.GONE);
                     time.setVisibility(View.GONE);
+                    email.setVisibility(View.GONE);
                 }else{
                     Toast.makeText(LockedJob.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
