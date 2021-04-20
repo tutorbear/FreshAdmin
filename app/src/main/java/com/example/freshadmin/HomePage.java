@@ -118,4 +118,8 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
     public void preLocked(View view) {
         startActivity(new Intent(this,PreLocked.class));
     }
+
+    public void bkashInput(View view) {
+        startActivity(new Intent(this,Bkash.class));
+    }
 }
