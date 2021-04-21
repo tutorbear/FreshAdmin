@@ -77,5 +77,14 @@
         tools:layout_editor_absoluteX="139dp"
         tools:layout_editor_absoluteY="136dp" />
 
+    <Button
+        android:id="@+id/button17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="bkashInput"
+        android:text="Bkash"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="136dp" />
+
 
 </LinearLayout>
