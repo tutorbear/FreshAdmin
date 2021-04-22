@@ -3,4 +3,42 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="tutor_bear_blue">#0784c3</color>
+    <color name="tutor_bear_highlight">#320784C3</color>
+
+    <color name="tutor_bear_text_blue">#0784C3</color>
+    <color name="tutor_bear_text_orange">#F68C1E</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="tutor_bear_dark_blue">#264467</color>
+    <color name="tutor_bear_light_blue">#467cbf</color>
+    <color name="color_hint_white">#9AFFFFFF</color>
+    <color name="color_transparent">#00FFFFFF</color>
+    <color name="tutor_bear_green">#1AA14A</color>
+    <color name="tutor_bear_red">#A10004</color>
+    <color name="tutor_bear_bright_red">#BE0000</color>
+    <color name="black">#000000</color>
+    <color name="grey">#D6D6D6</color>
+    <color name="bkash_pink">#D32165</color>
+    <color name="color_black_darker_overlay">#94000000</color>
+    <color name="color_black_lighter_overlay">#20000000</color>
+    <color name="shimmer_gray">#c0c0c0</color>
+    <color name="tutor_bear_dark_blue_hint">#8F264467</color>
+    <color name="tutor_bear_dark_blue_hinter">#6F264467</color>
+
+    <color name="tutor_bear_darker_blue">#223F60</color>
+    <color name="tutor_bear_space_blue">#011526</color>
+    <color name="tutor_bear_darkest_blue">#032847</color>
+    <color name="chip_green">#075E54</color>
+    <color name="white">#FFFFFF</color>
+    <color name="colorError">#ffff5722</color>
+    <color name="green">#FF00FF00</color>
+    <color name="gold">#ffcc02</color>
+
+
+    <color name="ucrop_color_toolbar">@color/tutor_bear_darker_blue</color>
+    <color name="ucrop_color_statusbar">@color/tutor_bear_darker_blue</color>
+    <color name="ucrop_color_widget_active">@color/tutor_bear_darker_blue</color>
+
+    <color name="ucrop_color_toolbar_widget">@color/white</color>
 </resources>

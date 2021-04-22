@@ -122,4 +122,12 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
     public void bkashInput(View view) {
         startActivity(new Intent(this,Bkash.class));
     }
+
+    public void createJob(View view) {
+        startActivity(new Intent(this, CreatePost.class));
+    }
+
+    public void AdminPosts(View view) {
+        startActivity(new Intent(this, AdminPosts.class));
+    }
 }

@@ -1,90 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomePage">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".HomePage">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="preLocked"
-        android:text="Pre-locked jobs"
-        />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="preLocked"
+            android:text="Pre-locked jobs"
+            />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="lockedJobs"
-        android:text="Locked Jobs"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="208dp" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="lockedJobs"
+            android:text="Locked Jobs"
+            tools:layout_editor_absoluteX="141dp"
+            tools:layout_editor_absoluteY="208dp" />
 
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="interviewCancel"
-        android:text="Interview Cancel"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="278dp" />
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="interviewCancel"
+            android:text="Interview Cancel"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="278dp" />
 
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="interview"
-        android:text="Interview Day"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="278dp" />
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="interview"
+            android:text="Interview Day"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="278dp" />
 
-    <Button
-        android:id="@+id/button13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="afterBan"
-        android:text="After Ban"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="342dp" />
+        <Button
+            android:id="@+id/button13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="afterBan"
+            android:text="After Ban"
+            tools:layout_editor_absoluteX="112dp"
+            tools:layout_editor_absoluteY="342dp" />
 
-    <Button
-        android:id="@+id/button14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="logout"
-        android:text="Logout"
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="409dp" />
+        <Button
+            android:id="@+id/button14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="logout"
+            android:text="Logout"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="409dp" />
 
-    <Button
-        android:id="@+id/button15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="pendingJobs"
-        android:text="Pending Jobs"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="67dp" />
+        <Button
+            android:id="@+id/button15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="pendingJobs"
+            android:text="Pending Jobs"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="67dp" />
 
-    <Button
-        android:id="@+id/button16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="tVerify"
-        android:text="verify Teacher"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="136dp" />
+        <Button
+            android:id="@+id/button16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="tVerify"
+            android:text="verify Teacher"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="136dp" />
 
-    <Button
-        android:id="@+id/button17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="bkashInput"
-        android:text="Bkash"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="136dp" />
+        <Button
+            android:id="@+id/button17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="bkashInput"
+            android:text="Bkash"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="136dp" />
 
-
-</LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="createJob"
+            android:text="create job"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="136dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="AdminPosts"
+            android:text="Admin Posts"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="136dp" />
+    </LinearLayout>
+</ScrollView>

@@ -2,13 +2,349 @@
     <string name="app_name">Fresh Admin</string>
 
     <!--   Prod app keys app keys-->
-    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
-    <string name="back4app_app_id">O2RtSIq6w0Gbllz5OochU9MgP0FutrWF2dZiOrT6</string>
-    <string name="back4app_client_key">3DKAJ46INNLWSCOrOelhKChtyWMsVTaOqkNsNS1M</string>
+        <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+        <string name="back4app_app_id">O2RtSIq6w0Gbllz5OochU9MgP0FutrWF2dZiOrT6</string>
+        <string name="back4app_client_key">3DKAJ46INNLWSCOrOelhKChtyWMsVTaOqkNsNS1M</string>
 
     <!--   Dev app keys app keys-->
-    <!--    <string name="back4app_server_url">https://tutorbearonline.b4a.io/</string>-->
-    <!--    <string name="back4app_app_id">e1LZ8SyDqF5eB5F1Qe1OWbeZlpVnRqYa7nPS6ZYd</string>-->
-    <!--    <string name="back4app_client_key">esbD60kw3AD1tAhj9UBuFs4sZXt7O06tOqXz0qoy</string>-->
+<!--    <string name="back4app_server_url">https://tutorbearonline.b4a.io/</string>-->
+<!--    <string name="back4app_app_id">e1LZ8SyDqF5eB5F1Qe1OWbeZlpVnRqYa7nPS6ZYd</string>-->
+<!--    <string name="back4app_client_key">esbD60kw3AD1tAhj9UBuFs4sZXt7O06tOqXz0qoy</string>-->
+
+    <!-- All Activities-->
+    <string name="all_submit">SUBMIT</string>
+    <string name="all_name">Name</string>
+    <string name="all_update">Update</string>
+    <string name="all_male">Male</string>
+    <string name="all_female">Female</string>
+    <string name="all_gender">Gender</string>
+    <string name="all_any">Any</string>
+    <string name="all_yes">Yes</string>
+    <string name="all_no">No</string>
+    <string name="all_cancel">Cancel</string>
+    <string name="all_hired">Hired</string>
+    <string name="all_done">Confirm</string>
+    <string name="all_hasApplied">Has applied to your post!</string>
+    <string name="all_dismiss">Dismiss</string>
+    <string name="all_okay">Okay</string>
+    <string name="all_apply">Apply</string>
+
+
+    <!-- Welcome Activity-->
+    <string name="welcome_getStarted">GET STARTED</string>
+    <string name="welcome_swipeLeft">Swipe left or click below</string>
+
+
+    <!-- TeacherOrStudent Activity-->
+    <string name="teacherOrStudent_areYouTeacherOrGuardian">Are you a teacher or a guardian?</string>
+    <string name="teacherOrStudent_iAmTeacher">I AM A TEACHER</string>
+    <string name="teacherOrStudent_iAmGuardian">I AM A STUDENT OR GUARDIAN</string>
+    <string name="teacherOrStudent_login">Already have an account?</string>
+    <string name="teacherOrStudent_pleaseSelect">Please select</string>
+    <string name="teacherOrStudent_ifTeacherOrStudent">If you are a teacher or student!</string>
+
+    <!-- Enter Phone Activity-->
+    <string name="termsAndConditions">By signing up, I agree to Tutor Bear\'s terms &amp; conditions.</string>
+
+
+    <string name="verification">Verification</string>
+    <string name="hintGetVerifiedSooner">Hint: Use clear images to get verified sooner!</string>
+
+    <!-- Student Guides Slides Activity-->
+    <string name="studentSlide_takeTour">Take A Tour!</string>
+    <string name="studentSlide_greetings">Greetings Student/Guardian!\nSwipe left to learn how the app works!</string>
+    <string name="studentSlide_takeTourLater">Hint: You can always take a tour later!</string>
+
+
+    <string name="studentSlide_postTuitions">Create Tutions</string>
+    <string name="studentSlide_postTuitionsToAttractTutors">Create your required tuition to attract qualified tutors!</string>
+    <string name="studentSlide_hintPostTuitions">Hint: You can post maximum of 2 tuitions at a time</string>
+    <string name="studentSlide_interview">Interview</string>
+    <string name="studentSlide_interviewAndHire">Interview your selected candidates and hire the best one, good luck!</string>
+    <string name="studentSlide_hintInterview">Hint: We will contact you for your decision once you are done with the interviews</string>
+    <string name="studentSlide_selectTutors">Select Tutors</string>
+    <string name="studentSlide_selectUpTo">Select up to 3 professional tutors for an online interview! The interview date and time will be set mutually through us.</string>
+    <string name="studentSlide_hintSelectTutors">Hint: A maximum of 10 tutors can apply to one tuition</string>
+    <string name="studentSlide_skip">Skip</string>
+
+
+    <!-- Common Home Activity-->
+    <string name="home_myProfile">My Profile</string>
+    <string name="home_editProfile">Edit Profile</string>
+    <string name="home_viewProfile">View Profile</string>
+    <string name="home_helpCenter">Help Center</string>
+    <string name="home_faq">FAQ</string>
+    <string name="home_contactUs">Contact Us</string>
+    <string name="home_share">Share</string>
+    <string name="home_history">History</string>
+    <string name="home_logOut">Log out</string>
+    <string name="home_createProfile">Create Profile</string>
+
+
+    <!-- Profile Setup Activity-->
+    <string name="profileSetup_setUp">Setting you up!</string>
+    <string name="profileSetup_somethingWrong">Something went wrong :(</string>
+    <string name="profileSetup_retry">Retry</string>
+    <string name="profileSetup_settingAccount">Setting up your account!</string>
+    <string name="profileSetup_welcomeBack">Welcome back ^_^</string>
+    <string name="profileSetup_ohNo">Oh no!</string>
+    <string name="profileSetup_couldNotConnectToInternet">Could not connect to the internet :(</string>
+    <string name="profileSetup_setUpComplete">Set up complete!</string>
+    <string name="profileSetup_welcomeToTutorBear">Welcome to TutorBear ^_^</string>
+
+
+    <!-- Student Home Activity-->
+    <string name="studentHome_updatePhone">Update Phone</string>
+    <string name="studentHome_newNumber">01-XXX-XXX-XXX</string>
+
+
+    <!-- Student Home Fragment-->
+    <string name="studentHome_createTuition">Create Tuition</string>
+    <string name="studentHome_myTuitions">My Tuitions</string>
+    <string name="studentHome_completeProfile">Complete your profile now? It will only take a few minutes</string>
+    <string name="studentHome_reviewingProfile">Reviewing Profile</string>
+
+
+    <!-- Student Create Profile Activity-->
+    <string name="studentCreateProfile_guardiansName">Guardian\'s Name</string>
+    <string name="studentCreateProfile_guardiansNID">Photo of Guardian\'s NID</string>
+    <string name="studentCreateProfile_relationWithStudent">Relation with Student</string>
+    <string name="studentCreateProfile_example"> Example: Mother, Father</string>
+    <string name="studentCreateProfile_studentID">  Most Recent Student ID Card</string>
+
+
+    <!-- Student View Profile Activity-->
+    <string name="studentViewProfile_relation">Relationship</string>
+    <string name="studentViewProfile_verificationPending">Verification Pending</string>
+    <string name="studentViewProfile_tutorsHired">Tutors Hired</string>
+    <string name="studentViewProfile_tutorBearEmail">tutorbearonline@gmail.com</string>
+
+
+    <!-- Student Create Post Activity-->
+    <string name="studentCreatePost_numberOfStudents">Number Of Students</string>
+    <string name="studentCreatePost_curriculum">Curriculum</string>
+    <string name="studentCreatePost_numberOfStudents1">1</string>
+    <string name="studentCreatePost_numberOfStudents2">2</string>
+    <string name="studentCreatePost_bengaliMed">Bengali Medium</string>
+    <string name="studentCreatePost_engCambridge">English-Cambridge</string>
+    <string name="studentCreatePost_engEdexcel">English-Edexcel</string>
+    <string name="studentCreatePost_engVersion">English-Version</string>
+    <string name="studentCreatePost_Inter">International Baccalaureate</string>
+    <string name="studentCreatePost_Mad">Madrasa Medium</string>
+    <string name="studentCreatePost_std1">Student 1</string>
+    <string name="studentCreatePost_std2">Student 2</string>
+    <string name="studentCreatePost_subjects">Subjects</string>
+    <string name="studentCreatePost_subjectsHint">Hint: Maths, Physics, DU</string>
+    <string name="studentCreatePost_studentsGender">Student\'s Gender</string>
+    <string name="studentCreatePost_preferredTeachersGender">Preferred Tutor\'s Gender</string>
+    <string name="studentCreatePost_yourLocation">Your Location</string>
+
+
+    <string name="studentCreatePost_yourAddress">Your Address</string>
+    <string name="studentCreatePost_addressHint">Hint: Block#, Road#, House#, Flat#</string>
+    <string name="studentCreatePost_daysInWeek">Days the tutor will come in a week</string>
+    <string name="studentCreatePost_negotiable">Is the Salary Negotiable ? </string>
+    <string name="studentCreatePost_daysInWeek1">1</string>
+    <string name="studentCreatePost_daysInWeek2">2</string>
+    <string name="studentCreatePost_daysInWeek3">3</string>
+    <string name="studentCreatePost_daysInWeek4">4</string>
+    <string name="studentCreatePost_daysInWeek5">5</string>
+    <string name="studentCreatePost_daysInWeek6">6</string>
+    <string name="studentCreatePost_daysInWeek7">7</string>
+    <string name="studentCreatePost_teachTime">Student\'s study time</string>
+    <string name="studentCreatePost_to">To</string>
+    <string name="studentCreatePost_chooseTime">Tap to set</string>
+    <string name="studentCreatePost_salaryOffer">Salary Offer (TK)</string>
+    <string name="studentCreatePost_salaryHint">e.g: 5000</string>
+    <string name="studentCreatePost_class">Class</string>
+    <string name="studentCreatePost_typeOfTuition">Type of Tuition</string>
+    <string name="studentCreatePost_home">Home</string>
+    <string name="studentCreatePost_online">Online</string>
+
+
+    <!-- Student Confirm Post Activity-->
+    <string name="studentConfirmPost_confirmPost">Confirm Post</string>
+    <string name="studentConfirmPost_correctDetails">Please make sure all the details provided are correct.</string>
+    <string name="studentConfirmPost_grade">Grade</string>
+    <string name="studentConfirmPost_class9">Class 9</string>
+    <string name="studentConfirmPost_tTime">9:00 PM - 6:00 AM</string>
+    <string name="studentConfirmPost_salaryNegotiable">Salary Negotiable</string>
+    <string name="studentConfirmPost_contactSupportForEdit">If you wish to edit your post later then you will have to contact support.</string>
+    <string name="studentConfirmPost_post">Post</string>
+
+
+    <!-- Student My Post Activity-->
+    <string name="studentMyPost_postNumber">Post </string>
+    <string name="studentMyPost_edit">Edit post</string>
+    <string name="studentMyPost_delete">Delete</string>
+    <string name="studentMyPost_teachersWhoApplied">See Tutors who applied</string>
+    <string name="studentMyPost_selected">Selected Tutors</string>
+    <string name="studentMyPost_showMore">Show More</string>
+    <string name="studentMyPost_salary">SALARY  </string>
+
+
+    <!-- Student View My Post Activity-->
+    <string name="studentViewMyPost_location">Location</string>
+    <string name="studentViewMyPost_numberOfStudents">Number of students</string>
+    <string name="studentViewMyPost_preferredTutorGender">Required Tutor Gender</string>
+    <string name="studentViewMyPost_daysInWeek">Days in a week</string>
+    <string name="studentViewMyPost_preferredTime">Study Time</string>
+    <string name="studentViewMyPost_deletePost">Delete post?</string>
+    <string name="studentViewMyPost_confirmDelete">Are you sure you wish to delete this post?\nThis action cannot be undone.</string>
+
+
+    <!-- Student Teachers Applications Activity-->
+    <string name="studentTeachersApplications_uniNameAndProgram">University Name and Program</string>
+    <string name="studentTeachersApplications_schoolNameAndDegree">O levels from Academia</string>
+    <string name="studentTeachersApplications_collegeNameAndDegree">A levels from Academia</string>
+    <string name="studentTeachersApplications_selectForInterview">Select for Interview</string>
+    <string name="studentTeachersApplications_teacherApplications">Teacher Applications</string>
+    <string name="studentTeachersApplications_0TeachersSelected">0 Teachers Selected</string>
+    <string name="studentTeachersApplications_interviewCandidates">Interview Candidates</string>
+
+
+    <!-- Teacher Guide Slides Activity-->
+    <string name="teacherSlide_greetings">Hola Teacher!\nSwipe left to learn how the app works!</string>
+    <string name="teacherSlide_navigateTuitionBoard">Select your preferred tuition from the Tuition Board! Scroll up or down to navigate through tuitions.</string>
+    <string name="teacherSlide_createProfileGetVerified">Tutors have to be verified before they can start applying for tuitions. Create your profile and get verified!</string>
+    <string name="teacherSlide_selectedForInterview">When you get selected for a tuition, you will be called for an online interview. Remember to stay professional and good luck!</string>
+    <string name="teacherSlide_selectedForInterview_hint">Hint: We charge a one time service charge per tuition only after confirmation</string>
+
+
+    <!-- Teacher Home Activity-->
+    <string name="teacherHome_tuitionBoard">Tuition Board</string>
+    <string name="teacherHome_payment">Payment</string>
+    <string name="teacherHome_payServiceFee">Pay Service fee</string>
+    <string name="teacherHome_payFines">Pay Fines</string>
+
+
+    <!-- Teacher Job Board Activity-->
+    <string name="teacherJobBoard_appliedTo0Tuitions">Applied to 0 Tuitions</string>
+    <string name="teacherJobBoard_filter">Filter</string>
+
+    <string name="teacherJobBoard_salary">Any</string>
+
+
+    <!-- Teacher Create Profile Activity-->
+    <string name="teacherProfile_fullName">Full Name</string>
+    <string name="teacherProfile_englishMedium">English Medium</string>
+    <string name="teacherProfile_selectBackground">Background</string>
+    <string name="teacherProfile_backgroundScience">Science</string>
+    <string name="teacherProfile_backgroundCommerce">Commerce</string>
+    <string name="teacherProfile_backgroundMixed">Mixed</string>
+    <string name="teacherProfile_backgroundArts">Arts</string>
+    <string name="teacherProfile_selectEduLevel">Current Education Level</string>
+    <string name="teacherProfile_currentEducationSSC">SSC</string>
+    <string name="teacherProfile_currentEducationHSC">HSC</string>
+    <string name="teacherProfile_currentEducationOLevel">O Level</string>
+    <string name="teacherProfile_currentEducationALevel">A Level</string>
+    <string name="teacherProfile_currentEducationUniversity">University</string>
+    <string name="teacherProfile_teachingExperience">Teaching Experience</string>
+    <string name="teacherProfile_teachingExperience0.5Year">&#189; Year</string>
+    <string name="teacherProfile_teachingExperience1Year">1 Year</string>
+    <string name="teacherProfile_teachingExperience2Years">2 Years</string>
+    <string name="teacherProfile_teachingExperience3Year3">3 Years</string>
+    <string name="teacherProfile_teachingExperience4YearsOrMore">4 Years or More</string>
+    <string name="teacherProfile_schoolName">Name of School</string>
+    <string name="teacherProfile_collegeName">Name of College</string>
+    <string name="teacher_profile_uploadCertificate">Photo of SSC/HSC or O\'level/A\'level certificate </string>
+    <string name="teacherProfile_uniName">Name of University</string>
+    <string name="teacherProfile_uniProgram">University Program</string>
+    <string name="teacherProfile_uniProgramHint">Hint: CSE, BBA, MBA</string>
+    <string name="teacherProfile_uploadUniIdCard">Photo of University ID Card</string>
+    <string name="teacherProfile_uploadNIDBirthCertificate">Photo of NID or Birth Certificate</string>
+    <string name="teacherProfile_uploadProPic">Professional Profile Picture</string>
+
+
+    <!-- Teacher View Profile-->
+    <string name="teacherViewProfile_uniAndProgram">University and Program</string>
+    <string name="teacherViewProfile_jobsCompleted">Jobs Completed</string>
+    <string name="teacherViewProfile_email">Email</string>
+    <string name="teacherViewProfile_phoneNumber">Phone Number</string>
+    <string name="teacherViewProfile_tuitionsApplied">Tuitions Applied</string>
+    <string name="teacherViewProfile_experience1Year">Experience: 1 Year</string>
+    <string name="teacherViewProfile_scienceBackground">Science Background</string>
+    <string name="teacherViewProfile_CSEBRAC">CSE from BRAC</string>
+    <string name="teacherViewProfile_AlevelAcademia">A level from Academia</string>
+    <string name="teacherViewProfile_OlevelAcademia">O level from Academia</string>
+
+
+    <!-- Teacher Edit Profile Activity-->
+    <string name="navigation_drawer_close">navigation drawer close</string>
+    <string name="navigation_drawer_open">navigation drawer open</string>
+
+
+    <!--These values are for Filtering Job(AKA Student post Filter)-->
+    <string name="filter_minSalary">Minimum salary</string>
+    <string name="filter_teachersGender">Wanted Teacher\'s gender</string>
+    <string name="teacherMyPost_paymentPending">PAYMENT PENDING</string>
+    <string name="teacherMyPost_ID">ID:XDDDDDSFSFS</string>
+
+    <string name="teacherPayment_amountDue">Amount Due</string>
+
+
+    <!-- Teacher My Post Activity-->
+    <string name="teacherPayment_amount1020">1020</string>
+    <string name="teacherPayment_makePayment">Make Payment</string>
+
+
+    <!-- Teacher Payment Activity-->
+    <string name="teacherPayment_TRXID">TrxId</string>
+    <string name="teacherPayment_paymentDetails">Payment Details</string>
+    <string name="teacherPayment_payTo">Send Money</string>
+    <string name="teacherPayment_serviceCharge">Service charge</string>
+    <string name="teacherPayment_discount">Discount</string>
+    <string name="teacherPayment_charge1500">1500</string>
+    <string name="teacherPayment_discount500">500</string>
+    <string name="teacherPayment_subTotal">Sub Total</string>
+    <string name="teacherPayment_paid">Paid</string>
+    <string name="teacherPayment_paid0">0</string>
+    <string name="teacherPayment_paymentDialog">Please pay the Sub Total through bKash by sending money to %1$s. After payment is successful, please enter the trxId and submit.</string>
+    <string name="teacherPayment_paymentFailureDialog">Please note: Failure to do so will result in a BAN from the platform. In addition, Tutor Bear has no refund policy. Thank you.</string>
+    <string name="bottom_profileIncomplete">Profile Incomplete</string>
+    <string name="bottom_completeNow">Would you like to complete your profile right now?</string>
+    <string name="snackbars_cantConnectToServers">Can\'t connect to servers</string>
+
+
+    <!-- Bottom Activities-->
+    <string name="snackbars_checkYourInternet">Please check your internet connection</string>
+    <string name="snackbars_invalidLogin">Invalid OTP Code</string>
+
+
+    <!-- Snackbars-->
+    <string name="snackbars_verificationPending">Verification Pending</string>
+    <string name="snackbars_pleaseBePatient">Please be patient while we verify your profile</string>
+    <string name="snackbars_invalidTrxID">Invalid trxID</string>
+    <string name="snackbars_reenterTrxID">Please re-enter your trxId\nIf this problem persists, please contact help center</string>
+    <string name="snackbars_incorrectNumber">Please submit the correct OTP code</string>
+    <string name="home_guide">Guide</string>
+    <string name="title_activity_student_tuition_board">StudentTuitionBoard</string>
+    <string name="hello_world">Hello Square World!</string>
+    <string-array name="filterNumberOfStudents">
+        <item>Any</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="filterCurriculum">
+        <item>Any</item>
+        <item>Bengali Medium</item>
+        <item>English-Cambridge</item>
+        <item>English-Edexcel</item>
+        <item>English-Version</item>
+    </string-array>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string-array name="filterGender">
+        <item>Any</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
 </resources>
 

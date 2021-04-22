@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/roboto_regular"
+    android:textColor="@color/tutor_bear_dark_blue"
+    android:textSize="@dimen/_16sdp"
+    android:textAlignment="textStart"
+    android:layout_marginVertical="@dimen/_5sdp"
+    android:text="Dhaka"
+    android:padding= "@dimen/_10sdp"
+    >
+
+</CheckedTextView>
