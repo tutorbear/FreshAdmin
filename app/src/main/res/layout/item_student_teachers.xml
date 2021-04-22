@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="@dimen/_3sdp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_60sdp"
+                android:fontFamily="@font/kiona_regular"
+                android:gravity="center"
+                android:text="@string/all_name"
+                android:textAlignment="center"
+                android:textColor="@color/tutor_bear_dark_blue"
+                android:textSize="@dimen/_25sdp" />
+
+            <TextView
+                android:id="@+id/txt_uni_name_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/teacherProfile_teachingExperience"
+                android:textAlignment="center"
+                android:textColor="@color/tutor_bear_dark_blue"
+                android:textSize="@dimen/_16sdp" />
+
+            <TextView
+                android:id="@+id/txt_college_name_degree"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/teacherProfile_selectBackground"
+
+                android:textAlignment="center"
+                android:textColor="@color/tutor_bear_dark_blue"
+                android:textSize="@dimen/_14sdp" />
+
+            <TextView
+                android:id="@+id/txt_school_name_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/studentCreatePost_bengaliMed"
+                android:textAlignment="center"
+                android:textColor="@color/tutor_bear_dark_blue"
+                android:textSize="@dimen/_14sdp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@color/tutor_bear_dark_blue" />
+
+
+            <TextView
+                android:id="@+id/txt_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/studentTeachersApplications_uniNameAndProgram"
+                android:textAlignment="center"
+                android:textColor="@color/tutor_bear_dark_blue"
+                android:textSize="@dimen/_14sdp" />
+
+            <TextView
+                android:id="@+id/txt_curriculum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/studentTeachersApplications_schoolNameAndDegree"
+                android:textAlignment="center"
+                android:textColor="@color/tutor_bear_dark_blue"
+                android:textSize="@dimen/_14sdp" />
+
+            <TextView
+                android:id="@+id/txt_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/studentTeachersApplications_collegeNameAndDegree"
+                android:textAlignment="center"
+                android:textColor="@color/tutor_bear_dark_blue"
+                android:textSize="@dimen/_14sdp" />
+            <View
+                android:id="@+id/interview_line"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@color/tutor_bear_dark_blue" />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/txt_interview_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:fontFamily="@font/roboto_regular"
+                android:lineSpacingExtra="@dimen/_8sdp"
+                android:text="Interview time and date"
+                android:textAlignment="center"
+                android:textColor="@color/tutor_bear_dark_blue"
+                android:textSize="@dimen/_17sdp" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/txt_interview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:fontFamily="@font/roboto_light"
+                android:lineSpacingExtra="@dimen/_8sdp"
+                android:text="Interview time and date\n 5:30pm on 17th Jan"
+                android:textAlignment="center"
+                android:textColor="@color/tutor_bear_dark_blue"
+                android:textSize="@dimen/_14sdp" />
+
+            <View
+                android:visibility="gone"
+                android:id="@+id/spacer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp"
+                />
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/selectChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:onClick="chipClicked"
+                android:text="@string/studentTeachersApplications_selectForInterview"
+                android:textAppearance="@style/chipTextGuardian"
+                android:textColor="@color/chip_color_list_select_text"
+                app:checkedIcon="@drawable/ic_tick_1"
+                app:checkedIconEnabled="true"
+                app:chipBackgroundColor="@color/chip_color_list_select_background"
+                app:chipStrokeColor="@color/tutor_bear_green"
+                app:chipStrokeWidth="@dimen/_1sdp"
+                app:rippleColor="@color/color_white" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_pro_pic"
+        android:layout_width="@dimen/_97sdp"
+        android:layout_height="@dimen/_97sdp"
+        android:elevation="@dimen/_7sdp"
+        android:src="@color/color_white"
+
+        app:layout_constraintBottom_toBottomOf="@+id/border"
+        app:layout_constraintEnd_toEndOf="@+id/border"
+        app:layout_constraintStart_toStartOf="@+id/border"
+        app:layout_constraintTop_toTopOf="@+id/border"
+
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/border"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:elevation="@dimen/_6sdp"
+        android:src="@color/color_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/card_view"
+        app:layout_constraintStart_toStartOf="@+id/card_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

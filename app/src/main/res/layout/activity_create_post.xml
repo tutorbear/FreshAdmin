@@ -1,0 +1,1069 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/tutor_bear_darkest_blue"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme" />
+
+
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/inside_backgroundg"
+            android:scrollbarThumbVertical="@drawable/scroll_view_thumb_vertical_thick_white">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusableInTouchMode="true">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:hint="Mobile"
+                    android:textColorHint="@color/color_hint_white"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phone"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_18sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:hint="Your Name"
+                    android:textColorHint="@color/color_hint_white"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_18sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:hint="Email"
+                    android:textColorHint="@color/color_hint_white"
+                    app:helperText="Hint: example@gmail.com"
+                    app:helperTextTextAppearance="@style/robotoLightItalic"
+                    app:helperTextTextColor="@color/white"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_18sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txt_student_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/studentCreatePost_numberOfStudents"
+                    android:textAlignment="center"
+                    android:textColor="#FFFF"
+                    android:textSize="@dimen/_22sdp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/numberOfStudentsChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:checkedChip="@+id/numberOne"
+                    app:chipSpacingHorizontal="@dimen/_20sdp"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/numberOne"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_numberOfStudents1"
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        android:textAppearance="@style/textChipStyle."
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/numberTwo"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_numberOfStudents2"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/studentCreatePost_curriculum"
+                    android:textAlignment="center"
+                    android:textColor="#FFFF"
+                    android:textSize="@dimen/_22sdp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/curriculumChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    app:checkedChip="@+id/curriculumBengaliMedium"
+                    app:chipSpacingHorizontal="@dimen/_20sdp"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/curriculumBengaliMedium"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_bengaliMed"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/curriculumEnglishCambridge"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_engCambridge"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/curriculumEnglishEdexcel"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_engEdexcel"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/curriculumEnglishVersion"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_engVersion"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/curriculumBaccalaureate"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_Inter"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/curriculumMadrasa"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_Mad"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/expandStudent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:el_duration="500"
+                    app:el_expanded="true"
+                    app:el_parallax="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_24sdp"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="@string/studentCreatePost_std1"
+                        android:textAlignment="center"
+                        android:textColor="#FFFF"
+                        android:textSize="@dimen/_22sdp" />
+
+                </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:hint="Subjects"
+                    android:textColorHint="@color/color_hint_white"
+                    app:helperText="@string/studentCreatePost_subjectsHint"
+                    app:helperTextTextAppearance="@style/robotoLightItalic"
+                    app:helperTextTextColor="@color/white"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etxt_std1_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:imeOptions="actionDone"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_18sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/std1ClassTextInputLayout"
+                    style="@style/ExposeInputLayoutStyle"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:hint="Class"
+                    android:textColorHint="@color/color_hint_white"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:endIconTint="@color/white"
+                    app:hintTextColor="@color/white">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/std1ClassAutoComplete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:fontFamily="@font/roboto_light"
+                        android:inputType="none|textNoSuggestions"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_18sdp"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_light"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:text="@string/studentCreatePost_studentsGender"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_18sdp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/std1GenderChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:checkedChip="@+id/std1Male"
+                    app:chipSpacingHorizontal="@dimen/_20sdp"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/std1Male"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/all_male"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/std1Female"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/all_female"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/expandStudent2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:el_duration="500"
+                    app:el_expanded="true"
+                    app:el_parallax="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_24sdp"
+                            android:fontFamily="@font/roboto_light"
+                            android:text="@string/studentCreatePost_std2"
+                            android:textAlignment="center"
+                            android:textColor="#FFFF"
+                            android:textSize="@dimen/_22sdp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="@dimen/_250sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_24sdp"
+                            android:hint="Subjects"
+                            android:textColorHint="@color/color_hint_white"
+                            app:helperText="@string/studentCreatePost_subjectsHint"
+                            app:helperTextTextAppearance="@style/robotoLightItalic"
+                            app:helperTextTextColor="@color/white"
+                            app:boxStrokeWidth="@dimen/_1sdp"
+                            app:hintTextColor="@color/white">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etxt_std2_sub"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_light"
+                                android:singleLine="true"
+                                android:imeOptions="actionDone"
+                                android:textColor="@color/white"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_18sdp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/std2ClassTextInputLayout"
+                            style="@style/ExposeInputLayoutStyle"
+                            android:layout_width="@dimen/_250sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_24sdp"
+                            android:hint="Class"
+                            android:textColorHint="@color/color_hint_white"
+                            app:boxStrokeWidth="@dimen/_1sdp"
+                            app:endIconTint="@color/white"
+                            app:hintTextColor="@color/white">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/std2ClassAutoComplete"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="false"
+                                android:fontFamily="@font/roboto_light"
+                                android:inputType="none|textNoSuggestions"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_18sdp"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/roboto_light"
+                            android:text="@string/studentCreatePost_studentsGender"
+                            android:layout_marginTop="@dimen/_24sdp"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/_18sdp" />
+
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/std2GenderChipGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_gravity="center"
+                            app:checkedChip="@+id/std2Male"
+                            app:chipSpacingHorizontal="@dimen/_20sdp"
+                            app:selectionRequired="true"
+                            app:singleSelection="true">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/std2Male"
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:text="@string/all_male"
+                                android:textAppearance="@style/textChipStyle."
+                                android:textColor="@color/chip_color_list__student_post_text"
+                                app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                                app:chipStrokeColor="@color/white"
+                                app:chipStrokeWidth="@dimen/_1sdp"
+                                app:chipSurfaceColor="@color/color_transparent"
+                                app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/std2Female"
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:text="@string/all_female"
+                                android:textAppearance="@style/textChipStyle."
+                                android:textColor="@color/chip_color_list__student_post_text"
+                                app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                                app:chipStrokeColor="@color/white"
+                                app:chipStrokeWidth="@dimen/_1sdp"
+                                app:chipSurfaceColor="@color/color_transparent"
+                                app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                        </com.google.android.material.chip.ChipGroup>
+
+
+                    </LinearLayout>
+
+                </net.cachapa.expandablelayout.ExpandableLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/studentCreatePost_preferredTeachersGender"
+                    android:textAlignment="center"
+                    android:textColor="#FFFF"
+                    android:textSize="@dimen/_22sdp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/teacherGenderChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:checkedChip="@+id/teacherAny"
+                    app:chipSpacingHorizontal="@dimen/_20sdp"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/teacherAny"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/all_any"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/teacherMale"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/all_male"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/teacherFemale"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/all_female"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/ExposeInputLayoutStyle"
+                    android:id="@+id/cityInputLayout"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:hint="City/District"
+                    android:textColorHint="@color/color_hint_white"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:endIconTint="@color/white"
+                    app:hintTextColor="@color/white">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/cityAutoComplete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:fontFamily="@font/roboto_light"
+                        android:inputType="none|textNoSuggestions"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_18sdp"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/locationExpand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    app:el_duration="500"
+                    app:el_expanded="true"
+                    app:el_parallax="1">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/locationTextInputLayout"
+                        style="@style/ExposeInputLayoutStyle"
+                        android:layout_width="@dimen/_250sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:hint="Location"
+                        android:textColorHint="@color/color_hint_white"
+                        app:boxStrokeWidth="@dimen/_1sdp"
+                        app:endIconTint="@color/white"
+                        app:hintTextColor="@color/white">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/locationAutoComplete"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:cursorVisible="false"
+                            android:fontFamily="@font/roboto_light"
+                            android:inputType="none|textNoSuggestions"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_18sdp"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:hint="Address"
+                    app:helperText="@string/studentCreatePost_addressHint"
+                    app:helperTextTextAppearance="@style/robotoLightItalic"
+                    app:helperTextTextColor="@color/white"
+                    android:textColorHint="@color/color_hint_white"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etxt_address"
+                        android:layout_width="match_parent"
+                        android:imeOptions="actionDone"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_18sdp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/studentCreatePost_daysInWeek"
+                    android:textAlignment="center"
+                    android:textColor="#FFFF"
+                    android:textSize="@dimen/_22sdp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/daysInWeekChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:checkedChip="@+id/c4"
+                    app:chipSpacingHorizontal="@dimen/_5sdp"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/c1"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/studentCreatePost_daysInWeek1"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/c2"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_daysInWeek2"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/c3"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_daysInWeek3"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/c4"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_daysInWeek4"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/c5"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_daysInWeek5"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/c6"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_daysInWeek6"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/c7"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/studentCreatePost_daysInWeek7"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/studentCreatePost_teachTime"
+                    android:textAlignment="center"
+                    android:textColor="#FFFF"
+                    android:textSize="@dimen/_22sdp" />
+
+
+                <TextView
+                    android:id="@+id/txt_chooseTime1"
+                    android:layout_width="@dimen/_180sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:background="@drawable/white_border_background"
+                    android:drawableEnd="@drawable/ic_time"
+                    android:fontFamily="@font/roboto_light"
+                    android:hint="@string/studentCreatePost_chooseTime"
+                    android:onClick="getTime"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_3sdp"
+                    android:textColor="@color/color_white"
+                    android:textColorHint="@color/color_hint_white"
+                    android:textSize="@dimen/_20sdp" />
+
+                <TextView
+                    android:id="@+id/txt_studentCreatePos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center"
+                    android:text="@string/studentCreatePost_to"
+                    android:textAlignment="center"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_24sdp" />
+
+                <TextView
+                    android:id="@+id/txt_chooseTime2"
+                    android:layout_width="@dimen/_180sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:background="@drawable/white_border_background"
+                    android:drawableEnd="@drawable/ic_time"
+                    android:fontFamily="@font/roboto_light"
+                    android:hint="@string/studentCreatePost_chooseTime"
+                    android:onClick="getTime"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_3sdp"
+                    android:textColor="@color/color_white"
+                    android:textColorHint="@color/color_hint_white"
+                    android:textSize="@dimen/_20sdp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:hint="Salary Per Month"
+                    android:textColorHint="@color/color_hint_white"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etxt_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_18sdp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/studentCreatePost_negotiable"
+                    android:textAlignment="center"
+                    android:textColor="#FFFF"
+                    android:textSize="@dimen/_22sdp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/negotiableChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:checkedChip="@+id/yes"
+                    app:chipSpacingHorizontal="@dimen/_20sdp"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/yes"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/all_yes"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/no"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/all_no"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Type of Tuition"
+                    android:textAlignment="center"
+                    android:textColor="#FFFF"
+                    android:textSize="@dimen/_22sdp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/tuitionTypeChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:checkedChip="@+id/homeTuitionChip"
+                    app:chipSpacingHorizontal="@dimen/_20sdp"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/homeTuitionChip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="Home"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/onlineTuitionChip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="Online"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:layout_marginBottom="@dimen/_50sdp"
+                    android:background="@drawable/button_background_white_orange_ripple"
+                    android:fontFamily="@font/kiona_regular"
+                    android:onClick="submitPost"
+                    android:text="@string/all_submit"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/button_text_white_teacher"
+                    android:textSize="@dimen/_19sdp" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
