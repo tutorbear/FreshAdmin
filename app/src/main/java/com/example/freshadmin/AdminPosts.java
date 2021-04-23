@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class AdminPosts extends AppCompatActivity {
     }
 
     private void init() {
-        recycle = findViewById(R.id.recycle);
+        recycle = findViewById(R.id.recycle_admin);
         manager = new LinearLayoutManager(this);
     }
 
@@ -66,6 +67,12 @@ public class AdminPosts extends AppCompatActivity {
         int pos = (int) view.getTag();
         startActivityForResult(new Intent(this, TeacherSelection.class).putExtra("id",obj.get(pos).getObjectId()).putExtra("pos",pos),1);
     }
+    public void callP(View view) {
+        int pos = (int) view.getTag();
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:"+obj.get(pos).getParseObject("createdBy").get("username")));
+        startActivity(intent);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -79,45 +86,3 @@ public class AdminPosts extends AppCompatActivity {
     }
 }
 
-class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHolder> {
-
-    Context context;
-    List<ParseObject> title;
-
-    public AdminPostsAdapter(Context context, List<ParseObject> title) {
-        this.context = context;
-        this.title = title;
-    }
-
-    @NonNull
-    @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_ver_s,parent,false);
-        MyViewHolder  holder = new MyViewHolder(view);
-        return  holder;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.button.setTag(position);
-        holder.textView.setText(title.get(position).getObjectId());
-    }
-
-    @Override
-    public int getItemCount() {
-        return title.size();
-    }
-
-
-
-    class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView textView;
-        Button button;
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textView = itemView.findViewById(R.id.verS_username);
-            button =itemView.findViewById(R.id.verS_view);
-        }
-    }
-}
