@@ -275,9 +275,6 @@ public class CreatePost extends AppCompatActivity {
                 setErrorAndFocus(binding.name);
             } else if (TextUtils.isEmpty(binding.email.getText())) {
                 setErrorAndFocus(binding.email);
-            } else if (!binding.email.getText().toString().contains("@gmail.com")) {
-                binding.email.setError("Invalid Gmail");
-                binding.email.requestFocus();
             } else if (TextUtils.isEmpty(binding.etxtStd1Sub.getText())) {
                 setErrorAndFocus(binding.etxtStd1Sub);
             } else if (binding.std1ClassAutoComplete.getText().toString().trim().equals("")) {
