@@ -21,14 +21,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.parse.DeleteCallback;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +35,7 @@ import java.util.List;
 
 public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ParseObject obj;
-    TextView t1email,t2email,t3email,email,id,ngeo,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
+    TextView t1email,t2email,t3email,email,type,id, nego,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
     EditText dateAndTime,addressEditText;
     LinearLayout l1,l2,l3;
     Button t1No,t2No,t3No,t1view,t2view,t3view;
@@ -68,8 +65,8 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         curr = findViewById(R.id.curriculumJP);
         email = findViewById(R.id.email);
         address = findViewById(R.id.addressJP);
-        ngeo = findViewById(R.id.negoJP);
-
+        nego = findViewById(R.id.negoJP);
+        type = findViewById(R.id.tuitionType);
         //Teacher
         t1N = findViewById(R.id.t1N);
         t1U = findViewById(R.id.t1U);
@@ -124,7 +121,8 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         }
 
         id.setText("ID: "+ obj.getObjectId());
-        ngeo.setText("Nego: "+ obj.getBoolean("negotiable"));
+        type.setText(obj.getString("tuitionType"));
+        nego.setText("Nego: "+ obj.getBoolean("negotiable"));
 
         name.setText("Name: "+obj.getParseObject("createdBy").getString("guardianName"));
         curr.setText("Cur: "+obj.getString("curriculum"));

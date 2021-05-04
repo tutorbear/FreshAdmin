@@ -43,7 +43,7 @@ import java.util.function.ToIntBiFunction;
 
 public class InterviewDay extends AppCompatActivity {
     ParseObject obj;
-    TextView id, name, salary, location, stdNumber, sClass, sub, curr, address, t1N, t2N, t3N, t1Time, t2Time, t3Time;
+    TextView id,type, nego, name, salary, location, stdNumber, sClass, sub, curr, address, t1N, t2N, t3N, t1Time, t2Time, t3Time;
     HashMap<String, String> map;
     EditText dateAndTime;
     LinearLayout l1, l2, l3;
@@ -85,6 +85,8 @@ public class InterviewDay extends AppCompatActivity {
         pb = findViewById(R.id.pb_inter);
         //Text views
         id = findViewById(R.id.jobIdInter);
+        type = findViewById(R.id.tuitionType);
+        nego = findViewById(R.id.negoJP);
         name = findViewById(R.id.nameInter);
         salary = findViewById(R.id.salaryInter);
         location = findViewById(R.id.locationInter);
@@ -128,6 +130,8 @@ public class InterviewDay extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void set() {
         id.setText("ID: " + obj.getObjectId());
+        type.setText(obj.getString("tuitionType"));
+        nego.setText("Nego: "+ obj.getBoolean("negotiable"));
         name.setText("" + obj.getParseObject("createdBy").getString("guardianName"));
         salary.setText("Salary: " + obj.get("salary").toString());
         location.setText("Location: " + obj.getString("location"));
