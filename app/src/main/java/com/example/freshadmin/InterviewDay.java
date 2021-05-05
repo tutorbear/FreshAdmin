@@ -84,10 +84,10 @@ public class InterviewDay extends AppCompatActivity {
         //progressbar
         pb = findViewById(R.id.pb_inter);
         //Text views
-        id = findViewById(R.id.jobIdInter);
+        id = findViewById(R.id.id);
         type = findViewById(R.id.tuitionType);
-        nego = findViewById(R.id.negoJP);
-        name = findViewById(R.id.nameInter);
+        nego = findViewById(R.id.nego);
+        name = findViewById(R.id.name);
         salary = findViewById(R.id.salaryInter);
         location = findViewById(R.id.locationInter);
         stdNumber = findViewById(R.id.studentNumberInter);

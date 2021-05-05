@@ -22,7 +22,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
                 <TextView
-                    android:id="@+id/jobIdJP"
+                    android:id="@+id/id"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
                 <TextView
-                    android:id="@+id/nameJP"
+                    android:id="@+id/name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Name"
@@ -58,7 +58,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/negoJP"
+                    android:id="@+id/nego"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Nego"
