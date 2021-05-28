@@ -537,6 +537,13 @@ public class InterviewDay extends AppCompatActivity {
     public void saveChanges(View view) {
         if (dateAndTime.getText().length() != 0)
             obj.put("gTimeDate", dateAndTime.getText().toString());
-        obj.saveEventually();
+
+        obj.saveInBackground(e -> {
+            if(e==null){
+                Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

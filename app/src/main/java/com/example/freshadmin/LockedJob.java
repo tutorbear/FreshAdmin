@@ -25,7 +25,6 @@ import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -452,15 +451,12 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         if(addressEditText.getText().length() != 0)
             obj.put("address",addressEditText.getText().toString());
 
-        obj.saveEventually(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e==null){
-                    Toast.makeText(LockedJob.this, "Done", Toast.LENGTH_SHORT).show();
-                    address.setText("Address: "+ obj.getString("address"));
-                }else{
-                    Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+        obj.saveInBackground(e -> {
+            if(e==null){
+                Toast.makeText(LockedJob.this, "Done", Toast.LENGTH_SHORT).show();
+                address.setText("Address: "+ obj.getString("address"));
+            }else{
+                Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
