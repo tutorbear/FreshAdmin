@@ -356,7 +356,6 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
-                    android:onClick="timeSetter"
                     android:text="T2 Time"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
@@ -453,7 +452,6 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
-                    android:onClick="timeSetter"
                     android:text="T3 Time"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
@@ -504,7 +502,7 @@
                 android:textStyle="bold" />
 
             <Button
-            android:id="@+id/button9"
+            android:id="@+id/saveChanges"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save Changes"
@@ -521,7 +519,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginVertical="5dp"
-                android:onClick="timeSetter"
                 android:text="Date"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
