@@ -43,7 +43,7 @@ import java.util.function.ToIntBiFunction;
 
 public class InterviewDay extends AppCompatActivity {
     ParseObject obj;
-    TextView id,type, nego, name, salary, location, stdNumber, sClass, sub, curr, address, t1N, t2N, t3N, t1Time, t2Time, t3Time;
+    TextView fromApp,id,type, nego, name, salary, location, stdNumber, sClass, sub, curr, address, t1N, t2N, t3N, t1Time, t2Time, t3Time;
     HashMap<String, String> map;
     EditText dateAndTime;
     LinearLayout l1, l2, l3;
@@ -84,6 +84,7 @@ public class InterviewDay extends AppCompatActivity {
         //progressbar
         pb = findViewById(R.id.pb_inter);
         //Text views
+        fromApp = findViewById(R.id.fromApp);
         id = findViewById(R.id.id);
         type = findViewById(R.id.tuitionType);
         nego = findViewById(R.id.nego);
@@ -142,7 +143,7 @@ public class InterviewDay extends AppCompatActivity {
 
         //
         dateAndTime.setText(obj.getString("gTimeDate"));
-
+        fromApp.setText("From App: "+obj.getBoolean("fromApp"));
 
         // Setting visibility to false
         l1.setVisibility(View.GONE);
