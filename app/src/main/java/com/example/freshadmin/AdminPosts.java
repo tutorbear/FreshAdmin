@@ -24,7 +24,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class AdminPosts extends AppCompatActivity {
+public class  AdminPosts extends AppCompatActivity {
     AdminPostsAdapter customAdapter;
     LinearLayoutManager manager;
     RecyclerView recycle;
@@ -65,7 +65,11 @@ public class AdminPosts extends AppCompatActivity {
     }
     public void viewT(View view) {
         int pos = (int) view.getTag();
-        startActivityForResult(new Intent(this, TeacherSelection.class).putExtra("id",obj.get(pos).getObjectId()).putExtra("pos",pos),1);
+        startActivityForResult(new Intent(this, TeacherSelection.class)
+                .putExtra("id",obj.get(pos).getObjectId())
+                .putExtra("pos",pos)
+                .putExtra("note",obj.get(pos).getString("note"))
+                ,1);
     }
     public void callP(View view) {
         int pos = (int) view.getTag();

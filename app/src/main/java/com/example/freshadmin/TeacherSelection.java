@@ -1,10 +1,12 @@
 package com.example.freshadmin;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -56,6 +58,15 @@ public class TeacherSelection extends AppCompatActivity {
         jobId = getIntent().getStringExtra("id");
         setToolbar();
         fetchData();
+
+        String note = getIntent().getStringExtra("note");
+        if(note!=null && note.length()!=0){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(note);
+            alertDialogBuilder.setPositiveButton("Okay", (dialogInterface, i) -> {
+            });
+            alertDialogBuilder.show();
+        }
     }
 
 
