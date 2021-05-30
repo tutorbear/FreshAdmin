@@ -909,6 +909,62 @@
                     android:textColorHint="@color/color_hint_white"
                     android:textSize="@dimen/_20sdp" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Type of Tuition"
+                    android:textAlignment="center"
+                    android:textColor="#FFFF"
+                    android:textSize="@dimen/_22sdp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/tuitionTypeChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:checkedChip="@+id/homeTuitionChip"
+                    app:chipSpacingHorizontal="@dimen/_20sdp"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/homeTuitionChip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="Home"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/onlineTuitionChip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="Online"
+                        android:textAppearance="@style/textChipStyle."
+                        android:textColor="@color/chip_color_list__student_post_text"
+                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:chipSurfaceColor="@color/color_transparent"
+                        app:rippleColor="@color/tutor_bear_dark_blue" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="@dimen/_250sdp"
@@ -988,60 +1044,29 @@
 
                 </com.google.android.material.chip.ChipGroup>
 
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_24sdp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="Type of Tuition"
-                    android:textAlignment="center"
-                    android:textColor="#FFFF"
-                    android:textSize="@dimen/_22sdp" />
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/tuitionTypeChipGroup"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="@dimen/_250sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:checkedChip="@+id/homeTuitionChip"
-                    app:chipSpacingHorizontal="@dimen/_20sdp"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:hint="Note"
+                    android:textColorHint="@color/color_hint_white"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:hintTextColor="@color/white">
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/homeTuitionChip"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etxt_note"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:text="Home"
-                        android:textAppearance="@style/textChipStyle."
-                        android:textColor="@color/chip_color_list__student_post_text"
-                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
-                        app:chipStrokeColor="@color/white"
-                        app:chipStrokeWidth="@dimen/_1sdp"
-                        app:chipSurfaceColor="@color/color_transparent"
-                        app:rippleColor="@color/tutor_bear_dark_blue" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/onlineTuitionChip"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:text="Online"
-                        android:textAppearance="@style/textChipStyle."
-                        android:textColor="@color/chip_color_list__student_post_text"
-                        app:chipBackgroundColor="@color/chip_color_list_student_post_background"
-                        app:chipStrokeColor="@color/white"
-                        app:chipStrokeWidth="@dimen/_1sdp"
-                        app:chipSurfaceColor="@color/color_transparent"
-                        app:rippleColor="@color/tutor_bear_dark_blue" />
-
-                </com.google.android.material.chip.ChipGroup>
+                        android:fontFamily="@font/roboto_light"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_18sdp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <Button
@@ -1058,8 +1083,6 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/button_text_white_teacher"
                     android:textSize="@dimen/_19sdp" />
-
-
             </LinearLayout>
 
         </ScrollView>

@@ -382,6 +382,9 @@ public class CreatePost extends AppCompatActivity {
                 binding.tuitionTypeChipGroup, this
         ));
 
+        if(!TextUtils.isEmpty(binding.etxtNote.getText()))
+            params.put("note", binding.etxtNote.getText().toString().trim());
+
         //Dialog
         new AlertDialog.Builder(this)
                 //set icon
