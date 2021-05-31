@@ -128,7 +128,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         curr.setText("Cur: "+obj.getString("curriculum"));
         email.setText(""+obj.getParseObject("createdBy").getString("email"));
 
-        if(obj.getString("note").length()!=0)
+        if(obj.getString("note")!=null)
             note.setText(""+obj.getString("note"));
 
         salary.setText("Salary: "+ obj.get("salary").toString());
