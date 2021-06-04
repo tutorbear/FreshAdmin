@@ -67,7 +67,7 @@ public class PendingJob extends AppCompatActivity {
         sClass.setText("Class: "+ obj.getString("class1")+","+ obj.getString("class2"));
         sub.setText("Subject1: "+ obj.getString("subject1")+"\nSubject2: "+ obj.getString("subject2"));
         address.setText("Address: "+ obj.getString("address"));
-        daysInWeek.setText("Days "+ obj.getString("daysInWeek"));
+        daysInWeek.setText("Days "+ obj.get("daysInWeek"));
         curr.setText("curr: "+obj.get("curriculum"));
         postId.setText("postId:  "+obj.get("postId"));
         tuitionType.setText("Type: "+obj.get("tuitionType"));
