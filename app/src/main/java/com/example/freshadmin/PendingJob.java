@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 public class PendingJob extends AppCompatActivity {
     ParseObject obj;
-    TextView id,ngeo,name,salary,location,stdNumber,sClass,sub,curr,address,postId,tuitionType;
+    TextView id,ngeo,name,salary,location,stdNumber,sClass,sub,curr,address,daysInWeek,postId,tuitionType;
     EditText addressE,salaryE,email;
     Button call,delete,verify;
 
@@ -48,6 +48,7 @@ public class PendingJob extends AppCompatActivity {
         sub = findViewById(R.id.subjectJP);
         curr = findViewById(R.id.curriculumJP);
         address = findViewById(R.id.addressJP);
+        daysInWeek = findViewById(R.id.daysInWeek);
         ngeo = findViewById(R.id.negoJP);
         postId = findViewById(R.id.postId);
         tuitionType = findViewById(R.id.tuitionType);
@@ -66,6 +67,7 @@ public class PendingJob extends AppCompatActivity {
         sClass.setText("Class: "+ obj.getString("class1")+","+ obj.getString("class2"));
         sub.setText("Subject1: "+ obj.getString("subject1")+"\nSubject2: "+ obj.getString("subject2"));
         address.setText("Address: "+ obj.getString("address"));
+        daysInWeek.setText("Days "+ obj.getString("daysInWeek"));
         curr.setText("curr: "+obj.get("curriculum"));
         postId.setText("postId:  "+obj.get("postId"));
         tuitionType.setText("Type: "+obj.get("tuitionType"));
