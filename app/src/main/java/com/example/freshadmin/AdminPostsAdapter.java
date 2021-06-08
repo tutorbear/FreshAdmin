@@ -48,7 +48,7 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
         holder.sClass.setText("Class: "+ obj.get(position).getString("class1")+","+ obj.get(position).getString("class2"));
         holder.sub.setText("Subject1: "+ obj.get(position).getString("subject1")+"\nSubject2: "+ obj.get(position).getString("subject2"));
         holder.address.setText("Address: "+ obj.get(position).getString("address"));
-        holder.count.setText("Applied Count: "+ obj.get(position).getNumber("appliedCount"));
+        holder.count.setText("Applied Num: "+ obj.get(position).getNumber("appliedCount"));
     }
 
     @Override
