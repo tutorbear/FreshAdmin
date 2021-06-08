@@ -39,7 +39,6 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
         holder.view.setTag(position);
         holder.nego.setText("Nego: "+ obj.get(position).getBoolean("negotiable"));
         holder.id.setText("ID: "+ obj.get(position).getObjectId());
-
         holder.name.setText("Name: "+obj.get(position).getParseObject("createdBy").getString("guardianName"));
         holder.curr.setText("Cur: "+obj.get(position).getString("curriculum"));
         holder.email.setText(""+obj.get(position).getParseObject("createdBy").getString("email"));
@@ -49,6 +48,7 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
         holder.sClass.setText("Class: "+ obj.get(position).getString("class1")+","+ obj.get(position).getString("class2"));
         holder.sub.setText("Subject1: "+ obj.get(position).getString("subject1")+"\nSubject2: "+ obj.get(position).getString("subject2"));
         holder.address.setText("Address: "+ obj.get(position).getString("address"));
+        holder.count.setText("Applied Count: "+ obj.get(position).getNumber("appliedCount"));
     }
 
     @Override
@@ -59,7 +59,7 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView email,id,nego,name,salary,location,stdNumber,sClass,sub,curr,address;
+        TextView email,id,nego,name,salary,location,stdNumber,sClass,sub,curr,address,count;
         Button call,view;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +74,7 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
             curr = itemView.findViewById(R.id.curriculumJP);
             email = itemView.findViewById(R.id.email);
             address = itemView.findViewById(R.id.addressJP);
+            count = itemView.findViewById(R.id.appliedCount);
             nego = itemView.findViewById(R.id.negoJP);
             call = itemView.findViewById(R.id.callP);
             view = itemView.findViewById(R.id.view_job);
