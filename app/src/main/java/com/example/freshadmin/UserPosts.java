@@ -31,7 +31,7 @@ public class UserPosts extends AppCompatActivity {
     }
 
     private void init() {
-        recycle = findViewById(R.id.recycle_admin);
+        recycle = findViewById(R.id.recycle_user_p);
         manager = new LinearLayoutManager(this);
     }
 
