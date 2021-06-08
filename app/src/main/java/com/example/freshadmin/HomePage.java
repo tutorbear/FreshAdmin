@@ -133,11 +133,15 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
         startActivity(new Intent(this, CreatePost.class));
     }
 
-    public void AdminPosts(View view) {
+    public void adminPosts(View view) {
         startActivity(new Intent(this, AdminPosts.class));
     }
 
     public void updatePic(View view) {
         startActivity(new Intent(this, UpdateProfilePic.class));
+    }
+
+    public void userPosts(View view) {
+        startActivity(new Intent(this, UserPosts.class));
     }
 }

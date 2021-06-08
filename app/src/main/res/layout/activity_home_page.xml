@@ -96,10 +96,18 @@
             android:text="create job"
             tools:layout_editor_absoluteX="139dp"
             tools:layout_editor_absoluteY="136dp" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="AdminPosts"
+            android:onClick="userPosts"
+            android:text="User Posts"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="136dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="adminPosts"
             android:text="Admin Posts"
             tools:layout_editor_absoluteX="139dp"
             tools:layout_editor_absoluteY="136dp" />
