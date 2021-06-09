@@ -84,7 +84,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_marginBottom="@dimen/_5sdp">
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp">
 
         <TextView
             android:id="@+id/salaryJP"
