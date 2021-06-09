@@ -568,7 +568,7 @@
                 android:layout_marginTop="10dp"
                 android:hint="Enter Interview Date and Time"
                 android:textAlignment="center"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/tutor_bear_blue"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -577,6 +577,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/tutor_bear_blue"
                 android:hint="Address"
                 android:textAlignment="center"
                 android:textSize="20sp"
