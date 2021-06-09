@@ -34,7 +34,7 @@ import java.util.List;
 
 public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ParseObject obj;
-    TextView note,t1email,t2email,t3email,email,type,id, nego,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
+    TextView note,t1email,t2email,t3email,email,type,id,postId,daysInWeek,nego,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
     EditText dateAndTime,addressEditText;
     LinearLayout l1,l2,l3;
     Button t1No,t2No,t3No,t1view,t2view,t3view;
@@ -55,6 +55,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
         //Text views
         id = findViewById(R.id.jobIdJP);
+        postId = findViewById(R.id.postId);
         name = findViewById(R.id.nameJP);
         salary = findViewById(R.id.salaryJP);
         location = findViewById(R.id.locationJP);
@@ -67,6 +68,8 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         address = findViewById(R.id.addressJP);
         nego = findViewById(R.id.negoJP);
         type = findViewById(R.id.tuitionType);
+        daysInWeek = findViewById(R.id.daysInWeek);
+
         //Teacher
         t1N = findViewById(R.id.t1N);
         t1U = findViewById(R.id.t1U);
@@ -121,12 +124,15 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         }
 
         id.setText("ID: "+ obj.getObjectId());
-        type.setText(obj.getString("tuitionType"));
+        postId.setText("Post ID: "+ obj.get("postId"));
+
+        type.setText("Type: "+obj.getString("tuitionType"));
         nego.setText("Nego: "+ obj.getBoolean("negotiable"));
 
         name.setText("Name: "+obj.getParseObject("createdBy").getString("guardianName"));
         curr.setText("Cur: "+obj.getString("curriculum"));
         email.setText(""+obj.getParseObject("createdBy").getString("email"));
+        daysInWeek.setText("daysInWeek: "+obj.get("daysInWeek"));
 
         if(obj.getString("note")!=null)
             note.setText(""+obj.getString("note"));
@@ -167,7 +173,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     t1Time.setVisibility(View.VISIBLE);
                     t1email.setVisibility(View.VISIBLE);
 
-                    if(requested.get(0).getBoolean("banLock"))
+                    if(requested.get(0).getBoolean("banLock") ||  requested.get(0).getBoolean("fineLock"))
                         t1N.setTextColor(Color.RED);
 
                     map.put("l1",requested.get(i).getObjectId());
@@ -181,7 +187,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
                     t2N.setText(requested.get(1).getString("fullName"));
 
-                    if(requested.get(1).getBoolean("banLock"))
+                    if(requested.get(1).getBoolean("banLock") ||  requested.get(0).getBoolean("fineLock"))
                         t2N.setTextColor(Color.RED);
 
                     map.put("l2",requested.get(i).getObjectId());
@@ -193,7 +199,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                     t3Time.setVisibility(View.VISIBLE);
                     t3email.setVisibility(View.VISIBLE);
 
-                    if(requested.get(2).getBoolean("banLock"))
+                    if(requested.get(2).getBoolean("banLock") ||  requested.get(0).getBoolean("fineLock"))
                         t3N.setTextColor(Color.RED);
 
                     map.put("l3",requested.get(i).getObjectId());

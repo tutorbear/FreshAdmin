@@ -43,7 +43,7 @@ import java.util.function.ToIntBiFunction;
 
 public class InterviewDay extends AppCompatActivity {
     ParseObject obj;
-    TextView fromApp,id,type, nego, name, salary, location, stdNumber, sClass, sub, curr, address, t1N, t2N, t3N, t1Time, t2Time, t3Time;
+    TextView fromApp,id,postId,daysInWeek,type, nego, name, salary, location, stdNumber, sClass, sub, curr, address, t1N, t2N, t3N, t1Time, t2Time, t3Time;
     HashMap<String, String> map;
     EditText dateAndTime;
     LinearLayout l1, l2, l3;
@@ -86,6 +86,7 @@ public class InterviewDay extends AppCompatActivity {
         //Text views
         fromApp = findViewById(R.id.fromApp);
         id = findViewById(R.id.id);
+        postId = findViewById(R.id.postId);
         type = findViewById(R.id.tuitionType);
         nego = findViewById(R.id.nego);
         name = findViewById(R.id.name);
@@ -96,6 +97,8 @@ public class InterviewDay extends AppCompatActivity {
         sub = findViewById(R.id.subjectInter);
         curr = findViewById(R.id.curriculumInter);
         address = findViewById(R.id.addressInter);
+        daysInWeek = findViewById(R.id.daysInWeek);
+
         //Teacher
         t1N = findViewById(R.id.t1NInter);
         t2N = findViewById(R.id.t2NInter);
@@ -131,6 +134,7 @@ public class InterviewDay extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void set() {
         id.setText("ID: " + obj.getObjectId());
+        postId.setText("Post ID: " + obj.getString("postId"));
         type.setText(obj.getString("tuitionType"));
         nego.setText("Nego: "+ obj.getBoolean("negotiable"));
         name.setText("" + obj.getParseObject("createdBy").getString("guardianName"));
@@ -140,6 +144,7 @@ public class InterviewDay extends AppCompatActivity {
         sClass.setText("Class: " + obj.getString("class1") + "," + obj.getString("class2"));
         sub.setText("Subject1: " + obj.getString("subject1") + "\nSubject2: " + obj.getString("subject2"));
         address.setText("Address: " + obj.getString("address"));
+        daysInWeek.setText("daysInWeek: " + obj.get("daysInWeek"));
 
         //
         dateAndTime.setText(obj.getString("gTimeDate"));

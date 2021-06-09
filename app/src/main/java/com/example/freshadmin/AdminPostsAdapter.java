@@ -39,6 +39,7 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
         holder.view.setTag(position);
         holder.nego.setText("Nego: "+ obj.get(position).getBoolean("negotiable"));
         holder.id.setText("ID: "+ obj.get(position).getObjectId());
+        holder.postId.setText("Post ID: "+ obj.get(position).get("postId"));
         holder.name.setText("Name: "+obj.get(position).getParseObject("createdBy").getString("guardianName"));
         holder.curr.setText("Cur: "+obj.get(position).getString("curriculum"));
         holder.email.setText(""+obj.get(position).getParseObject("createdBy").getString("email"));
@@ -49,6 +50,9 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
         holder.sub.setText("Subject1: "+ obj.get(position).getString("subject1")+"\nSubject2: "+ obj.get(position).getString("subject2"));
         holder.address.setText("Address: "+ obj.get(position).getString("address"));
         holder.count.setText("Applied Num: "+ obj.get(position).getNumber("appliedCount"));
+        holder.type.setText("Type: "+ obj.get(position).getString("tuitionType"));
+        holder.daysInWeek.setText("daysInWeek: "+ obj.get(position).getNumber("daysInWeek"));
+
     }
 
     @Override
@@ -59,12 +63,15 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView email,id,nego,name,salary,location,stdNumber,sClass,sub,curr,address,count;
+        TextView email,id,postId,type,daysInWeek,nego,name,salary,location,stdNumber,sClass,sub,curr,address,count;
         Button call,view;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             //Text views
             id = itemView.findViewById(R.id.jobIdJP);
+            postId = itemView.findViewById(R.id.postId);
+            type = itemView.findViewById(R.id.tuitionType);
+            daysInWeek = itemView.findViewById(R.id.daysInWeek);
             name = itemView.findViewById(R.id.nameJP);
             salary = itemView.findViewById(R.id.salaryJP);
             location = itemView.findViewById(R.id.locationJP);
