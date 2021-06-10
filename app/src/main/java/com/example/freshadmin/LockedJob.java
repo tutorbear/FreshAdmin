@@ -34,7 +34,7 @@ import java.util.List;
 
 public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ParseObject obj;
-    TextView note,t1email,t2email,t3email,email,type,id,postId,daysInWeek,nego,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
+    TextView note,fromApp,t1email,t2email,t3email,email,type,id,postId,daysInWeek,nego,name,salary,location,stdNumber,sClass,sub,curr,address,t1N,t1U,t2N,t2U,t3N,t3U,t1Time,t2Time,t3Time;
     EditText dateAndTime,addressEditText;
     LinearLayout l1,l2,l3;
     Button t1No,t2No,t3No,t1view,t2view,t3view;
@@ -69,6 +69,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         nego = findViewById(R.id.negoJP);
         type = findViewById(R.id.tuitionType);
         daysInWeek = findViewById(R.id.daysInWeek);
+        fromApp = findViewById(R.id.fromApp);
 
         //Teacher
         t1N = findViewById(R.id.t1N);
@@ -132,6 +133,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
         name.setText("Name: "+obj.getParseObject("createdBy").getString("guardianName"));
         curr.setText("Cur: "+obj.getString("curriculum"));
         email.setText(""+obj.getParseObject("createdBy").getString("email"));
+        fromApp.setText("fromApp "+obj.getString("fromApp"));
         daysInWeek.setText("daysInWeek: "+obj.get("daysInWeek"));
 
         if(obj.getString("note")!=null)
