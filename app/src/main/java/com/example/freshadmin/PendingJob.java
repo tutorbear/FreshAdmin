@@ -23,10 +23,7 @@ import java.util.HashMap;
 
 public class PendingJob extends AppCompatActivity {
     ParseObject obj;
-    TextView id,ngeo,name,salary,location,stdNumber,sClass,sub,curr,address,daysInWeek,postId,tuitionType;
-    EditText addressE,salaryE,email;
-    Button call,delete,verify;
-
+    TextView id,ngeo,name,salary,location,stdNumber,studentGender,sClass,sub,curr,address,daysInWeek,postId,tuitionType,teacherGender,gEmail,time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +41,7 @@ public class PendingJob extends AppCompatActivity {
         salary = findViewById(R.id.salaryJP);
         location = findViewById(R.id.locationJP);
         stdNumber = findViewById(R.id.studentNumberJP);
+        studentGender = findViewById(R.id.studentGender);
         sClass = findViewById(R.id.classJP);
         sub = findViewById(R.id.subjectJP);
         curr = findViewById(R.id.curriculumJP);
@@ -52,6 +50,10 @@ public class PendingJob extends AppCompatActivity {
         ngeo = findViewById(R.id.negoJP);
         postId = findViewById(R.id.postId);
         tuitionType = findViewById(R.id.tuitionType);
+        teacherGender = findViewById(R.id.teacherGender);
+        gEmail = findViewById(R.id.gEmail);
+        time = findViewById(R.id.time);
+
 
     }
     @SuppressLint("SetTextI18n")
@@ -62,15 +64,32 @@ public class PendingJob extends AppCompatActivity {
 
         name.setText(""+obj.getParseObject("createdBy").getString("guardianName"));
         salary.setText("Salary: "+ obj.get("salary").toString());
-        location.setText("Location: "+ obj.getString("location"));
+        location.setText("Location: "+ obj.getString("city")+", "+obj.getString("location"));
         stdNumber.setText("Number: "+ obj.get("numberOfStudents").toString());
-        sClass.setText("Class: "+ obj.getString("class1")+","+ obj.getString("class2"));
-        sub.setText("Subject1: "+ obj.getString("subject1")+"\nSubject2: "+ obj.getString("subject2"));
+
+        if(obj.getInt("numberOfStudents")==1){
+            studentGender.setText("Std : "+ obj.get("gender1").toString());
+            sClass.setText("Class: "+ obj.getString("class1"));
+            sub.setText("Subject: "+ obj.getString("subject1"));
+
+        }else{
+            studentGender.setText("Std 1 : "+ obj.get("gender1").toString()+
+                    "\nStd 2 : "+ obj.get("gender2").toString()
+            );
+            sub.setText("Subject1: "+ obj.getString("subject1")+"\nSubject2: "+ obj.getString("subject2"));
+            sClass.setText("Class: "+ obj.getString("class1")+","+ obj.getString("class2"));
+        }
+
         address.setText("Address: "+ obj.getString("address"));
-        daysInWeek.setText("Days "+ obj.get("daysInWeek"));
+        daysInWeek.setText("Days: "+ obj.get("daysInWeek"));
         curr.setText("curr: "+obj.get("curriculum"));
         postId.setText("postId:  "+obj.get("postId"));
         tuitionType.setText("Type: "+obj.get("tuitionType"));
+
+        teacherGender.setText("T Gender: "+obj.get("teacherGender"));
+
+        gEmail.setText("email: "+obj.getParseObject("createdBy").getString("email"));
+        time.setText("Time: "+obj.get("time"));
 
     }
 

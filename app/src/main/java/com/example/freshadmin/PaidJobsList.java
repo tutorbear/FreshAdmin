@@ -42,6 +42,7 @@ public class PaidJobsList extends AppCompatActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("JobBoard");
         query.whereExists("trxId");
         query.include("hired");
+        query.include("createdBy");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
