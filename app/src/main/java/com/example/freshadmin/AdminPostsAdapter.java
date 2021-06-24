@@ -55,13 +55,6 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
 
     }
 
-    @Override
-    public int getItemCount() {
-        return obj.size();
-    }
-
-
-
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView email,id,postId,type,daysInWeek,nego,name,salary,location,stdNumber,sClass,sub,curr,address,count;
         Button call,view;
@@ -86,5 +79,20 @@ class AdminPostsAdapter extends RecyclerView.Adapter<AdminPostsAdapter.MyViewHol
             call = itemView.findViewById(R.id.callP);
             view = itemView.findViewById(R.id.view_job);
         }
+    }
+
+    @Override
+    public int getItemCount() {
+        return obj.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 }

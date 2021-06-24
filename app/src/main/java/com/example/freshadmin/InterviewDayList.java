@@ -102,4 +102,14 @@ class InterviewDayAdapter extends RecyclerView.Adapter<InterviewDayAdapter.MyVie
             button = itemView.findViewById(R.id.btn_interDay);
         }
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 }

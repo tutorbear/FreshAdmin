@@ -136,4 +136,14 @@ class LockedJobsAdapter extends RecyclerView.Adapter<LockedJobsAdapter.MyViewHol
             button =itemView.findViewById(R.id.locked_view);
         }
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 }

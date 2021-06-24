@@ -74,18 +74,15 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
         query.include("createdBy");
         query.include("requested");
         query.whereDoesNotExist("hired");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if(e==null){
-                    if(objects.isEmpty()){
-                        Toast.makeText(HomePage.this, "All done for today", Toast.LENGTH_SHORT).show();
-                    }else{
-                        startActivity(new Intent(HomePage.this, InterviewDayList.class).putParcelableArrayListExtra("objects", (ArrayList<? extends Parcelable>) objects));
-                    }
+        query.findInBackground((objects, e) -> {
+            if(e==null){
+                if(objects.isEmpty()){
+                    Toast.makeText(HomePage.this, "All done for today", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(HomePage.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(HomePage.this, InterviewDayList.class).putParcelableArrayListExtra("objects", (ArrayList<? extends Parcelable>) objects));
                 }
+            }else{
+                Toast.makeText(HomePage.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -95,15 +92,12 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
     }
 
     public void logout(View view) {
-        ParseUser.logOutInBackground(new LogOutCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e==null){
-                    Toast.makeText(HomePage.this, "Done", Toast.LENGTH_SHORT).show();
-                    finish();
-                }else{
-                    Toast.makeText(HomePage.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+        ParseUser.logOutInBackground(e -> {
+            if(e==null){
+                Toast.makeText(HomePage.this, "Done", Toast.LENGTH_SHORT).show();
+                finish();
+            }else{
+                Toast.makeText(HomePage.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -143,5 +137,9 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
 
     public void userPosts(View view) {
         startActivity(new Intent(this, UserPosts.class));
+    }
+
+    public void findUser(View view) {
+        startActivity(new Intent(this, FindUser.class));
     }
 }

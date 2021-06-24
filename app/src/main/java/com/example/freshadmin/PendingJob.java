@@ -96,31 +96,22 @@ public class PendingJob extends AppCompatActivity {
     public void verifyJob(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Are You Sure ?");
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("id",obj.getObjectId());
-                params.put("username",obj.getParseObject("createdBy").get("username"));
-                ParseCloud.callFunctionInBackground("verifyJob", params, new FunctionCallback<Boolean>() {
-                    @Override
-                    public void done(Boolean bool, ParseException e) {
-                        if(e==null){
-                            int pos = getIntent().getIntExtra("pos",-1);
-                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                            finish();
-                        }else{
-                            Toast.makeText(PendingJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
+        builder.setPositiveButton("Ok", (dialog, which) -> {
+            HashMap<String,Object> params = new HashMap<>();
+            params.put("id",obj.getObjectId());
+            params.put("username",obj.getParseObject("createdBy").get("username"));
+            ParseCloud.callFunctionInBackground("verifyJob", params, (FunctionCallback<Boolean>) (bool, e) -> {
+                if(e==null){
+                    int pos = getIntent().getIntExtra("pos",-1);
+                    setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                    finish();
+                }else{
+                    Toast.makeText(PendingJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setNegativeButton("NO", (dialog, which) -> {
 
-            }
         });
 
         builder.show();

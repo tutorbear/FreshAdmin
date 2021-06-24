@@ -513,25 +513,22 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Delete, Are you sure?");
-        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("id",obj.getObjectId());
-                params.put("num",1);
-                ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
-                    @Override
-                    public void done(Object object, ParseException e) {
-                        if(e==null){
-                            int pos = getIntent().getIntExtra("pos",-1);
-                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                            finish();
-                        }else{
-                            Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
+            HashMap<String,Object> params = new HashMap<>();
+            params.put("id",obj.getObjectId());
+            params.put("num",1);
+            ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+                @Override
+                public void done(Object object, ParseException e) {
+                    if(e==null){
+                        int pos = getIntent().getIntExtra("pos",-1);
+                        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                        finish();
+                    }else{
+                        Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
-            }
+                }
+            });
         });
 
         alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {

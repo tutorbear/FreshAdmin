@@ -11,53 +11,77 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserPosts"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UpdateProfilePic"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherSelection"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AdminPosts"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CreatePost"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Bkash"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PreLocked"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".InterviewCancelList"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".InterviewCancel"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AfterBan"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AfterBanList"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PendingJob"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PendingJobList"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".VerT"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".VerTList"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PaidJob"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PaidJobsList"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".InterviewDayList"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".InterviewDay"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LockedJob"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LockedJobsList"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".HomePage"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".FindUser"></activity>
+        <activity android:name=".PaymentDayList" />
+        <activity
+            android:name=".UserPosts"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UpdateProfilePic"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TeacherSelection"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AdminPosts"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreatePost"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Bkash"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PreLocked"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InterviewCancelList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InterviewCancel"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AfterBan"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AfterBanList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PendingJob"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PendingJobList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VerT"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VerTList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PaidJob"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PaidJobsList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InterviewDayList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InterviewDay"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LockedJob"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LockedJobsList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomePage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

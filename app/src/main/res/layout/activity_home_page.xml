@@ -2,6 +2,7 @@
 <ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         xmlns:tools="http://schemas.android.com/tools"
@@ -118,5 +119,14 @@
             android:text="Update Pic"
             tools:layout_editor_absoluteX="139dp"
             tools:layout_editor_absoluteY="136dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="findUser"
+            android:text="Find User"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="136dp" />
+
     </LinearLayout>
 </ScrollView>
