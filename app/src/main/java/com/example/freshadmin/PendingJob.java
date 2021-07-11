@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.freshadmin.databinding.DeleteDialogBinding;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -124,35 +128,69 @@ public class PendingJob extends AppCompatActivity {
     }
 
     public void delete(View view) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Are You Sure ?");
-            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    HashMap<String,Object> params = new HashMap<>();
-                    params.put("id",obj.getObjectId());
-                    params.put("username",obj.getParseObject("createdBy").get("username"));
-                    ParseCloud.callFunctionInBackground("deletePendingJobs", params, new FunctionCallback<Boolean>() {
-                        @Override
-                        public void done(Boolean bool, ParseException e) {
-                            if(e==null){
-                                int pos = getIntent().getIntExtra("pos",-1);
-                                setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                                finish();
-                            }else{
-                                Toast.makeText(PendingJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            });
-            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+        DeleteDialogBinding bindingDialog;
 
-                }
-            });
-            builder.show();
+        Dialog dialog = new Dialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        bindingDialog = DeleteDialogBinding.inflate(getLayoutInflater());
+
+        dialog.setContentView(bindingDialog.getRoot());
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+
+        bindingDialog.btnYes.setOnClickListener(v -> {
+            if (!bindingDialog.editText.getText().toString().equals("")){
+                HashMap<String,Object> params = new HashMap<>();
+                params.put("deleteReason", bindingDialog.editText.getText().toString());
+                params.put("id",obj.getObjectId());
+                params.put("username",obj.getParseObject("createdBy").get("username"));
+                ParseCloud.callFunctionInBackground("deletePendingJobs", params, new FunctionCallback<Boolean>() {
+                    @Override
+                    public void done(Boolean bool, ParseException e) {
+                        if(e==null){
+                            int pos = getIntent().getIntExtra("pos",-1);
+                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                            finish();
+                        }else{
+                            Toast.makeText(PendingJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            } else {
+                Toast.makeText(this, "please enter reason", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setTitle("Are You Sure ?");
+//            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    HashMap<String,Object> params = new HashMap<>();
+//                    params.put("id",obj.getObjectId());
+//                    params.put("username",obj.getParseObject("createdBy").get("username"));
+//                    ParseCloud.callFunctionInBackground("deletePendingJobs", params, new FunctionCallback<Boolean>() {
+//                        @Override
+//                        public void done(Boolean bool, ParseException e) {
+//                            if(e==null){
+//                                int pos = getIntent().getIntExtra("pos",-1);
+//                                setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+//                                finish();
+//                            }else{
+//                                Toast.makeText(PendingJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//                }
+//            });
+//            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//
+//                }
+//            });
+//            builder.show();
     }
 
 }

@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.freshadmin.databinding.DeleteDialogBinding;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -113,14 +118,23 @@ public class PreLocked extends AppCompatActivity {
     }
 
     public void delete(final int pos) {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Delete ? Are you sure?");
-        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        DeleteDialogBinding bindingDialog;
+
+        Dialog dialog = new Dialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        bindingDialog = DeleteDialogBinding.inflate(getLayoutInflater());
+
+        dialog.setContentView(bindingDialog.getRoot());
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+
+        bindingDialog.btnYes.setOnClickListener(v -> {
+            if (!bindingDialog.editText.getText().toString().equals("")){
                 bar.setVisibility(View.VISIBLE);
                 HashMap<String, String> params = new HashMap<>();
                 params.put("id", objs.get(pos).getObjectId());
+                params.put("deleteReason", bindingDialog.editText.getText().toString());
                 ParseCloud.callFunctionInBackground("deletePreLocked", params, new FunctionCallback<Object>() {
                     @Override
                     public void done(Object objects, ParseException e) {
@@ -133,15 +147,40 @@ public class PreLocked extends AppCompatActivity {
                         bar.setVisibility(View.GONE);
                     }
                 });
+            } else {
+                Toast.makeText(this, "please enter reason", Toast.LENGTH_SHORT).show();
             }
         });
 
-        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        alertDialogBuilder.show();
+//        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//        alertDialogBuilder.setTitle("Delete ? Are you sure?");
+//        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                bar.setVisibility(View.VISIBLE);
+//                HashMap<String, String> params = new HashMap<>();
+//                params.put("id", objs.get(pos).getObjectId());
+//                ParseCloud.callFunctionInBackground("deletePreLocked", params, new FunctionCallback<Object>() {
+//                    @Override
+//                    public void done(Object objects, ParseException e) {
+//                        if (e == null) {
+//                            objs.remove(pos);
+//                            customAdapter.notifyDataSetChanged();
+//                        } else {
+//                            Toast.makeText(PreLocked.this, "Something Wrong " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                        bar.setVisibility(View.GONE);
+//                    }
+//                });
+//            }
+//        });
+//
+//        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//            }
+//        });
+//        alertDialogBuilder.show();
     }
 }

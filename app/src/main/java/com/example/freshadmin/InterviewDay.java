@@ -5,9 +5,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.freshadmin.databinding.DeleteDialogBinding;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -460,13 +463,23 @@ public class InterviewDay extends AppCompatActivity {
     }
 
     public void delete(View view) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Delete, Are you sure?");
-        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+
+        DeleteDialogBinding bindingDialog;
+
+        Dialog dialog = new Dialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        bindingDialog = DeleteDialogBinding.inflate(getLayoutInflater());
+
+        dialog.setContentView(bindingDialog.getRoot());
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+
+        bindingDialog.btnYes.setOnClickListener(v -> {
+            if (!bindingDialog.editText.getText().toString().equals("")){
                 pb.setVisibility(View.VISIBLE);
                 HashMap<String, Object> params = new HashMap<>();
+                params.put("deleteReason", bindingDialog.editText.getText().toString());
                 params.put("id", obj.getObjectId());
                 params.put("num", 2);
                 ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
@@ -483,17 +496,46 @@ public class InterviewDay extends AppCompatActivity {
                         }
                     }
                 });
+            } else {
+                Toast.makeText(this, "please enter reason", Toast.LENGTH_SHORT).show();
             }
         });
 
-        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-
-        alertDialogBuilder.show();
+//
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//        alertDialogBuilder.setTitle("Delete, Are you sure?");
+//        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                pb.setVisibility(View.VISIBLE);
+//                HashMap<String, Object> params = new HashMap<>();
+//                params.put("id", obj.getObjectId());
+//                params.put("num", 2);
+//                ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+//                    @Override
+//                    public void done(Object object, ParseException e) {
+//                        if (e == null) {
+//                            int pos = getIntent().getIntExtra("pos", -1);
+//                            setResult(RESULT_OK, new Intent().putExtra("pos", pos));
+//                            finish();
+//                            pb.setVisibility(View.GONE);
+//                        } else {
+//                            pb.setVisibility(View.GONE);
+//                            Toast.makeText(InterviewDay.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//            }
+//        });
+//
+//        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//            }
+//        });
+//
+//        alertDialogBuilder.show();
 
     }
 

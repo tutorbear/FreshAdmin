@@ -6,12 +6,15 @@ import androidx.fragment.app.DialogFragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.freshadmin.databinding.DeleteDialogBinding;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -509,36 +513,72 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
     }
 
+
     public void delete(View view) {
+        DeleteDialogBinding bindingDialog;
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Delete, Are you sure?");
-        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
-            HashMap<String,Object> params = new HashMap<>();
-            params.put("id",obj.getObjectId());
-            params.put("num",1);
-            ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
-                @Override
-                public void done(Object object, ParseException e) {
-                    if(e==null){
-                        int pos = getIntent().getIntExtra("pos",-1);
-                        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                        finish();
-                    }else{
-                        Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        Dialog dialog = new Dialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        bindingDialog = DeleteDialogBinding.inflate(getLayoutInflater());
+
+        dialog.setContentView(bindingDialog.getRoot());
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+
+        bindingDialog.btnYes.setOnClickListener(v -> {
+            if (!bindingDialog.editText.getText().toString().equals("")){
+                HashMap<String,Object> params = new HashMap<>();
+                params.put("id",obj.getObjectId());
+                params.put("num",1);
+                params.put("deleteReason", bindingDialog.editText.getText().toString());
+                ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+                    @Override
+                    public void done(Object object, ParseException e) {
+                        if(e==null){
+                            int pos = getIntent().getIntExtra("pos",-1);
+                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                            finish();
+                        }else{
+                            Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
-        });
-
-        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
+                });
+            } else {
+                Toast.makeText(this, "please enter reason", Toast.LENGTH_SHORT).show();
             }
         });
 
-        alertDialogBuilder.show();
+
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//        alertDialogBuilder.setTitle("Delete, Are you sure?");
+//
+//        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
+//            HashMap<String,Object> params = new HashMap<>();
+//            params.put("id",obj.getObjectId());
+//            params.put("num",1);
+//            ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+//                @Override
+//                public void done(Object object, ParseException e) {
+//                    if(e==null){
+//                        int pos = getIntent().getIntExtra("pos",-1);
+//                        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+//                        finish();
+//                    }else{
+//                        Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
+//        });
+//
+//        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//            }
+//        });
+//
+//        alertDialogBuilder.show();
 
     }
 
