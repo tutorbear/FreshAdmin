@@ -56,7 +56,7 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
 
     private void init() {
         obj= getIntent().getParcelableExtra("obj");
-
+        
         //Text views
         id = findViewById(R.id.jobIdJP);
         postId = findViewById(R.id.postId);
@@ -532,16 +532,13 @@ public class LockedJob extends AppCompatActivity implements DatePickerDialog.OnD
                 params.put("id",obj.getObjectId());
                 params.put("num",1);
                 params.put("deleteReason", bindingDialog.editText.getText().toString());
-                ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
-                    @Override
-                    public void done(Object object, ParseException e) {
-                        if(e==null){
-                            int pos = getIntent().getIntExtra("pos",-1);
-                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                            finish();
-                        }else{
-                            Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                ParseCloud.callFunctionInBackground("delete", params, (object, e) -> {
+                    if(e==null){
+                        int pos = getIntent().getIntExtra("pos",-1);
+                        setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                        finish();
+                    }else{
+                        Toast.makeText(LockedJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             } else {

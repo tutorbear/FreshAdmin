@@ -128,69 +128,35 @@ public class PendingJob extends AppCompatActivity {
     }
 
     public void delete(View view) {
-        DeleteDialogBinding bindingDialog;
-
-        Dialog dialog = new Dialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
-        bindingDialog = DeleteDialogBinding.inflate(getLayoutInflater());
-
-        dialog.setContentView(bindingDialog.getRoot());
-
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        dialog.show();
-
-        bindingDialog.btnYes.setOnClickListener(v -> {
-            if (!bindingDialog.editText.getText().toString().equals("")){
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("deleteReason", bindingDialog.editText.getText().toString());
-                params.put("id",obj.getObjectId());
-                params.put("username",obj.getParseObject("createdBy").get("username"));
-                ParseCloud.callFunctionInBackground("deletePendingJobs", params, new FunctionCallback<Boolean>() {
-                    @Override
-                    public void done(Boolean bool, ParseException e) {
-                        if(e==null){
-                            int pos = getIntent().getIntExtra("pos",-1);
-                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                            finish();
-                        }else{
-                            Toast.makeText(PendingJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Are You Sure ?");
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    HashMap<String,Object> params = new HashMap<>();
+                    params.put("id",obj.getObjectId());
+                    params.put("username",obj.getParseObject("createdBy").get("username"));
+                    ParseCloud.callFunctionInBackground("deletePendingJobs", params, new FunctionCallback<Boolean>() {
+                        @Override
+                        public void done(Boolean bool, ParseException e) {
+                            if(e==null){
+                                int pos = getIntent().getIntExtra("pos",-1);
+                                setResult(RESULT_OK,new Intent().putExtra("pos",pos));
+                                finish();
+                            }else{
+                                Toast.makeText(PendingJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-            } else {
-                Toast.makeText(this, "please enter reason", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    });
+                }
+            });
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setTitle("Are You Sure ?");
-//            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    HashMap<String,Object> params = new HashMap<>();
-//                    params.put("id",obj.getObjectId());
-//                    params.put("username",obj.getParseObject("createdBy").get("username"));
-//                    ParseCloud.callFunctionInBackground("deletePendingJobs", params, new FunctionCallback<Boolean>() {
-//                        @Override
-//                        public void done(Boolean bool, ParseException e) {
-//                            if(e==null){
-//                                int pos = getIntent().getIntExtra("pos",-1);
-//                                setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-//                                finish();
-//                            }else{
-//                                Toast.makeText(PendingJob.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
-//                }
-//            });
-//            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//
-//                }
-//            });
-//            builder.show();
+                }
+            });
+            builder.show();
     }
 
 }

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_dialog_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        />
+
+    <TextView
+        android:id="@+id/fullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_15sdp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Full Name"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_20sdp" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="email"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_14sdp" />
+
+    <TextView
+        android:id="@+id/school"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="school"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_14sdp" />
+
+    <TextView
+        android:id="@+id/college"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="college"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_14sdp" />
+
+    <TextView
+        android:id="@+id/university"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="university"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_14sdp" />
+
+    <TextView
+        android:id="@+id/currentEducation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="currentEducation"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_14sdp" />
+
+
+
+    <TextView
+        android:id="@+id/curriculum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="curriculum"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_14sdp" />
+    <TextView
+        android:id="@+id/background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="background"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_14sdp" />
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="city"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_14sdp" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="location"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:textSize="@dimen/_14sdp" />
+
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_light"
+        android:text="phone number"
+        android:textAlignment="center"
+        android:textColor="@color/tutor_bear_dark_blue"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textSize="@dimen/_14sdp" />
+</LinearLayout>
