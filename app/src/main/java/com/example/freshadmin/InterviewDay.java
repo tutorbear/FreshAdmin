@@ -346,12 +346,8 @@ public class InterviewDay extends AppCompatActivity {
 
             AlertDialog.Builder ab = new AlertDialog.Builder(this);
             ab.setTitle("Hire Today?");
-            ab.setPositiveButton("Today", (dialogInterface, j) -> {
-                submit2(finalId,true);
-            });
-            ab.setNegativeButton("Tomorrow", (dialogInterface, i) -> {
-                submit2(finalId,false);
-            });
+            ab.setPositiveButton("Today", (dialogInterface, j) -> submit2(finalId,true));
+            ab.setNegativeButton("Tomorrow", (dialogInterface, i) -> submit2(finalId,false));
             ab.show();
         }
     }
@@ -402,17 +398,14 @@ public class InterviewDay extends AppCompatActivity {
                 params.put("paymentDate", paymentDate);
                 params.put("istoday", isToday);
 
-                ParseCloud.callFunctionInBackground("hireTeacher", params, new FunctionCallback<Object>() {
-                    @Override
-                    public void done(Object object, ParseException e) {
-                        if (e == null) {
-                            Toast.makeText(InterviewDay.this, "Done Hire", Toast.LENGTH_SHORT).show();
-                            int pos = getIntent().getIntExtra("pos", -1);
-                            setResult(RESULT_OK, new Intent().putExtra("pos", pos));
-                            finish();
-                        } else {
-                            Toast.makeText(InterviewDay.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                ParseCloud.callFunctionInBackground("hireTeacher", params, (object, e) -> {
+                    if (e == null) {
+                        Toast.makeText(InterviewDay.this, "Done Hire", Toast.LENGTH_SHORT).show();
+                        int pos = getIntent().getIntExtra("pos", -1);
+                        setResult(RESULT_OK, new Intent().putExtra("pos", pos));
+                        finish();
+                    } else {
+                        Toast.makeText(InterviewDay.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             } else {

@@ -180,6 +180,7 @@ public class AfterBan extends AppCompatActivity {
         int colorH2 = h2.getTextColors().getDefaultColor();
 
         int idx = -1;
+
         if (colorH1 == Color.parseColor("#D81B60")) {
             idx = 0;
         } else if (colorH2 == Color.parseColor("#D81B60")) {
@@ -191,63 +192,78 @@ public class AfterBan extends AppCompatActivity {
             Toast.makeText(this, "Hire someone First", Toast.LENGTH_SHORT).show();
         } else {
 
-            Log.d("indexbbb", id + "");
-            //Payment date
+
+            AlertDialog.Builder ab = new AlertDialog.Builder(this);
+            ab.setTitle("Hire Today?");
+            ab.setPositiveButton("Today", (dialogInterface, j) -> submit2(index,true));
+            ab.setNegativeButton("Tomorrow", (dialogInterface, i) -> submit2(index,false));
+            ab.show();
+
+
+
+
+
+        }
+    }
+
+    public void submit2(int index,Boolean isToday){
+
+        //Payment date
+        Date paymentDate;
+        if (!isToday) {
+            //Add one day
             Calendar cal = Calendar.getInstance();
             cal.setTimeZone(TimeZone.getTimeZone("UTC"));
             cal.add(Calendar.DAY_OF_MONTH, 1);
             cal.set(Calendar.HOUR_OF_DAY, 2);
-            final Date paymentDate = cal.getTime();
-
-            // Removing hired teachers time
-            interviewTime.set(index, "");
-
-            // copying the ArrayList zoo to the ArrayList list
-            final List<String> tempArr = new ArrayList<>(interviewTime);
-            tempArr.removeAll(Collections.singletonList(""));
-
-
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("submit, Are you sure?");
-            alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    HashMap<String, Object> params = new HashMap<>();
-                    params.put("id", obj.getObjectId());
-                    params.put("tId", requested.get(index).getObjectId());
-                    params.put("interviewTime", tempArr);
-                    params.put("paymentDate", paymentDate);
-                    ParseCloud.callFunctionInBackground("hireTeacher", params, new FunctionCallback<Object>() {
-                        @Override
-                        public void done(Object object, ParseException e) {
-                            if (e == null) {
-                                Toast.makeText(AfterBan.this, "Done Hire", Toast.LENGTH_SHORT).show();
-                                int pos = getIntent().getIntExtra("pos", -1);
-                                setResult(RESULT_OK, new Intent().putExtra("pos", pos));
-                                finish();
-                            } else {
-                                Toast.makeText(AfterBan.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            });
-
-            alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-
-            alertDialogBuilder.show();
-
-
+            paymentDate = cal.getTime();
+        } else {
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+            cal.set(Calendar.HOUR_OF_DAY, 2);
+            paymentDate = cal.getTime();
         }
 
+        // Removing hired teachers time
+        interviewTime.set(index, "");
+
+        // copying the ArrayList zoo to the ArrayList list
+        final List<String> tempArr = new ArrayList<>(interviewTime);
+        tempArr.removeAll(Collections.singletonList(""));
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("submit, Are you sure?");
+        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
+
+
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("id", obj.getObjectId());
+            params.put("tId", requested.get(index).getObjectId());
+            params.put("interviewTime", tempArr);
+            params.put("paymentDate", paymentDate);
+            params.put("istoday", isToday);
+
+            ParseCloud.callFunctionInBackground("hireTeacher", params, (object, e) -> {
+                if (e == null) {
+                    Toast.makeText(AfterBan.this, "Done Hire", Toast.LENGTH_SHORT).show();
+                    int pos = getIntent().getIntExtra("pos", -1);
+                    setResult(RESULT_OK, new Intent().putExtra("pos", pos));
+                    finish();
+                } else {
+                    Toast.makeText(AfterBan.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        alertDialogBuilder.setNegativeButton("No", (dialogInterface, i) -> {
+
+        });
+
+        alertDialogBuilder.show();
     }
 
-    public void callT(View view) {
+        public void callT(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         List<ParseObject> requested = obj.getList("requested");
 
@@ -287,11 +303,8 @@ public class AfterBan extends AppCompatActivity {
             }
         });
 
-        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        alertDialogBuilder.setNegativeButton("No", (dialogInterface, i) -> {
 
-            }
         });
 
         alertDialogBuilder.show();
