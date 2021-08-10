@@ -130,26 +130,22 @@ public class PreLocked extends AppCompatActivity {
         dialog.show();
 
         bindingDialog.btnYes.setOnClickListener(v -> {
-            if (!bindingDialog.editText.getText().toString().equals("")){
-                bar.setVisibility(View.VISIBLE);
-                HashMap<String, String> params = new HashMap<>();
-                params.put("id", objs.get(pos).getObjectId());
-                params.put("deleteReason", bindingDialog.editText.getText().toString());
-                ParseCloud.callFunctionInBackground("deletePreLocked", params, new FunctionCallback<Object>() {
-                    @Override
-                    public void done(Object objects, ParseException e) {
-                        if (e == null) {
-                            objs.remove(pos);
-                            customAdapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(PreLocked.this, "Something Wrong " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                        bar.setVisibility(View.GONE);
+            bar.setVisibility(View.VISIBLE);
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", objs.get(pos).getObjectId());
+            params.put("deleteReason", bindingDialog.spinner.getSelectedItem().toString());
+            ParseCloud.callFunctionInBackground("deletePreLocked", params, new FunctionCallback<Object>() {
+                @Override
+                public void done(Object objects, ParseException e) {
+                    if (e == null) {
+                        objs.remove(pos);
+                        customAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(PreLocked.this, "Something Wrong " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
-            } else {
-                Toast.makeText(this, "please enter reason", Toast.LENGTH_SHORT).show();
-            }
+                    bar.setVisibility(View.GONE);
+                }
+            });
         });
 
 //        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

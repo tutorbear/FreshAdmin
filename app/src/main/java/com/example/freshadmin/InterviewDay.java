@@ -46,7 +46,7 @@ import java.util.function.ToIntBiFunction;
 
 public class InterviewDay extends AppCompatActivity {
     ParseObject obj;
-    TextView fromApp,id,postId,daysInWeek,type, nego, name, salary, location, stdNumber, sClass, sub, curr, address, t1N, t2N, t3N, t1Time, t2Time, t3Time;
+    TextView fromApp, id, postId, daysInWeek, type, nego, name, salary, location, stdNumber, sClass, sub, curr, address, t1N, t2N, t3N, t1Time, t2Time, t3Time;
     HashMap<String, String> map;
     EditText dateAndTime;
     LinearLayout l1, l2, l3;
@@ -139,7 +139,7 @@ public class InterviewDay extends AppCompatActivity {
         id.setText("ID: " + obj.getObjectId());
         postId.setText("Post ID: " + obj.getString("postId"));
         type.setText(obj.getString("tuitionType"));
-        nego.setText("Nego: "+ obj.getBoolean("negotiable"));
+        nego.setText("Nego: " + obj.getBoolean("negotiable"));
         name.setText("" + obj.getParseObject("createdBy").getString("guardianName"));
         salary.setText("Salary: " + obj.get("salary").toString());
         location.setText("Location: " + obj.getString("location"));
@@ -151,7 +151,7 @@ public class InterviewDay extends AppCompatActivity {
 
         //
         dateAndTime.setText(obj.getString("gTimeDate"));
-        fromApp.setText("From App: "+obj.getBoolean("fromApp"));
+        fromApp.setText("From App: " + obj.getBoolean("fromApp"));
 
         // Setting visibility to false
         l1.setVisibility(View.GONE);
@@ -346,13 +346,13 @@ public class InterviewDay extends AppCompatActivity {
 
             AlertDialog.Builder ab = new AlertDialog.Builder(this);
             ab.setTitle("Hire Today?");
-            ab.setPositiveButton("Today", (dialogInterface, j) -> submit2(finalId,true));
-            ab.setNegativeButton("Tomorrow", (dialogInterface, i) -> submit2(finalId,false));
+            ab.setPositiveButton("Today", (dialogInterface, j) -> submit2(finalId, true));
+            ab.setNegativeButton("Tomorrow", (dialogInterface, i) -> submit2(finalId, false));
             ab.show();
         }
     }
 
-    public void submit2(String id,Boolean isToday){
+    public void submit2(String id, Boolean isToday) {
         final String finalId = id;
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Hire Teacher? Are you sure?");
@@ -398,14 +398,17 @@ public class InterviewDay extends AppCompatActivity {
                 params.put("paymentDate", paymentDate);
                 params.put("istoday", isToday);
 
-                ParseCloud.callFunctionInBackground("hireTeacher", params, (object, e) -> {
-                    if (e == null) {
-                        Toast.makeText(InterviewDay.this, "Done Hire", Toast.LENGTH_SHORT).show();
-                        int pos = getIntent().getIntExtra("pos", -1);
-                        setResult(RESULT_OK, new Intent().putExtra("pos", pos));
-                        finish();
-                    } else {
-                        Toast.makeText(InterviewDay.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                ParseCloud.callFunctionInBackground("hireTeacher", params, new FunctionCallback<Object>() {
+                    @Override
+                    public void done(Object object, ParseException e) {
+                        if (e == null) {
+                            Toast.makeText(InterviewDay.this, "Done Hire", Toast.LENGTH_SHORT).show();
+                            int pos = getIntent().getIntExtra("pos", -1);
+                            setResult(RESULT_OK, new Intent().putExtra("pos", pos));
+                            finish();
+                        } else {
+                            Toast.makeText(InterviewDay.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             } else {
@@ -419,6 +422,7 @@ public class InterviewDay extends AppCompatActivity {
         });
         alertDialogBuilder.show();
     }
+
     public void rePost(View view) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Repost, Are you sure?");
@@ -469,29 +473,25 @@ public class InterviewDay extends AppCompatActivity {
         dialog.show();
 
         bindingDialog.btnYes.setOnClickListener(v -> {
-            if (!bindingDialog.editText.getText().toString().equals("")){
-                pb.setVisibility(View.VISIBLE);
-                HashMap<String, Object> params = new HashMap<>();
-                params.put("deleteReason", bindingDialog.editText.getText().toString());
-                params.put("id", obj.getObjectId());
-                params.put("num", 2);
-                ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
-                    @Override
-                    public void done(Object object, ParseException e) {
-                        if (e == null) {
-                            int pos = getIntent().getIntExtra("pos", -1);
-                            setResult(RESULT_OK, new Intent().putExtra("pos", pos));
-                            finish();
-                            pb.setVisibility(View.GONE);
-                        } else {
-                            pb.setVisibility(View.GONE);
-                            Toast.makeText(InterviewDay.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+            pb.setVisibility(View.VISIBLE);
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("id", obj.getObjectId());
+            params.put("num", 2);
+            params.put("deleteReason", bindingDialog.spinner.getSelectedItem().toString());
+            ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+                @Override
+                public void done(Object object, ParseException e) {
+                    if (e == null) {
+                        int pos = getIntent().getIntExtra("pos", -1);
+                        setResult(RESULT_OK, new Intent().putExtra("pos", pos));
+                        finish();
+                        pb.setVisibility(View.GONE);
+                    } else {
+                        pb.setVisibility(View.GONE);
+                        Toast.makeText(InterviewDay.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
-            } else {
-                Toast.makeText(this, "please enter reason", Toast.LENGTH_SHORT).show();
-            }
+                }
+            });
         });
 
 //
@@ -580,10 +580,10 @@ public class InterviewDay extends AppCompatActivity {
             obj.put("gTimeDate", dateAndTime.getText().toString());
 
         obj.saveInBackground(e -> {
-            if(e==null){
+            if (e == null) {
                 Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

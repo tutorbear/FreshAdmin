@@ -12,13 +12,16 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.freshadmin.databinding.DeleteDialogBinding;
 import com.example.freshadmin.databinding.DetailsDialogBinding;
 import com.parse.FunctionCallback;
@@ -48,6 +51,7 @@ public class AfterBan extends AppCompatActivity {
     List<ParseObject> requested;
 
     Bitmap bmp1, bmp2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,8 +112,10 @@ public class AfterBan extends AppCompatActivity {
 
         requested = obj.getList("requested");
 
-
         if (requested != null && !requested.isEmpty()) {
+
+            getPictures();
+
             for (int i = 0; i < requested.size(); i++) {
                 if (i == 0) {
                     l1.setVisibility(View.VISIBLE);
@@ -117,9 +123,7 @@ public class AfterBan extends AppCompatActivity {
                     if (requested.get(0).getBoolean("banLock"))
                         t1N.setTextColor(Color.RED);
 
-                    requested.get(0).getParseFile("proPic").getDataInBackground((data, e) -> {
-                        bmp1 = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    });
+
                 } else if (i == 1) {
                     l2.setVisibility(View.VISIBLE);
                     t2N.setText(requested.get(1).getString("fullName"));
@@ -147,22 +151,21 @@ public class AfterBan extends AppCompatActivity {
         }
     }
 
-    private JSONObject parseObjectToJson(ParseObject parseObject) throws ParseException, JSONException {
-        JSONObject jsonObject = new JSONObject();
-        parseObject.fetchIfNeeded();
-        Set<String> keys = parseObject.keySet();
-        for (String key : keys) {
-            Object objectValue = parseObject.get(key);
-            if (objectValue instanceof ParseObject) {
-                jsonObject.put(key, parseObjectToJson(parseObject.getParseObject(key)));
-                // keep in mind about "pointer" to it self, will gain stackoverlow
-            } else if (objectValue instanceof ParseRelation) {
-                // handle relation
-            } else {
-                jsonObject.put(key, objectValue.toString());
+    List<String> picArray;
+
+    private void getPictures() {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", obj.getObjectId());
+        ParseCloud.callFunctionInBackground("getPicInterview", params, new FunctionCallback<ArrayList<String>>() {
+            @Override
+            public void done(ArrayList<String> base64Array, ParseException e) {
+                if (e == null) {
+                    picArray = base64Array;
+                } else {
+                    Toast.makeText(AfterBan.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
-        }
-        return jsonObject;
+        });
     }
 
     public void hire(View view) {
@@ -331,26 +334,22 @@ public class AfterBan extends AppCompatActivity {
         dialog.show();
 
         bindingDialog.btnYes.setOnClickListener(v -> {
-            if (!bindingDialog.editText.getText().toString().equals("")) {
-                HashMap<String, Object> params = new HashMap<>();
-                params.put("id", obj.getObjectId());
-                params.put("num", 2);
-                params.put("deleteReason", bindingDialog.editText.getText().toString());
-                ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
-                    @Override
-                    public void done(Object object, ParseException e) {
-                        if (e == null) {
-                            int pos = getIntent().getIntExtra("pos", -1);
-                            setResult(RESULT_OK, new Intent().putExtra("pos", pos));
-                            finish();
-                        } else {
-                            Toast.makeText(AfterBan.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("id", obj.getObjectId());
+            params.put("num", 2);
+            params.put("deleteReason", bindingDialog.spinner.getSelectedItem().toString());
+            ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+                @Override
+                public void done(Object object, ParseException e) {
+                    if (e == null) {
+                        int pos = getIntent().getIntExtra("pos", -1);
+                        setResult(RESULT_OK, new Intent().putExtra("pos", pos));
+                        finish();
+                    } else {
+                        Toast.makeText(AfterBan.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
-            } else {
-                Toast.makeText(this, "please enter reason", Toast.LENGTH_SHORT).show();
-            }
+                }
+            });
         });
 
 //        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -401,10 +400,16 @@ public class AfterBan extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         if (d1 == view) {
             teacherObj = requested.get(0);
-            bindingDialog.image.setImageBitmap(bmp1);
+            if (picArray != null) {
+                byte[] proPic = Base64.decode(picArray.get(0), Base64.DEFAULT);
+                Glide.with(this).load(proPic).into(bindingDialog.image);
+            }
         } else {
             teacherObj = requested.get(1);
-            bindingDialog.image.setImageBitmap(bmp2);
+            if (picArray != null) {
+                byte[] proPic = Base64.decode(picArray.get(1), Base64.DEFAULT);
+                Glide.with(this).load(proPic).into(bindingDialog.image);
+            }
         }
         setDetailsDialog(bindingDialog, teacherObj);
 

@@ -345,6 +345,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
 
+    <string-array name="delete_reasons">
+        <item>Found teacher elsewhere</item>
+        <item>Do not need right now</item>
+        <item>Teacher requirements changed</item>
+        <item>No Teachers applied</item>
+        <item>Didnt like our service</item>
+    </string-array>
 
 </resources>
 

@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class InterviewCancel extends AppCompatActivity {
     ParseObject obj;
-    TextView id,name,salary,location,stdNumber,sClass,sub,curr,address;
+    TextView id, name, salary, location, stdNumber, sClass, sub, curr, address;
     ProgressBar pb;
 
     @Override
@@ -37,9 +37,9 @@ public class InterviewCancel extends AppCompatActivity {
     }
 
     private void init() {
-        obj= getIntent().getParcelableExtra("object");
+        obj = getIntent().getParcelableExtra("object");
         //progressbar
-        pb=findViewById(R.id.pb);
+        pb = findViewById(R.id.pb);
         pb.setVisibility(View.GONE);
         //Text views
         id = findViewById(R.id.jobIdInter);
@@ -52,6 +52,7 @@ public class InterviewCancel extends AppCompatActivity {
         curr = findViewById(R.id.curriculumInter);
         address = findViewById(R.id.addressInter);
     }
+
     @SuppressLint("SetTextI18n")
     private void set() {
         id.setText("ID: " + obj.getObjectId());
@@ -78,29 +79,25 @@ public class InterviewCancel extends AppCompatActivity {
         dialog.show();
 
         bindingDialog.btnYes.setOnClickListener(v -> {
-            if (!bindingDialog.editText.getText().toString().equals("")){
-                pb.setVisibility(View.VISIBLE);
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("deleteReason", bindingDialog.editText.getText().toString());
-                params.put("id",obj.getObjectId());
-                params.put("num",3);
-                ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
-                    @Override
-                    public void done(Object object, ParseException e) {
-                        if(e==null){
-                            int pos = getIntent().getIntExtra("pos",-1);
-                            setResult(RESULT_OK,new Intent().putExtra("pos",pos));
-                            finish();
-                            pb.setVisibility(View.GONE);
-                        }else{
-                            pb.setVisibility(View.GONE);
-                            Toast.makeText(InterviewCancel.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+            pb.setVisibility(View.VISIBLE);
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("deleteReason", bindingDialog.spinner.getSelectedItem().toString());
+            params.put("id", obj.getObjectId());
+            params.put("num", 3);
+            ParseCloud.callFunctionInBackground("delete", params, new FunctionCallback<Object>() {
+                @Override
+                public void done(Object object, ParseException e) {
+                    if (e == null) {
+                        int pos = getIntent().getIntExtra("pos", -1);
+                        setResult(RESULT_OK, new Intent().putExtra("pos", pos));
+                        finish();
+                        pb.setVisibility(View.GONE);
+                    } else {
+                        pb.setVisibility(View.GONE);
+                        Toast.makeText(InterviewCancel.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
-            } else {
-                Toast.makeText(this, "please enter reason", Toast.LENGTH_SHORT).show();
-            }
+                }
+            });
         });
 
 

@@ -32,18 +32,24 @@
         android:textColor="@color/tutor_bear_dark_blue"
         android:textSize="@dimen/_14sdp" />
 
-    <EditText
-        android:id="@+id/editText"
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:fontFamily="@font/roboto_light"
-        android:lineSpacingExtra="@dimen/_5sdp"
-        android:hint="Enter the reason. You can enter bangla too"
-        android:textAlignment="center"
-        android:textColor="@color/tutor_bear_dark_blue"
-        android:textSize="@dimen/_14sdp" />
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="#518BCDFF"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/delete_reasons"
+            android:padding="@dimen/_8sdp"
+            />
+
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="@dimen/_250sdp"
