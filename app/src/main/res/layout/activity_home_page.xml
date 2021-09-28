@@ -128,5 +128,13 @@
             tools:layout_editor_absoluteX="139dp"
             tools:layout_editor_absoluteY="136dp" />
 
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="studentToTeacher"
+            android:text="Student To Teacher"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="136dp" />
     </LinearLayout>
 </ScrollView>
