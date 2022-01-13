@@ -16,16 +16,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import java.util.HashMap;
 import java.util.List;
 
-public class LockedJobsList extends AppCompatActivity {
+public class ProfileBoostList extends AppCompatActivity {
 
-    LockedJobsAdapter customAdapter;
+    ProfileBoostAdapter customAdapter;
     LinearLayoutManager manager;
     RecyclerView recycle;
     List<ParseObject> obj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,38 +46,33 @@ public class LockedJobsList extends AppCompatActivity {
     }
 
     private void query() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("JobBoard");
-        query.whereEqualTo("locked",true);
-        query.whereEqualTo("interviewDate",null);
-        query.include("createdBy");
-        query.include("requested");
-        query.orderByDescending("createdAt");
-        query.findInBackground((objects, e) -> {
-            if(e==null){
-                if(!objects.isEmpty()){
+        ParseCloud.callFunctionInBackground("fetchBoost", new HashMap<>(), (FunctionCallback<List<ParseObject>>) (objects, e) -> {
+            if (e == null) {
+                if (!objects.isEmpty()) {
                     obj = objects;
-                    customAdapter = new LockedJobsAdapter(LockedJobsList.this, objects);
+                    customAdapter = new ProfileBoostAdapter(ProfileBoostList.this, objects);
                     recycle.setAdapter(customAdapter);
                     recycle.setLayoutManager(manager);
-                }else{
-                    Toast.makeText(LockedJobsList.this, "Nothing Found", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Nothing Found", Toast.LENGTH_SHORT).show();
                 }
-            }else{
-                Toast.makeText(LockedJobsList.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void viewL(View view) {
         int pos = (int) view.getTag();
-        startActivityForResult(new Intent(this,LockedJob.class).putExtra("obj",obj.get(pos)).putExtra("pos",pos),1);
+        startActivityForResult(new Intent(this, VerifyBoost.class).putExtra("obj", obj.get(pos)).putExtra("pos", pos), 1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1 && resultCode==RESULT_OK){
-            int removeIndex = data.getIntExtra("pos",-1);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            int removeIndex = data.getIntExtra("pos", -1);
             obj.remove(removeIndex);
             customAdapter.notifyItemRemoved(removeIndex);
             customAdapter.notifyItemRangeChanged(removeIndex, obj.size());
@@ -79,12 +80,12 @@ public class LockedJobsList extends AppCompatActivity {
     }
 }
 
-class LockedJobsAdapter extends RecyclerView.Adapter<LockedJobsAdapter.MyViewHolder> {
+class ProfileBoostAdapter extends RecyclerView.Adapter<ProfileBoostAdapter.MyViewHolder> {
 
     Context context;
     List<ParseObject> title;
 
-    public LockedJobsAdapter(Context context, List<ParseObject> title) {
+    public ProfileBoostAdapter(Context context, List<ParseObject> title) {
         this.context = context;
         this.title = title;
     }
@@ -93,8 +94,8 @@ class LockedJobsAdapter extends RecyclerView.Adapter<LockedJobsAdapter.MyViewHol
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_locked_jobs,parent,false);
-        return  new MyViewHolder(view);
+        View view = inflater.inflate(R.layout.item_locked_jobs, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -109,14 +110,14 @@ class LockedJobsAdapter extends RecyclerView.Adapter<LockedJobsAdapter.MyViewHol
     }
 
 
-
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         Button button;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.locked_job_id);
-            button =itemView.findViewById(R.id.locked_view);
+            button = itemView.findViewById(R.id.locked_view);
         }
     }
 

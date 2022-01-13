@@ -146,4 +146,9 @@ public class HomePage extends AppCompatActivity implements DatePickerDialog.OnDa
     public void studentToTeacher(View view) {
         startActivity(new Intent(this, StudentToTeacher.class));
     }
+
+    public void profileBoost(View view) {
+        startActivity(new Intent(this, ProfileBoostList.class));
+
+    }
 }

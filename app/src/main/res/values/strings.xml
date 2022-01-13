@@ -2,14 +2,15 @@
     <string name="app_name">Fresh Admin</string>
 
     <!--   Prod app keys app keys-->
-        <string name="back4app_server_url">https://parseapi.back4app.com/</string>
-        <string name="back4app_app_id">O2RtSIq6w0Gbllz5OochU9MgP0FutrWF2dZiOrT6</string>
-        <string name="back4app_client_key">3DKAJ46INNLWSCOrOelhKChtyWMsVTaOqkNsNS1M</string>
+<!--    <string name="back4app_server_url">https://parseapi.back4app.com/</string>-->
+<!--    <string name="back4app_app_id">O2RtSIq6w0Gbllz5OochU9MgP0FutrWF2dZiOrT6</string>-->
+<!--    <string name="back4app_client_key">3DKAJ46INNLWSCOrOelhKChtyWMsVTaOqkNsNS1M</string>-->
 
     <!--       Dev app keys app keys-->
-<!--    <string name="back4app_server_url">https://tutorbearonline.b4a.io/</string>-->
-<!--    <string name="back4app_app_id">e1LZ8SyDqF5eB5F1Qe1OWbeZlpVnRqYa7nPS6ZYd</string>-->
-<!--    <string name="back4app_client_key">esbD60kw3AD1tAhj9UBuFs4sZXt7O06tOqXz0qoy</string>-->
+        <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+        <string name="back4app_app_id">n9EBIsRtQJOvatm9ahBKXusaPmbsTS4Ob02T2Vzj</string>
+        <string name="back4app_client_key">5xcyZ3t3q2myPhGuQmckOuANXfANLtDns8xu1gR4</string>
+
 
     <!-- All Activities-->
     <string name="all_submit">SUBMIT</string>

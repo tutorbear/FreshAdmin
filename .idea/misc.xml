@@ -6,10 +6,12 @@
         <entry key="..\:/Users/Dumbshit/StudioProjects/FreshAdmin/app/src/main/res/layout/activity_after_ban.xml" value="0.2246376811594203" />
         <entry key="..\:/Users/Dumbshit/StudioProjects/FreshAdmin/app/src/main/res/layout/activity_interview_day.xml" value="0.2246376811594203" />
         <entry key="..\:/Users/MrRobot/AndroidStudioProjects/FreshAdmin/app/src/main/res/layout/activity_find_user.xml" value="0.25" />
-        <entry key="..\:/Users/MrRobot/AndroidStudioProjects/FreshAdmin/app/src/main/res/layout/activity_home_page.xml" value="0.25" />
+        <entry key="..\:/Users/MrRobot/AndroidStudioProjects/FreshAdmin/app/src/main/res/layout/activity_home_page.xml" value="0.33" />
         <entry key="..\:/Users/MrRobot/AndroidStudioProjects/FreshAdmin/app/src/main/res/layout/activity_locked_job.xml" value="0.25" />
         <entry key="..\:/Users/MrRobot/AndroidStudioProjects/FreshAdmin/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/MrRobot/AndroidStudioProjects/FreshAdmin/app/src/main/res/layout/activity_student_to_teacher.xml" value="0.25" />
+        <entry key="..\:/Users/MrRobot/AndroidStudioProjects/FreshAdmin/app/src/main/res/layout/activity_student_to_teacher.xml" value="0.33" />
+        <entry key="..\:/Users/MrRobot/AndroidStudioProjects/FreshAdmin/app/src/main/res/layout/activity_verify_boost.xml" value="0.33489583333333334" />
+        <entry key="..\:/Users/MrRobot/AndroidStudioProjects/FreshAdmin/app/src/main/res/layout/activity_youtube_view.xml" value="0.5166666666666667" />
       </map>
     </option>
   </component>

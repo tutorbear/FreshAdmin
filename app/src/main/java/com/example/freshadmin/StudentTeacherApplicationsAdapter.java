@@ -62,7 +62,9 @@ public class StudentTeacherApplicationsAdapter extends RecyclerView.Adapter<Stud
         holder.binding.txtName.setText(teacherObjects.get(position).getString("fullName"));
         int i = 1;
         if (teacherObjects.get(position).getString("curriculum").equals("Bengali Medium")
-                || teacherObjects.get(position).getString("curriculum").equals("Madrasa Medium")) {
+                || teacherObjects.get(position).getString("curriculum").equals("Madrasa Medium")
+                || teacherObjects.get(position).getString("curriculum").equals("English-Version")
+        ) {
             i = 0;
         }
 
